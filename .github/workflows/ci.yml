@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  pull_request: {}
+  push:
+    branches:
+      - master
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+
+      - name: Install Python dependencies
+        run: |
+          python3 -m pip install -r requirements/test.txt
+
+      - name: Lint
+        run: make lint
+
+      - name: mypy
+        run: make mypy
+
+      - name: pytest
+        run: make pytest
+
+      - name: validatortest
+        run: make validatortest
