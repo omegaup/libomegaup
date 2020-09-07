@@ -3,8 +3,14 @@
 import subprocess
 import setuptools  # type: ignore
 
-with open("README.md", "r") as fh:
+with open('README.md', 'r') as fh:
     long_description = fh.read()
+
+with open('requirements.txt', 'r') as fh:
+    install_requires = fh.read().strip().split('\n')
+
+with open('requirements/test.txt', 'r') as fh:
+    tests_require = fh.read().strip().split('\n')
 
 setuptools.setup(
     name='omegaup',
@@ -23,4 +29,6 @@ setuptools.setup(
         'Operating System :: OS Independent',
     ],
     python_requires='>=3.6',
+    install_requires=install_requires,
+    tests_require=tests_require,
 )
