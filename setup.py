@@ -23,6 +23,7 @@ setuptools.setup(
     long_description_content_type='text/markdown',
     url='https://github.com/omegaup/libomegaup',
     packages=setuptools.find_packages(),
+    package_data={'omegaup': ['py.typed']},
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: BSD License',
