@@ -20,13 +20,13 @@ from omegaup.validator import validatortest
 class MyTest(unittest.TestCase):
   def test_foo(self):
     contestant_output = sys.stdin
-    original_input = open('data.in', 'r')
-    original_output = open('data.out', 'r')
+    with open('data.in', 'r') as original_input, \
+         open('data.out', 'r') as original_output:
+        logging.info('This will be printed to stderr')
 
-    logging.info('This will be printed to stderr')
-
-    self.assertAlmostEqual(float(contestant_output.readline().strip()),
-                           float(original_output.readline().strip()))
+        self.assertAlmostEqual(
+            float(contestant_output.readline().strip()),
+            float(original_output.readline().strip()))
 
 
 if __name__ == '__main__':
