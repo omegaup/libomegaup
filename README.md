@@ -4,7 +4,7 @@ Library for interacting with omegaUp.
 
 ## `omegaup.validator.validatortest`
 
-Allows a validator to be modeled as a standard unit test.
+Allows an input validator to be modeled as a standard unit test.
 
 To use, write your validator as if it were a normal
 [unittest.TestCase](https://docs.python.org/3/library/unittest.html#unittest.TestCase):
