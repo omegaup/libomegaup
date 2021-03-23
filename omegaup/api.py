@@ -72,8 +72,8 @@ class Authorization:
     def problem(
             self,
             *,
+            problem_alias: str,
             token: str,
-            problem_alias: Optional[str] = None,
             username: Optional[Any] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
@@ -82,18 +82,17 @@ class Authorization:
         r"""
 
         Args:
-            token:
             problem_alias:
+            token:
             username:
 
         Returns:
             The API result dict.
         """
         parameters: Dict[str, str] = {
+            'problem_alias': problem_alias,
             'token': token,
         }
-        if problem_alias is not None:
-            parameters['problem_alias'] = problem_alias
         if username is not None:
             parameters['username'] = str(username)
         return self._client.query('/api/authorization/problem/',
@@ -234,31 +233,39 @@ class Clarification:
     def create(
             self,
             *,
-            contest_alias: str,
+            message: str,
             problem_alias: str,
-            message: Optional[str] = None,
+            assignment_alias: Optional[str] = None,
+            contest_alias: Optional[str] = None,
+            course_alias: Optional[str] = None,
             username: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
             timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
-        r"""Creates a Clarification
+        r"""Creates a Clarification for a contest or an assignment of a course
 
         Args:
-            contest_alias:
-            problem_alias:
             message:
+            problem_alias:
+            assignment_alias:
+            contest_alias:
+            course_alias:
             username:
 
         Returns:
             The API result dict.
         """
         parameters: Dict[str, str] = {
-            'contest_alias': contest_alias,
+            'message': message,
             'problem_alias': problem_alias,
         }
-        if message is not None:
-            parameters['message'] = message
+        if assignment_alias is not None:
+            parameters['assignment_alias'] = assignment_alias
+        if contest_alias is not None:
+            parameters['contest_alias'] = contest_alias
+        if course_alias is not None:
+            parameters['course_alias'] = course_alias
         if username is not None:
             parameters['username'] = username
         return self._client.query('/api/clarification/create/',
@@ -386,8 +393,9 @@ class Contest:
     def adminList(
             self,
             *,
-            page: int,
-            page_size: int,
+            page: Optional[int] = None,
+            page_size: Optional[int] = None,
+            show_archived: Optional[bool] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -398,14 +406,18 @@ class Contest:
         Args:
             page:
             page_size:
+            show_archived:
 
         Returns:
             The API result dict.
         """
-        parameters: Dict[str, str] = {
-            'page': str(page),
-            'page_size': str(page_size),
-        }
+        parameters: Dict[str, str] = {}
+        if page is not None:
+            parameters['page'] = str(page)
+        if page_size is not None:
+            parameters['page_size'] = str(page_size)
+        if show_archived is not None:
+            parameters['show_archived'] = str(show_archived)
         return self._client.query('/api/contest/adminList/',
                                   payload=parameters,
                                   files_=files_,
@@ -415,9 +427,10 @@ class Contest:
     def myList(
             self,
             *,
-            page: int,
-            page_size: int,
-            query: str,
+            page: Optional[int] = None,
+            page_size: Optional[int] = None,
+            query: Optional[str] = None,
+            show_archived: Optional[bool] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -428,15 +441,20 @@ class Contest:
             page:
             page_size:
             query:
+            show_archived:
 
         Returns:
             The API result dict.
         """
-        parameters: Dict[str, str] = {
-            'page': str(page),
-            'page_size': str(page_size),
-            'query': query,
-        }
+        parameters: Dict[str, str] = {}
+        if page is not None:
+            parameters['page'] = str(page)
+        if page_size is not None:
+            parameters['page_size'] = str(page_size)
+        if query is not None:
+            parameters['query'] = query
+        if show_archived is not None:
+            parameters['show_archived'] = str(show_archived)
         return self._client.query('/api/contest/myList/',
                                   payload=parameters,
                                   files_=files_,
@@ -446,9 +464,10 @@ class Contest:
     def listParticipating(
             self,
             *,
-            page: int,
-            page_size: int,
-            query: str,
+            page: Optional[int] = None,
+            page_size: Optional[int] = None,
+            query: Optional[str] = None,
+            show_archived: Optional[bool] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -459,15 +478,20 @@ class Contest:
             page:
             page_size:
             query:
+            show_archived:
 
         Returns:
             The API result dict.
         """
-        parameters: Dict[str, str] = {
-            'page': str(page),
-            'page_size': str(page_size),
-            'query': query,
-        }
+        parameters: Dict[str, str] = {}
+        if page is not None:
+            parameters['page'] = str(page)
+        if page_size is not None:
+            parameters['page_size'] = str(page_size)
+        if query is not None:
+            parameters['query'] = query
+        if show_archived is not None:
+            parameters['show_archived'] = str(show_archived)
         return self._client.query('/api/contest/listParticipating/',
                                   payload=parameters,
                                   files_=files_,
@@ -531,7 +555,7 @@ class Contest:
             privacy_git_object_id: str,
             statement_type: str,
             share_user_information: Optional[bool] = None,
-            token: Optional[Any] = None,
+            token: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -556,7 +580,7 @@ class Contest:
         if share_user_information is not None:
             parameters['share_user_information'] = str(share_user_information)
         if token is not None:
-            parameters['token'] = str(token)
+            parameters['token'] = token
         return self._client.query('/api/contest/open/',
                                   payload=parameters,
                                   files_=files_,
@@ -567,7 +591,7 @@ class Contest:
             self,
             *,
             contest_alias: str,
-            token: Optional[Any] = None,
+            token: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -587,7 +611,7 @@ class Contest:
             'contest_alias': contest_alias,
         }
         if token is not None:
-            parameters['token'] = str(token)
+            parameters['token'] = token
         return self._client.query('/api/contest/details/',
                                   payload=parameters,
                                   files_=files_,
@@ -598,7 +622,7 @@ class Contest:
             self,
             *,
             contest_alias: str,
-            token: Optional[Any] = None,
+            token: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -618,7 +642,7 @@ class Contest:
             'contest_alias': contest_alias,
         }
         if token is not None:
-            parameters['token'] = str(token)
+            parameters['token'] = token
         return self._client.query('/api/contest/adminDetails/',
                                   payload=parameters,
                                   files_=files_,
@@ -629,7 +653,9 @@ class Contest:
             self,
             *,
             contest_alias: str,
-            token: Optional[Any] = None,
+            length: Optional[int] = None,
+            page: Optional[int] = None,
+            token: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -638,6 +664,8 @@ class Contest:
 
         Args:
             contest_alias:
+            length:
+            page:
             token:
 
         Returns:
@@ -646,8 +674,12 @@ class Contest:
         parameters: Dict[str, str] = {
             'contest_alias': contest_alias,
         }
+        if length is not None:
+            parameters['length'] = str(length)
+        if page is not None:
+            parameters['page'] = str(page)
         if token is not None:
-            parameters['token'] = str(token)
+            parameters['token'] = token
         return self._client.query('/api/contest/activityReport/',
                                   payload=parameters,
                                   files_=files_,
@@ -699,8 +731,8 @@ class Contest:
     def createVirtual(
             self,
             *,
+            alias: str,
             start_time: int,
-            alias: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -708,17 +740,16 @@ class Contest:
         r"""
 
         Args:
-            start_time:
             alias:
+            start_time:
 
         Returns:
             The API result dict.
         """
         parameters: Dict[str, str] = {
+            'alias': alias,
             'start_time': str(start_time),
         }
-        if alias is not None:
-            parameters['alias'] = alias
         return self._client.query('/api/contest/createVirtual/',
                                   payload=parameters,
                                   files_=files_,
@@ -1208,11 +1239,45 @@ class Contest:
                                   timeout_=timeout_,
                                   check_=check_)
 
+    def problemClarifications(
+            self,
+            *,
+            contest_alias: str,
+            offset: int,
+            problem_alias: str,
+            rowcount: int,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""Get clarifications of problem in a contest
+
+        Args:
+            contest_alias:
+            offset:
+            problem_alias:
+            rowcount:
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {
+            'contest_alias': contest_alias,
+            'offset': str(offset),
+            'problem_alias': problem_alias,
+            'rowcount': str(rowcount),
+        }
+        return self._client.query('/api/contest/problemClarifications/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
     def scoreboardEvents(
             self,
             *,
             contest_alias: str,
-            token: Optional[Any] = None,
+            token: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -1230,7 +1295,7 @@ class Contest:
             'contest_alias': contest_alias,
         }
         if token is not None:
-            parameters['token'] = str(token)
+            parameters['token'] = token
         return self._client.query('/api/contest/scoreboardEvents/',
                                   payload=parameters,
                                   files_=files_,
@@ -1688,14 +1753,13 @@ class Contest:
     def role(
             self,
             *,
-            contest_alias: Optional[Any] = None,
-            token: Optional[Any] = None,
+            contest_alias: str,
+            token: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
             timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
-        r"""Given a contest_alias and user_id, returns the role of the user within
-        the context of a contest.
+        r"""
 
         Args:
             contest_alias:
@@ -1704,11 +1768,11 @@ class Contest:
         Returns:
             The API result dict.
         """
-        parameters: Dict[str, str] = {}
-        if contest_alias is not None:
-            parameters['contest_alias'] = str(contest_alias)
+        parameters: Dict[str, str] = {
+            'contest_alias': contest_alias,
+        }
         if token is not None:
-            parameters['token'] = str(token)
+            parameters['token'] = token
         return self._client.query('/api/contest/role/',
                                   payload=parameters,
                                   files_=files_,
@@ -1767,6 +1831,35 @@ class Contest:
             'contest_alias': contest_alias,
         }
         return self._client.query('/api/contest/contestants/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
+    def archive(
+            self,
+            *,
+            contest_alias: str,
+            archive: Optional[bool] = None,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""Archives or Unarchives a contest if user is the creator
+
+        Args:
+            contest_alias:
+            archive:
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {
+            'contest_alias': contest_alias,
+        }
+        if archive is not None:
+            parameters['archive'] = str(archive)
+        return self._client.query('/api/contest/archive/',
                                   payload=parameters,
                                   files_=files_,
                                   timeout_=timeout_,
@@ -1849,6 +1942,7 @@ class Course:
             alias: Optional[Any] = None,
             description: Optional[Any] = None,
             finish_time: Optional[Any] = None,
+            languages: Optional[Any] = None,
             name: Optional[Any] = None,
             needs_basic_information: Optional[Any] = None,
             public: Optional[Any] = None,
@@ -1868,6 +1962,7 @@ class Course:
             alias:
             description:
             finish_time:
+            languages:
             name:
             needs_basic_information:
             public:
@@ -1889,6 +1984,8 @@ class Course:
             parameters['description'] = str(description)
         if finish_time is not None:
             parameters['finish_time'] = str(finish_time)
+        if languages is not None:
+            parameters['languages'] = str(languages)
         if name is not None:
             parameters['name'] = str(name)
         if needs_basic_information is not None:
@@ -2401,10 +2498,10 @@ class Course:
             accept_teacher_git_object_id: str,
             course_alias: str,
             privacy_git_object_id: str,
+            share_user_information: bool,
             statement_type: str,
             usernameOrEmail: str,
             accept_teacher: Optional[bool] = None,
-            share_user_information: Optional[Any] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -2415,10 +2512,10 @@ class Course:
             accept_teacher_git_object_id:
             course_alias:
             privacy_git_object_id:
+            share_user_information:
             statement_type:
             usernameOrEmail:
             accept_teacher:
-            share_user_information:
 
         Returns:
             The API result dict.
@@ -2427,13 +2524,12 @@ class Course:
             'accept_teacher_git_object_id': accept_teacher_git_object_id,
             'course_alias': course_alias,
             'privacy_git_object_id': privacy_git_object_id,
+            'share_user_information': str(share_user_information),
             'statement_type': statement_type,
             'usernameOrEmail': usernameOrEmail,
         }
         if accept_teacher is not None:
             parameters['accept_teacher'] = str(accept_teacher)
-        if share_user_information is not None:
-            parameters['share_user_information'] = str(share_user_information)
         return self._client.query('/api/course/addStudent/',
                                   payload=parameters,
                                   files_=files_,
@@ -2608,7 +2704,6 @@ class Course:
     def introDetails(
             self,
             *,
-            assignment_alias: str,
             course_alias: str,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
@@ -2617,14 +2712,12 @@ class Course:
         r"""Show course intro only on public courses when user is not yet registered
 
         Args:
-            assignment_alias:
             course_alias:
 
         Returns:
             The API result dict.
         """
         parameters: Dict[str, str] = {
-            'assignment_alias': assignment_alias,
             'course_alias': course_alias,
         }
         return self._client.query('/api/course/introDetails/',
@@ -2687,6 +2780,8 @@ class Course:
             self,
             *,
             course_alias: str,
+            length: Optional[int] = None,
+            page: Optional[int] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -2695,6 +2790,8 @@ class Course:
 
         Args:
             course_alias:
+            length:
+            page:
 
         Returns:
             The API result dict.
@@ -2702,7 +2799,39 @@ class Course:
         parameters: Dict[str, str] = {
             'course_alias': course_alias,
         }
+        if length is not None:
+            parameters['length'] = str(length)
+        if page is not None:
+            parameters['page'] = str(page)
         return self._client.query('/api/course/activityReport/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
+    def archive(
+            self,
+            *,
+            archive: bool,
+            course_alias: str,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""Archives or un-archives a course
+
+        Args:
+            archive:
+            course_alias:
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {
+            'archive': str(archive),
+            'course_alias': course_alias,
+        }
+        return self._client.query('/api/course/archive/',
                                   payload=parameters,
                                   files_=files_,
                                   timeout_=timeout_,
@@ -2825,6 +2954,7 @@ class Course:
             self,
             *,
             alias: str,
+            languages: str,
             school_id: int,
             admission_mode: Optional[str] = None,
             description: Optional[str] = None,
@@ -2843,6 +2973,7 @@ class Course:
 
         Args:
             alias:
+            languages:
             school_id:
             admission_mode:
             description:
@@ -2859,6 +2990,7 @@ class Course:
         """
         parameters: Dict[str, str] = {
             'alias': alias,
+            'languages': languages,
             'school_id': str(school_id),
         }
         if admission_mode is not None:
@@ -2881,6 +3013,37 @@ class Course:
         if unlimited_duration is not None:
             parameters['unlimited_duration'] = str(unlimited_duration)
         return self._client.query('/api/course/update/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
+    def clarifications(
+            self,
+            *,
+            course_alias: str,
+            offset: int,
+            rowcount: int,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""Gets the clarifications of all assignments in a course
+
+        Args:
+            course_alias:
+            offset:
+            rowcount:
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {
+            'course_alias': course_alias,
+            'offset': str(offset),
+            'rowcount': str(rowcount),
+        }
+        return self._client.query('/api/course/clarifications/',
                                   payload=parameters,
                                   files_=files_,
                                   timeout_=timeout_,
@@ -3060,6 +3223,37 @@ class Group:
         if alias is not None:
             parameters['alias'] = alias
         return self._client.query('/api/group/create/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
+    def update(
+            self,
+            *,
+            alias: str,
+            description: str,
+            name: str,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""Update an existing group
+
+        Args:
+            alias:
+            description:
+            name:
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {
+            'alias': alias,
+            'description': description,
+            'name': name,
+        }
+        return self._client.query('/api/group/update/',
                                   payload=parameters,
                                   files_=files_,
                                   timeout_=timeout_,
@@ -3262,11 +3456,11 @@ class GroupScoreboard:
     def addContest(
             self,
             *,
+            contest_alias: str,
+            group_alias: str,
+            scoreboard_alias: str,
             weight: float,
-            contest_alias: Optional[str] = None,
-            group_alias: Optional[str] = None,
             only_ac: Optional[bool] = None,
-            scoreboard_alias: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -3274,26 +3468,23 @@ class GroupScoreboard:
         r"""Add contest to a group scoreboard
 
         Args:
-            weight:
             contest_alias:
             group_alias:
-            only_ac:
             scoreboard_alias:
+            weight:
+            only_ac:
 
         Returns:
             The API result dict.
         """
         parameters: Dict[str, str] = {
+            'contest_alias': contest_alias,
+            'group_alias': group_alias,
+            'scoreboard_alias': scoreboard_alias,
             'weight': str(weight),
         }
-        if contest_alias is not None:
-            parameters['contest_alias'] = contest_alias
-        if group_alias is not None:
-            parameters['group_alias'] = group_alias
         if only_ac is not None:
             parameters['only_ac'] = str(only_ac)
-        if scoreboard_alias is not None:
-            parameters['scoreboard_alias'] = scoreboard_alias
         return self._client.query('/api/groupScoreboard/addContest/',
                                   payload=parameters,
                                   files_=files_,
@@ -3303,9 +3494,9 @@ class GroupScoreboard:
     def removeContest(
             self,
             *,
-            contest_alias: Optional[str] = None,
-            group_alias: Optional[str] = None,
-            scoreboard_alias: Optional[str] = None,
+            contest_alias: str,
+            group_alias: str,
+            scoreboard_alias: str,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -3320,13 +3511,11 @@ class GroupScoreboard:
         Returns:
             The API result dict.
         """
-        parameters: Dict[str, str] = {}
-        if contest_alias is not None:
-            parameters['contest_alias'] = contest_alias
-        if group_alias is not None:
-            parameters['group_alias'] = group_alias
-        if scoreboard_alias is not None:
-            parameters['scoreboard_alias'] = scoreboard_alias
+        parameters: Dict[str, str] = {
+            'contest_alias': contest_alias,
+            'group_alias': group_alias,
+            'scoreboard_alias': scoreboard_alias,
+        }
         return self._client.query('/api/groupScoreboard/removeContest/',
                                   payload=parameters,
                                   files_=files_,
@@ -3336,8 +3525,8 @@ class GroupScoreboard:
     def details(
             self,
             *,
-            group_alias: Optional[str] = None,
-            scoreboard_alias: Optional[str] = None,
+            group_alias: str,
+            scoreboard_alias: str,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -3352,11 +3541,10 @@ class GroupScoreboard:
         Returns:
             The API result dict.
         """
-        parameters: Dict[str, str] = {}
-        if group_alias is not None:
-            parameters['group_alias'] = group_alias
-        if scoreboard_alias is not None:
-            parameters['scoreboard_alias'] = scoreboard_alias
+        parameters: Dict[str, str] = {
+            'group_alias': group_alias,
+            'scoreboard_alias': scoreboard_alias,
+        }
         return self._client.query('/api/groupScoreboard/details/',
                                   payload=parameters,
                                   files_=files_,
@@ -3571,6 +3759,35 @@ class Identity:
         if name is not None:
             parameters['name'] = str(name)
         return self._client.query('/api/identity/changePassword/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
+    def selectIdentity(
+            self,
+            *,
+            usernameOrEmail: str,
+            auth_token: Optional[str] = None,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""Entry point for switching between associated identities for a user
+
+        Args:
+            usernameOrEmail:
+            auth_token:
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {
+            'usernameOrEmail': usernameOrEmail,
+        }
+        if auth_token is not None:
+            parameters['auth_token'] = auth_token
+        return self._client.query('/api/identity/selectIdentity/',
                                   payload=parameters,
                                   files_=files_,
                                   timeout_=timeout_,
@@ -4656,10 +4873,10 @@ class Problem:
             self,
             *,
             language: Optional[str] = None,
-            offset: Optional[Any] = None,
+            offset: Optional[int] = None,
             problem_alias: Optional[str] = None,
-            rowcount: Optional[Any] = None,
-            show_all: Optional[Any] = None,
+            rowcount: Optional[int] = None,
+            show_all: Optional[bool] = None,
             status: Optional[str] = None,
             username: Optional[str] = None,
             verdict: Optional[str] = None,
@@ -4766,8 +4983,11 @@ class Problem:
     def list(
             self,
             *,
+            only_quality_seal: bool,
+            difficulty: Optional[str] = None,
             difficulty_range: Optional[str] = None,
             language: Optional[Any] = None,
+            level: Optional[str] = None,
             max_difficulty: Optional[int] = None,
             min_difficulty: Optional[int] = None,
             min_visibility: Optional[int] = None,
@@ -4788,8 +5008,11 @@ class Problem:
         r"""List of public and user's private problems
 
         Args:
+            only_quality_seal:
+            difficulty:
             difficulty_range:
             language:
+            level:
             max_difficulty:
             min_difficulty:
             min_visibility:
@@ -4807,11 +5030,17 @@ class Problem:
         Returns:
             The API result dict.
         """
-        parameters: Dict[str, str] = {}
+        parameters: Dict[str, str] = {
+            'only_quality_seal': str(only_quality_seal),
+        }
+        if difficulty is not None:
+            parameters['difficulty'] = difficulty
         if difficulty_range is not None:
             parameters['difficulty_range'] = difficulty_range
         if language is not None:
             parameters['language'] = str(language)
+        if level is not None:
+            parameters['level'] = level
         if max_difficulty is not None:
             parameters['max_difficulty'] = str(max_difficulty)
         if min_difficulty is not None:
@@ -4912,11 +5141,11 @@ class Problem:
     def bestScore(
             self,
             *,
-            username: str,
             contest_alias: Optional[str] = None,
             problem_alias: Optional[str] = None,
             problemset_id: Optional[Any] = None,
             statement_type: Optional[str] = None,
+            username: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -4924,18 +5153,16 @@ class Problem:
         r"""Returns the best score for a problem
 
         Args:
-            username:
             contest_alias:
             problem_alias:
             problemset_id:
             statement_type:
+            username:
 
         Returns:
             The API result dict.
         """
-        parameters: Dict[str, str] = {
-            'username': username,
-        }
+        parameters: Dict[str, str] = {}
         if contest_alias is not None:
             parameters['contest_alias'] = contest_alias
         if problem_alias is not None:
@@ -4944,7 +5171,47 @@ class Problem:
             parameters['problemset_id'] = str(problemset_id)
         if statement_type is not None:
             parameters['statement_type'] = statement_type
+        if username is not None:
+            parameters['username'] = username
         return self._client.query('/api/problem/bestScore/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
+    def randomLanguageProblem(
+            self,
+            *,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {}
+        return self._client.query('/api/problem/randomLanguageProblem/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
+    def randomKarelProblem(
+            self,
+            *,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {}
+        return self._client.query('/api/problem/randomKarelProblem/',
                                   payload=parameters,
                                   files_=files_,
                                   timeout_=timeout_,
@@ -4993,7 +5260,7 @@ class Problemset:
             interview_alias: str,
             problemset_id: int,
             auth_token: Optional[Any] = None,
-            token: Optional[Any] = None,
+            token: Optional[str] = None,
             tokens: Optional[Any] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
@@ -5024,7 +5291,7 @@ class Problemset:
         if auth_token is not None:
             parameters['auth_token'] = str(auth_token)
         if token is not None:
-            parameters['token'] = str(token)
+            parameters['token'] = token
         if tokens is not None:
             parameters['tokens'] = str(tokens)
         return self._client.query('/api/problemset/details/',
@@ -5223,11 +5490,11 @@ class QualityNomination:
     def resolve(
             self,
             *,
+            problem_alias: str,
             qualitynomination_id: int,
             rationale: str,
             status: str,
             all: Optional[bool] = None,
-            problem_alias: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -5235,24 +5502,23 @@ class QualityNomination:
         r"""Marks a problem of a nomination (only the demotion type supported for now) as (resolved, banned, warning).
 
         Args:
+            problem_alias:
             qualitynomination_id:
             rationale:
             status:
             all:
-            problem_alias:
 
         Returns:
             The API result dict.
         """
         parameters: Dict[str, str] = {
+            'problem_alias': problem_alias,
             'qualitynomination_id': str(qualitynomination_id),
             'rationale': rationale,
             'status': status,
         }
         if all is not None:
             parameters['all'] = str(all)
-        if problem_alias is not None:
-            parameters['problem_alias'] = problem_alias
         return self._client.query('/api/qualityNomination/resolve/',
                                   payload=parameters,
                                   files_=files_,
@@ -5822,7 +6088,7 @@ class Scoreboard:
     def refresh(
             self,
             *,
-            alias: Optional[str] = None,
+            alias: str,
             course_alias: Optional[str] = None,
             token: Optional[Any] = None,
             # Out-of-band parameters:
@@ -5839,9 +6105,9 @@ class Scoreboard:
         Returns:
             The API result dict.
         """
-        parameters: Dict[str, str] = {}
-        if alias is not None:
-            parameters['alias'] = alias
+        parameters: Dict[str, str] = {
+            'alias': alias,
+        }
         if course_alias is not None:
             parameters['course_alias'] = course_alias
         if token is not None:
@@ -5913,6 +6179,47 @@ class Session:
                                   check_=check_)
 
 
+class Submission:
+    r"""SubmissionController
+    """
+    def __init__(self, client: 'Client') -> None:
+        self._client = client
+
+    def createFeedback(
+            self,
+            *,
+            assignment_alias: str,
+            course_alias: str,
+            feedback: str,
+            guid: str,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""Adds admin feedback to a submission
+
+        Args:
+            assignment_alias:
+            course_alias:
+            feedback:
+            guid:
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {
+            'assignment_alias': assignment_alias,
+            'course_alias': course_alias,
+            'feedback': feedback,
+            'guid': guid,
+        }
+        return self._client.query('/api/submission/createFeedback/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
+
 class Tag:
     r"""TagController
     """
@@ -5943,6 +6250,34 @@ class Tag:
         if term is not None:
             parameters['term'] = str(term)
         return self._client.query('/api/tag/list/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
+    def frequentTags(
+            self,
+            *,
+            problemLevel: str,
+            rows: int,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""Return most frequent public tags of a certain level
+
+        Args:
+            problemLevel:
+            rows:
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {
+            'problemLevel': problemLevel,
+            'rows': str(rows),
+        }
+        return self._client.query('/api/tag/frequentTags/',
                                   payload=parameters,
                                   files_=files_,
                                   timeout_=timeout_,
@@ -6177,7 +6512,7 @@ class User:
             *,
             category: Optional[Any] = None,
             omit_rank: Optional[bool] = None,
-            username: Optional[Any] = None,
+            username: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -6198,7 +6533,7 @@ class User:
         if omit_rank is not None:
             parameters['omit_rank'] = str(omit_rank)
         if username is not None:
-            parameters['username'] = str(username)
+            parameters['username'] = username
         return self._client.query('/api/user/profile/',
                                   payload=parameters,
                                   files_=files_,
@@ -6241,6 +6576,7 @@ class User:
         r"""Gets extra information of the identity:
         - last password change request
         - verify status
+        - birth date to verify the user identity
 
         Args:
             email:
@@ -6377,10 +6713,7 @@ class User:
     def contestStats(
             self,
             *,
-            contest_alias: str,
-            auth_token: Optional[Any] = None,
-            token: Optional[str] = None,
-            username: Optional[Any] = None,
+            username: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -6388,23 +6721,14 @@ class User:
         r"""Get Contests which a certain user has participated in
 
         Args:
-            contest_alias:
-            auth_token:
-            token:
             username:
 
         Returns:
             The API result dict.
         """
-        parameters: Dict[str, str] = {
-            'contest_alias': contest_alias,
-        }
-        if auth_token is not None:
-            parameters['auth_token'] = str(auth_token)
-        if token is not None:
-            parameters['token'] = token
+        parameters: Dict[str, str] = {}
         if username is not None:
-            parameters['username'] = str(username)
+            parameters['username'] = username
         return self._client.query('/api/user/contestStats/',
                                   payload=parameters,
                                   files_=files_,
@@ -6414,7 +6738,7 @@ class User:
     def problemsSolved(
             self,
             *,
-            username: Optional[Any] = None,
+            username: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -6429,7 +6753,7 @@ class User:
         """
         parameters: Dict[str, str] = {}
         if username is not None:
-            parameters['username'] = str(username)
+            parameters['username'] = username
         return self._client.query('/api/user/problemsSolved/',
                                   payload=parameters,
                                   files_=files_,
@@ -6439,7 +6763,7 @@ class User:
     def listUnsolvedProblems(
             self,
             *,
-            username: Optional[Any] = None,
+            username: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -6454,7 +6778,7 @@ class User:
         """
         parameters: Dict[str, str] = {}
         if username is not None:
-            parameters['username'] = str(username)
+            parameters['username'] = username
         return self._client.query('/api/user/listUnsolvedProblems/',
                                   payload=parameters,
                                   files_=files_,
@@ -6464,7 +6788,7 @@ class User:
     def problemsCreated(
             self,
             *,
-            username: Optional[Any] = None,
+            username: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -6479,7 +6803,7 @@ class User:
         """
         parameters: Dict[str, str] = {}
         if username is not None:
-            parameters['username'] = str(username)
+            parameters['username'] = username
         return self._client.query('/api/user/problemsCreated/',
                                   payload=parameters,
                                   files_=files_,
@@ -6489,8 +6813,8 @@ class User:
     def list(
             self,
             *,
-            query: Optional[Any] = None,
-            term: Optional[Any] = None,
+            query: Optional[str] = None,
+            term: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -6507,9 +6831,9 @@ class User:
         """
         parameters: Dict[str, str] = {}
         if query is not None:
-            parameters['query'] = str(query)
+            parameters['query'] = query
         if term is not None:
-            parameters['term'] = str(term)
+            parameters['term'] = term
         return self._client.query('/api/user/list/',
                                   payload=parameters,
                                   files_=files_,
@@ -6519,7 +6843,7 @@ class User:
     def stats(
             self,
             *,
-            username: Optional[Any] = None,
+            username: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -6534,7 +6858,7 @@ class User:
         """
         parameters: Dict[str, str] = {}
         if username is not None:
-            parameters['username'] = str(username)
+            parameters['username'] = username
         return self._client.query('/api/user/stats/',
                                   payload=parameters,
                                   files_=files_,
@@ -6646,6 +6970,7 @@ class User:
             self,
             *,
             email: str,
+            originalEmail: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -6654,6 +6979,7 @@ class User:
 
         Args:
             email:
+            originalEmail:
 
         Returns:
             The API result dict.
@@ -6661,6 +6987,8 @@ class User:
         parameters: Dict[str, str] = {
             'email': email,
         }
+        if originalEmail is not None:
+            parameters['originalEmail'] = originalEmail
         return self._client.query('/api/user/updateMainEmail/',
                                   payload=parameters,
                                   files_=files_,
@@ -6675,7 +7003,7 @@ class User:
             auth_token: Optional[str] = None,
             contest_admin: Optional[str] = None,
             contest_alias: Optional[str] = None,
-            token: Optional[Any] = None,
+            token: Optional[str] = None,
             tokens: Optional[Any] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
@@ -6716,7 +7044,7 @@ class User:
         if contest_alias is not None:
             parameters['contest_alias'] = contest_alias
         if token is not None:
-            parameters['token'] = str(token)
+            parameters['token'] = token
         if tokens is not None:
             parameters['tokens'] = str(tokens)
         return self._client.query('/api/user/validateFilter/',
@@ -6878,7 +7206,7 @@ class User:
     def lastPrivacyPolicyAccepted(
             self,
             *,
-            username: str,
+            username: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -6891,9 +7219,9 @@ class User:
         Returns:
             The API result dict.
         """
-        parameters: Dict[str, str] = {
-            'username': username,
-        }
+        parameters: Dict[str, str] = {}
+        if username is not None:
+            parameters['username'] = username
         return self._client.query('/api/user/lastPrivacyPolicyAccepted/',
                                   payload=parameters,
                                   files_=files_,
@@ -6905,7 +7233,7 @@ class User:
             *,
             privacy_git_object_id: str,
             statement_type: str,
-            username: str,
+            username: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -6923,8 +7251,9 @@ class User:
         parameters: Dict[str, str] = {
             'privacy_git_object_id': privacy_git_object_id,
             'statement_type': statement_type,
-            'username': username,
         }
+        if username is not None:
+            parameters['username'] = username
         return self._client.query('/api/user/acceptPrivacyPolicy/',
                                   payload=parameters,
                                   files_=files_,
@@ -6998,27 +7327,128 @@ class User:
                                   timeout_=timeout_,
                                   check_=check_)
 
+    def createAPIToken(
+            self,
+            *,
+            name: str,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""Creates a new API token associated with the user.
+
+        This token can be used to authenticate against the API in other calls
+        through the [HTTP `Authorization`
+        header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization)
+        in the request:
+
+        ```
+        Authorization: token 92d8c5a0eceef3c05f4149fc04b62bb2cd50d9c6
+        ```
+
+        The following alternative syntax allows to specify an associated
+        identity:
+
+        ```
+        Authorization: token Credential=92d8c5a0eceef3c05f4149fc04b62bb2cd50d9c6,Username=groupname:username
+        ```
+
+        There is a limit of 1000 requests that can be done every hour, after
+        which point all requests will fail with [HTTP 429 Too Many
+        Requests](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429).
+        The `X-RateLimit-Limit`, `X-RateLimit-Remaining`, and
+        `X-RateLimit-Reset` response headers will be set whenever an API token
+        is used and will contain useful information about the limit to the
+        caller.
+
+        There is a limit of 5 API tokens that each user can have.
+
+        Args:
+            name: A non-empty alphanumeric string. May contain underscores and dashes.
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {
+            'name': name,
+        }
+        return self._client.query('/api/user/createAPIToken/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
+    def listAPITokens(
+            self,
+            *,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""Returns a list of all the API tokens associated with the user.
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {}
+        return self._client.query('/api/user/listAPITokens/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
+    def revokeAPIToken(
+            self,
+            *,
+            name: str,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""Revokes an API token associated with the user.
+
+        Args:
+            name: A non-empty alphanumeric string. May contain underscores and dashes.
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {
+            'name': name,
+        }
+        return self._client.query('/api/user/revokeAPIToken/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
 
 class Client:
     """.""",
 
     def __init__(self,
-                 username: str,
                  *,
+                 username: Optional[str] = None,
                  password: Optional[str] = None,
+                 api_token: Optional[str] = None,
                  auth_token: Optional[str] = None,
                  url: str = 'https://omegaup.com') -> None:
         self._url = url
+        self.username: Optional[str] = username
+        self.api_token: Optional[str] = api_token
         self.auth_token: Optional[str] = None
-        self.username = username
-        if auth_token is not None:
-            self.auth_token = auth_token
-        elif password is not None:
-            self.auth_token = self.query('/api/user/login/',
-                                         payload={
-                                             'usernameOrEmail': username,
-                                             'password': password,
-                                         })['auth_token']
+        if api_token is None:
+            if username is None:
+                raise ValueError(
+                    'username cannot be None if api_token is not provided', )
+            if auth_token is not None:
+                self.auth_token = auth_token
+            elif password is not None:
+                self.auth_token = self.query('/api/user/login/',
+                                             payload={
+                                                 'usernameOrEmail': username,
+                                                 'password': password,
+                                             })['auth_token']
         self._admin: Optional[Admin] = None
         self._authorization: Optional[Authorization] = None
         self._badge: Optional[Badge] = None
@@ -7040,6 +7470,7 @@ class Client:
         self._school: Optional[School] = None
         self._scoreboard: Optional[Scoreboard] = None
         self._session: Optional[Session] = None
+        self._submission: Optional[Submission] = None
         self._tag: Optional[Tag] = None
         self._time: Optional[Time] = None
         self._user: Optional[User] = None
@@ -7061,11 +7492,21 @@ class Client:
             logger.debug('Calling endpoint: %s', endpoint)
             logger.debug('Payload: %s', _filterKeys(payload, {'password'}))
 
-        if self.auth_token is not None:
+        headers = {}
+        if self.api_token is not None:
+            if self.username is not None:
+                headers['Authorization'] = ','.join((
+                    f'Credential={self.api_token}',
+                    f'Username={self.username}',
+                ))
+            else:
+                headers['Authorization'] = self.api_token
+        elif self.auth_token is not None:
             payload['ouat'] = self.auth_token
 
         r = requests.post(urllib.parse.urljoin(self._url, endpoint),
                           data=payload,
+                          headers=headers,
                           files=files_,
                           timeout=timeout_.total_seconds())
 
@@ -7229,6 +7670,13 @@ class Client:
         if self._session is None:
             self._session = Session(self)
         return self._session
+
+    @property
+    def submission(self) -> Submission:
+        """Returns the Submission API."""
+        if self._submission is None:
+            self._submission = Submission(self)
+        return self._submission
 
     @property
     def tag(self) -> Tag:
