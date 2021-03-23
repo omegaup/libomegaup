@@ -1,4 +1,23 @@
-"""A Python implementation of the omegaUp API."""
+"""A Python implementation of an omegaUp API client.
+
+The [omegaUp
+API](https://github.com/omegaup/omegaup/blob/master/frontend/server/src/Controllers/README.md)
+allows calling it using an API token (see the docs for `User.createAPIToken`)
+that does not expire.  This API token can then be provided to the `Client`
+constructor, which will then allow accessing the rest of the API functions.
+
+Sample usage:
+
+```python
+import pprint
+
+import omegaup.api
+
+client = api.Client(api_token='my API token')
+session = client.session.currentSession()
+pprint.pprint(session)
+```
+"""
 import datetime
 import logging
 import urllib.parse
