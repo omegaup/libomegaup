@@ -7551,12 +7551,13 @@ class Client:
         headers = {}
         if self.api_token is not None:
             if self.username is not None:
-                headers['Authorization'] = ','.join((
+                token = ','.join((
                     f'Credential={self.api_token}',
                     f'Username={self.username}',
                 ))
             else:
-                headers['Authorization'] = self.api_token
+                token = self.api_token
+            headers['Authorization'] = f'token {token}'
         elif self.auth_token is not None:
             payload['ouat'] = self.auth_token
 
