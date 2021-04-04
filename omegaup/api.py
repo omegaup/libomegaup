@@ -3068,6 +3068,43 @@ class Course:
                                   timeout_=timeout_,
                                   check_=check_)
 
+    def problemClarifications(
+            self,
+            *,
+            assignment_alias: str,
+            course_alias: str,
+            offset: int,
+            problem_alias: str,
+            rowcount: int,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""Get clarifications of problem in a contest
+
+        Args:
+            assignment_alias:
+            course_alias:
+            offset:
+            problem_alias:
+            rowcount:
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {
+            'assignment_alias': assignment_alias,
+            'course_alias': course_alias,
+            'offset': str(offset),
+            'problem_alias': problem_alias,
+            'rowcount': str(rowcount),
+        }
+        return self._client.query('/api/course/problemClarifications/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
     def assignmentScoreboard(
             self,
             *,

@@ -349,6 +349,9 @@
                                 <a class="function" href="#Course.clarifications">clarifications</a>
                         </li>
                         <li>
+                                <a class="function" href="#Course.problemClarifications">problemClarifications</a>
+                        </li>
+                        <li>
                                 <a class="function" href="#Course.assignmentScoreboard">assignmentScoreboard</a>
                         </li>
                         <li>
@@ -4098,6 +4101,43 @@ constructor, which will then allow accessing the rest of the API functions.</p>
             <span class="s1">&#39;rowcount&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">rowcount</span><span class="p">),</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;/api/course/clarifications/&#39;</span><span class="p">,</span>
+                                  <span class="n">payload</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>
+                                  <span class="n">files_</span><span class="o">=</span><span class="n">files_</span><span class="p">,</span>
+                                  <span class="n">timeout_</span><span class="o">=</span><span class="n">timeout_</span><span class="p">,</span>
+                                  <span class="n">check_</span><span class="o">=</span><span class="n">check_</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">problemClarifications</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">assignment_alias</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">course_alias</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">offset</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">problem_alias</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">rowcount</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="c1"># Out-of-band parameters:</span>
+            <span class="n">files_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">BinaryIO</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">check_</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="n">timeout_</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span> <span class="o">=</span> <span class="n">_DEFAULT_TIMEOUT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ApiReturnType</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Get clarifications of problem in a contest</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            assignment_alias:</span>
+<span class="sd">            course_alias:</span>
+<span class="sd">            offset:</span>
+<span class="sd">            problem_alias:</span>
+<span class="sd">            rowcount:</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The API result dict.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;assignment_alias&#39;</span><span class="p">:</span> <span class="n">assignment_alias</span><span class="p">,</span>
+            <span class="s1">&#39;course_alias&#39;</span><span class="p">:</span> <span class="n">course_alias</span><span class="p">,</span>
+            <span class="s1">&#39;offset&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">offset</span><span class="p">),</span>
+            <span class="s1">&#39;problem_alias&#39;</span><span class="p">:</span> <span class="n">problem_alias</span><span class="p">,</span>
+            <span class="s1">&#39;rowcount&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">rowcount</span><span class="p">),</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;/api/course/problemClarifications/&#39;</span><span class="p">,</span>
                                   <span class="n">payload</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>
                                   <span class="n">files_</span><span class="o">=</span><span class="n">files_</span><span class="p">,</span>
                                   <span class="n">timeout_</span><span class="o">=</span><span class="n">timeout_</span><span class="p">,</span>
@@ -8549,12 +8589,13 @@ constructor, which will then allow accessing the rest of the API functions.</p>
         <span class="n">headers</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_token</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Authorization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span>
+                <span class="n">token</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span>
                     <span class="sa">f</span><span class="s1">&#39;Credential=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">api_token</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
                     <span class="sa">f</span><span class="s1">&#39;Username=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
                 <span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Authorization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_token</span>
+                <span class="n">token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_token</span>
+            <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Authorization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;token </span><span class="si">{</span><span class="n">token</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">auth_token</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">payload</span><span class="p">[</span><span class="s1">&#39;ouat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">auth_token</span>
 
@@ -15685,6 +15726,43 @@ previously agreed to share their information.</p>
                                   <span class="n">timeout_</span><span class="o">=</span><span class="n">timeout_</span><span class="p">,</span>
                                   <span class="n">check_</span><span class="o">=</span><span class="n">check_</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">problemClarifications</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">assignment_alias</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">course_alias</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">offset</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">problem_alias</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">rowcount</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="c1"># Out-of-band parameters:</span>
+            <span class="n">files_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">BinaryIO</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">check_</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="n">timeout_</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span> <span class="o">=</span> <span class="n">_DEFAULT_TIMEOUT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ApiReturnType</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Get clarifications of problem in a contest</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            assignment_alias:</span>
+<span class="sd">            course_alias:</span>
+<span class="sd">            offset:</span>
+<span class="sd">            problem_alias:</span>
+<span class="sd">            rowcount:</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The API result dict.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;assignment_alias&#39;</span><span class="p">:</span> <span class="n">assignment_alias</span><span class="p">,</span>
+            <span class="s1">&#39;course_alias&#39;</span><span class="p">:</span> <span class="n">course_alias</span><span class="p">,</span>
+            <span class="s1">&#39;offset&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">offset</span><span class="p">),</span>
+            <span class="s1">&#39;problem_alias&#39;</span><span class="p">:</span> <span class="n">problem_alias</span><span class="p">,</span>
+            <span class="s1">&#39;rowcount&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">rowcount</span><span class="p">),</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;/api/course/problemClarifications/&#39;</span><span class="p">,</span>
+                                  <span class="n">payload</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>
+                                  <span class="n">files_</span><span class="o">=</span><span class="n">files_</span><span class="p">,</span>
+                                  <span class="n">timeout_</span><span class="o">=</span><span class="n">timeout_</span><span class="p">,</span>
+                                  <span class="n">check_</span><span class="o">=</span><span class="n">check_</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">assignmentScoreboard</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="o">*</span><span class="p">,</span>
@@ -18236,6 +18314,82 @@ interested to join the course.</p>
 <p>Args:
     course_alias:
     offset:
+    rowcount:</p>
+
+<p>Returns:
+    The API result dict.</p>
+</div>
+
+
+                            </div>
+                            <div id="Course.problemClarifications" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#Course.problemClarifications">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">problemClarifications</span><span class="signature">(
+    self,
+    *,
+    assignment_alias: str,
+    course_alias: str,
+    offset: int,
+    problem_alias: str,
+    rowcount: int,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
+    check_: bool = True,
+    timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
+) -&gt; Dict[str, Any]</span>:
+    </div>
+
+                <details>
+            <summary>View Source</summary>
+            <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">problemClarifications</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">assignment_alias</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">course_alias</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">offset</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">problem_alias</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">rowcount</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="c1"># Out-of-band parameters:</span>
+            <span class="n">files_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">BinaryIO</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">check_</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="n">timeout_</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span> <span class="o">=</span> <span class="n">_DEFAULT_TIMEOUT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ApiReturnType</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Get clarifications of problem in a contest</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            assignment_alias:</span>
+<span class="sd">            course_alias:</span>
+<span class="sd">            offset:</span>
+<span class="sd">            problem_alias:</span>
+<span class="sd">            rowcount:</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The API result dict.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;assignment_alias&#39;</span><span class="p">:</span> <span class="n">assignment_alias</span><span class="p">,</span>
+            <span class="s1">&#39;course_alias&#39;</span><span class="p">:</span> <span class="n">course_alias</span><span class="p">,</span>
+            <span class="s1">&#39;offset&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">offset</span><span class="p">),</span>
+            <span class="s1">&#39;problem_alias&#39;</span><span class="p">:</span> <span class="n">problem_alias</span><span class="p">,</span>
+            <span class="s1">&#39;rowcount&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">rowcount</span><span class="p">),</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;/api/course/problemClarifications/&#39;</span><span class="p">,</span>
+                                  <span class="n">payload</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>
+                                  <span class="n">files_</span><span class="o">=</span><span class="n">files_</span><span class="p">,</span>
+                                  <span class="n">timeout_</span><span class="o">=</span><span class="n">timeout_</span><span class="p">,</span>
+                                  <span class="n">check_</span><span class="o">=</span><span class="n">check_</span><span class="p">)</span>
+</pre></div>
+
+        </details>
+
+            <div class="docstring"><p>Get clarifications of problem in a contest</p>
+
+<p>Args:
+    assignment_alias:
+    course_alias:
+    offset:
+    problem_alias:
     rowcount:</p>
 
 <p>Returns:
@@ -32009,12 +32163,13 @@ caller.</p>
         <span class="n">headers</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_token</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Authorization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span>
+                <span class="n">token</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span>
                     <span class="sa">f</span><span class="s1">&#39;Credential=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">api_token</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
                     <span class="sa">f</span><span class="s1">&#39;Username=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
                 <span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Authorization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_token</span>
+                <span class="n">token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_token</span>
+            <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Authorization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;token </span><span class="si">{</span><span class="n">token</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">auth_token</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">payload</span><span class="p">[</span><span class="s1">&#39;ouat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">auth_token</span>
 
@@ -32353,12 +32508,13 @@ caller.</p>
         <span class="n">headers</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_token</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Authorization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span>
+                <span class="n">token</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span>
                     <span class="sa">f</span><span class="s1">&#39;Credential=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">api_token</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
                     <span class="sa">f</span><span class="s1">&#39;Username=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
                 <span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Authorization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_token</span>
+                <span class="n">token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_token</span>
+            <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Authorization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;token </span><span class="si">{</span><span class="n">token</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">auth_token</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">payload</span><span class="p">[</span><span class="s1">&#39;ouat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">auth_token</span>
 
