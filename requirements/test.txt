@@ -1,5 +1,6 @@
+docutils>=0.13.1
 flake8
 mypy
+pdoc==7.4.0
 pytest
-pdoc
-docutils>=0.13.1
+types-requests
