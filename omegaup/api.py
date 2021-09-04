@@ -780,6 +780,7 @@ class Contest:
             *,
             admission_mode: Optional[Any] = None,
             alias: Optional[Any] = None,
+            contest_for_teams: Optional[bool] = None,
             description: Optional[Any] = None,
             feedback: Optional[Any] = None,
             finish_time: Optional[Any] = None,
@@ -796,6 +797,7 @@ class Contest:
             show_scoreboard_after: Optional[Any] = None,
             start_time: Optional[Any] = None,
             submissions_gap: Optional[Any] = None,
+            teams_group_alias: Optional[str] = None,
             title: Optional[Any] = None,
             window_length: Optional[int] = None,
             # Out-of-band parameters:
@@ -807,6 +809,7 @@ class Contest:
         Args:
             admission_mode:
             alias:
+            contest_for_teams:
             description:
             feedback:
             finish_time:
@@ -823,6 +826,7 @@ class Contest:
             show_scoreboard_after:
             start_time:
             submissions_gap:
+            teams_group_alias:
             title:
             window_length:
 
@@ -834,6 +838,8 @@ class Contest:
             parameters['admission_mode'] = str(admission_mode)
         if alias is not None:
             parameters['alias'] = str(alias)
+        if contest_for_teams is not None:
+            parameters['contest_for_teams'] = str(contest_for_teams)
         if description is not None:
             parameters['description'] = str(description)
         if feedback is not None:
@@ -868,6 +874,8 @@ class Contest:
             parameters['start_time'] = str(start_time)
         if submissions_gap is not None:
             parameters['submissions_gap'] = str(submissions_gap)
+        if teams_group_alias is not None:
+            parameters['teams_group_alias'] = teams_group_alias
         if title is not None:
             parameters['title'] = str(title)
         if window_length is not None:
@@ -1059,6 +1067,34 @@ class Contest:
                                   timeout_=timeout_,
                                   check_=check_)
 
+    def replaceTeamsGroup(
+            self,
+            *,
+            contest_alias: str,
+            teams_group_alias: str,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""Replace the teams group assigned to a contest
+
+        Args:
+            contest_alias: The alias of the contest
+            teams_group_alias: The alias of the teams group
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {
+            'contest_alias': contest_alias,
+            'teams_group_alias': teams_group_alias,
+        }
+        return self._client.query('/api/contest/replaceTeamsGroup/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
     def addGroup(
             self,
             *,
@@ -1068,7 +1104,7 @@ class Contest:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
             timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
-        r"""Adds an group to a contest
+        r"""Adds a group to a contest
 
         Args:
             contest_alias:
@@ -1180,7 +1216,7 @@ class Contest:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
             timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
-        r"""Adds an group admin to a contest
+        r"""Adds a group admin to a contest
 
         Args:
             contest_alias:
@@ -1473,7 +1509,7 @@ class Contest:
             self,
             *,
             contest_alias: str,
-            query: Optional[Any] = None,
+            query: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -1491,7 +1527,7 @@ class Contest:
             'contest_alias': contest_alias,
         }
         if query is not None:
-            parameters['query'] = str(query)
+            parameters['query'] = query
         return self._client.query('/api/contest/searchUsers/',
                                   payload=parameters,
                                   files_=files_,
@@ -1530,8 +1566,9 @@ class Contest:
             finish_time: int,
             submissions_gap: int,
             window_length: int,
-            admission_mode: Optional[Any] = None,
+            admission_mode: Optional[str] = None,
             alias: Optional[str] = None,
+            contest_for_teams: Optional[bool] = None,
             description: Optional[str] = None,
             feedback: Optional[Any] = None,
             languages: Optional[Any] = None,
@@ -1546,6 +1583,7 @@ class Contest:
             scoreboard: Optional[float] = None,
             show_scoreboard_after: Optional[bool] = None,
             start_time: Optional[datetime.datetime] = None,
+            teams_group_alias: Optional[str] = None,
             title: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
@@ -1560,6 +1598,7 @@ class Contest:
             window_length:
             admission_mode:
             alias:
+            contest_for_teams:
             description:
             feedback:
             languages:
@@ -1574,6 +1613,7 @@ class Contest:
             scoreboard:
             show_scoreboard_after:
             start_time:
+            teams_group_alias:
             title:
 
         Returns:
@@ -1586,9 +1626,11 @@ class Contest:
             'window_length': str(window_length),
         }
         if admission_mode is not None:
-            parameters['admission_mode'] = str(admission_mode)
+            parameters['admission_mode'] = admission_mode
         if alias is not None:
             parameters['alias'] = alias
+        if contest_for_teams is not None:
+            parameters['contest_for_teams'] = str(contest_for_teams)
         if description is not None:
             parameters['description'] = description
         if feedback is not None:
@@ -1619,6 +1661,8 @@ class Contest:
             parameters['show_scoreboard_after'] = str(show_scoreboard_after)
         if start_time is not None:
             parameters['start_time'] = str(int(start_time.timestamp()))
+        if teams_group_alias is not None:
+            parameters['teams_group_alias'] = teams_group_alias
         if title is not None:
             parameters['title'] = title
         return self._client.query('/api/contest/update/',
@@ -3255,9 +3299,9 @@ class Group:
     def create(
             self,
             *,
+            alias: str,
             description: str,
             name: str,
-            alias: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -3265,19 +3309,18 @@ class Group:
         r"""New group
 
         Args:
+            alias:
             description:
             name:
-            alias:
 
         Returns:
             The API result dict.
         """
         parameters: Dict[str, str] = {
+            'alias': alias,
             'description': description,
             'name': name,
         }
-        if alias is not None:
-            parameters['alias'] = alias
         return self._client.query('/api/group/create/',
                                   payload=parameters,
                                   files_=files_,
@@ -3729,6 +3772,86 @@ class Identity:
                                   timeout_=timeout_,
                                   check_=check_)
 
+    def bulkCreateForTeams(
+            self,
+            *,
+            team_group_alias: str,
+            team_identities: str,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""Entry point for Create bulk Identities for teams API
+
+        Args:
+            team_group_alias:
+            team_identities:
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {
+            'team_group_alias': team_group_alias,
+            'team_identities': team_identities,
+        }
+        return self._client.query('/api/identity/bulkCreateForTeams/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
+    def updateIdentityTeam(
+            self,
+            *,
+            gender: str,
+            group_alias: str,
+            name: str,
+            original_username: str,
+            school_name: str,
+            username: str,
+            country_id: Optional[str] = None,
+            identities: Optional[Any] = None,
+            state_id: Optional[str] = None,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""Entry point for Update an Identity team API
+
+        Args:
+            gender:
+            group_alias:
+            name:
+            original_username:
+            school_name:
+            username:
+            country_id:
+            identities:
+            state_id:
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {
+            'gender': gender,
+            'group_alias': group_alias,
+            'name': name,
+            'original_username': original_username,
+            'school_name': school_name,
+            'username': username,
+        }
+        if country_id is not None:
+            parameters['country_id'] = country_id
+        if identities is not None:
+            parameters['identities'] = str(identities)
+        if state_id is not None:
+            parameters['state_id'] = state_id
+        return self._client.query('/api/identity/updateIdentityTeam/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
     def update(
             self,
             *,
@@ -3850,121 +3973,6 @@ class Identity:
                                   check_=check_)
 
 
-class Interview:
-    r"""
-    """
-    def __init__(self, client: 'Client') -> None:
-        self._client = client
-
-    def create(
-            self,
-            *,
-            duration: int,
-            title: str,
-            alias: Optional[str] = None,
-            description: Optional[str] = None,
-            # Out-of-band parameters:
-            files_: Optional[Mapping[str, BinaryIO]] = None,
-            check_: bool = True,
-            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
-        r"""
-
-        Args:
-            duration:
-            title:
-            alias:
-            description:
-
-        Returns:
-            The API result dict.
-        """
-        parameters: Dict[str, str] = {
-            'duration': str(duration),
-            'title': title,
-        }
-        if alias is not None:
-            parameters['alias'] = alias
-        if description is not None:
-            parameters['description'] = description
-        return self._client.query('/api/interview/create/',
-                                  payload=parameters,
-                                  files_=files_,
-                                  timeout_=timeout_,
-                                  check_=check_)
-
-    def addUsers(
-            self,
-            *,
-            interview_alias: str,
-            usernameOrEmailsCSV: str,
-            # Out-of-band parameters:
-            files_: Optional[Mapping[str, BinaryIO]] = None,
-            check_: bool = True,
-            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
-        r"""
-
-        Args:
-            interview_alias:
-            usernameOrEmailsCSV:
-
-        Returns:
-            The API result dict.
-        """
-        parameters: Dict[str, str] = {
-            'interview_alias': interview_alias,
-            'usernameOrEmailsCSV': usernameOrEmailsCSV,
-        }
-        return self._client.query('/api/interview/addUsers/',
-                                  payload=parameters,
-                                  files_=files_,
-                                  timeout_=timeout_,
-                                  check_=check_)
-
-    def details(
-            self,
-            *,
-            interview_alias: str,
-            # Out-of-band parameters:
-            files_: Optional[Mapping[str, BinaryIO]] = None,
-            check_: bool = True,
-            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
-        r"""
-
-        Args:
-            interview_alias:
-
-        Returns:
-            The API result dict.
-        """
-        parameters: Dict[str, str] = {
-            'interview_alias': interview_alias,
-        }
-        return self._client.query('/api/interview/details/',
-                                  payload=parameters,
-                                  files_=files_,
-                                  timeout_=timeout_,
-                                  check_=check_)
-
-    def list(
-            self,
-            *,
-            # Out-of-band parameters:
-            files_: Optional[Mapping[str, BinaryIO]] = None,
-            check_: bool = True,
-            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
-        r"""
-
-        Returns:
-            The API result dict.
-        """
-        parameters: Dict[str, str] = {}
-        return self._client.query('/api/interview/list/',
-                                  payload=parameters,
-                                  files_=files_,
-                                  timeout_=timeout_,
-                                  check_=check_)
-
-
 class Notification:
     r"""BadgesController
     """
@@ -4030,6 +4038,7 @@ class Problem:
             allow_user_add_tags: Optional[bool] = None,
             email_clarifications: Optional[bool] = None,
             extra_wall_time: Optional[Any] = None,
+            group_score_policy: Optional[str] = None,
             input_limit: Optional[Any] = None,
             languages: Optional[Any] = None,
             memory_limit: Optional[Any] = None,
@@ -4056,6 +4065,7 @@ class Problem:
             allow_user_add_tags:
             email_clarifications:
             extra_wall_time:
+            group_score_policy:
             input_limit:
             languages:
             memory_limit:
@@ -4084,6 +4094,8 @@ class Problem:
             parameters['email_clarifications'] = str(email_clarifications)
         if extra_wall_time is not None:
             parameters['extra_wall_time'] = str(extra_wall_time)
+        if group_score_policy is not None:
+            parameters['group_score_policy'] = group_score_policy
         if input_limit is not None:
             parameters['input_limit'] = str(input_limit)
         if languages is not None:
@@ -4432,6 +4444,7 @@ class Problem:
             allow_user_add_tags: Optional[bool] = None,
             email_clarifications: Optional[bool] = None,
             extra_wall_time: Optional[Any] = None,
+            group_score_policy: Optional[str] = None,
             input_limit: Optional[Any] = None,
             languages: Optional[Any] = None,
             memory_limit: Optional[Any] = None,
@@ -4460,6 +4473,7 @@ class Problem:
             allow_user_add_tags:
             email_clarifications:
             extra_wall_time:
+            group_score_policy:
             input_limit:
             languages:
             memory_limit:
@@ -4490,6 +4504,8 @@ class Problem:
             parameters['email_clarifications'] = str(email_clarifications)
         if extra_wall_time is not None:
             parameters['extra_wall_time'] = str(extra_wall_time)
+        if group_score_policy is not None:
+            parameters['group_score_policy'] = group_score_policy
         if input_limit is not None:
             parameters['input_limit'] = str(input_limit)
         if languages is not None:
@@ -4539,6 +4555,7 @@ class Problem:
             allow_user_add_tags: Optional[bool] = None,
             email_clarifications: Optional[bool] = None,
             extra_wall_time: Optional[Any] = None,
+            group_score_policy: Optional[str] = None,
             input_limit: Optional[Any] = None,
             lang: Optional[Any] = None,
             languages: Optional[Any] = None,
@@ -4568,6 +4585,7 @@ class Problem:
             allow_user_add_tags:
             email_clarifications:
             extra_wall_time:
+            group_score_policy:
             input_limit:
             lang:
             languages:
@@ -4599,6 +4617,8 @@ class Problem:
             parameters['email_clarifications'] = str(email_clarifications)
         if extra_wall_time is not None:
             parameters['extra_wall_time'] = str(extra_wall_time)
+        if group_score_policy is not None:
+            parameters['group_score_policy'] = group_score_policy
         if input_limit is not None:
             parameters['input_limit'] = str(input_limit)
         if lang is not None:
@@ -4646,6 +4666,7 @@ class Problem:
             allow_user_add_tags: Optional[bool] = None,
             email_clarifications: Optional[bool] = None,
             extra_wall_time: Optional[Any] = None,
+            group_score_policy: Optional[str] = None,
             input_limit: Optional[Any] = None,
             lang: Optional[str] = None,
             languages: Optional[Any] = None,
@@ -4675,6 +4696,7 @@ class Problem:
             allow_user_add_tags:
             email_clarifications:
             extra_wall_time:
+            group_score_policy:
             input_limit:
             lang:
             languages:
@@ -4706,6 +4728,8 @@ class Problem:
             parameters['email_clarifications'] = str(email_clarifications)
         if extra_wall_time is not None:
             parameters['extra_wall_time'] = str(extra_wall_time)
+        if group_score_policy is not None:
+            parameters['group_score_policy'] = group_score_policy
         if input_limit is not None:
             parameters['input_limit'] = str(input_limit)
         if lang is not None:
@@ -4750,7 +4774,7 @@ class Problem:
             contest_alias: Optional[str] = None,
             lang: Optional[str] = None,
             prevent_problemset_open: Optional[bool] = None,
-            problemset_id: Optional[Any] = None,
+            problemset_id: Optional[int] = None,
             show_solvers: Optional[bool] = None,
             statement_type: Optional[str] = None,
             # Out-of-band parameters:
@@ -4842,6 +4866,7 @@ class Problem:
             self,
             *,
             problem_alias: Optional[str] = None,
+            problemset_id: Optional[int] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -4850,6 +4875,7 @@ class Problem:
 
         Args:
             problem_alias:
+            problemset_id:
 
         Returns:
             The API result dict.
@@ -4857,6 +4883,8 @@ class Problem:
         parameters: Dict[str, str] = {}
         if problem_alias is not None:
             parameters['problem_alias'] = problem_alias
+        if problemset_id is not None:
+            parameters['problemset_id'] = str(problemset_id)
         return self._client.query('/api/problem/versions/',
                                   payload=parameters,
                                   files_=files_,
@@ -5162,9 +5190,7 @@ class Problem:
             self,
             *,
             page: int,
-            page_size: int,
-            offset: Optional[Any] = None,
-            rowcount: Optional[Any] = None,
+            rowcount: Optional[int] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -5173,8 +5199,6 @@ class Problem:
 
         Args:
             page:
-            page_size:
-            offset:
             rowcount:
 
         Returns:
@@ -5182,10 +5206,7 @@ class Problem:
         """
         parameters: Dict[str, str] = {
             'page': str(page),
-            'page_size': str(page_size),
         }
-        if offset is not None:
-            parameters['offset'] = str(offset)
         if rowcount is not None:
             parameters['rowcount'] = str(rowcount)
         return self._client.query('/api/problem/myList/',
@@ -5313,7 +5334,6 @@ class Problemset:
             assignment: str,
             contest_alias: str,
             course: str,
-            interview_alias: str,
             problemset_id: int,
             auth_token: Optional[Any] = None,
             token: Optional[str] = None,
@@ -5328,7 +5348,6 @@ class Problemset:
             assignment:
             contest_alias:
             course:
-            interview_alias:
             problemset_id:
             auth_token:
             token:
@@ -5341,7 +5360,6 @@ class Problemset:
             'assignment': assignment,
             'contest_alias': contest_alias,
             'course': course,
-            'interview_alias': interview_alias,
             'problemset_id': str(problemset_id),
         }
         if auth_token is not None:
@@ -6241,7 +6259,7 @@ class Submission:
     def __init__(self, client: 'Client') -> None:
         self._client = client
 
-    def createFeedback(
+    def setFeedback(
             self,
             *,
             assignment_alias: str,
@@ -6252,7 +6270,7 @@ class Submission:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
             timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
-        r"""Adds admin feedback to a submission
+        r"""Updates the admin feedback for a submission
 
         Args:
             assignment_alias:
@@ -6269,7 +6287,7 @@ class Submission:
             'feedback': feedback,
             'guid': guid,
         }
-        return self._client.query('/api/submission/createFeedback/',
+        return self._client.query('/api/submission/setFeedback/',
                                   payload=parameters,
                                   files_=files_,
                                   timeout_=timeout_,
@@ -6334,6 +6352,274 @@ class Tag:
             'rows': str(rows),
         }
         return self._client.query('/api/tag/frequentTags/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
+
+class TeamsGroup:
+    r"""TeamsGroupController
+    """
+    def __init__(self, client: 'Client') -> None:
+        self._client = client
+
+    def details(
+            self,
+            *,
+            team_group_alias: str,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""Details of a team group
+
+        Args:
+            team_group_alias:
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {
+            'team_group_alias': team_group_alias,
+        }
+        return self._client.query('/api/teamsGroup/details/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
+    def create(
+            self,
+            *,
+            alias: str,
+            description: str,
+            name: str,
+            numberOfContestants: Optional[int] = None,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""New team group
+
+        Args:
+            alias:
+            description:
+            name:
+            numberOfContestants:
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {
+            'alias': alias,
+            'description': description,
+            'name': name,
+        }
+        if numberOfContestants is not None:
+            parameters['numberOfContestants'] = str(numberOfContestants)
+        return self._client.query('/api/teamsGroup/create/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
+    def update(
+            self,
+            *,
+            alias: str,
+            description: str,
+            name: str,
+            numberOfContestants: Optional[int] = None,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""Update an existing teams group
+
+        Args:
+            alias:
+            description:
+            name:
+            numberOfContestants:
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {
+            'alias': alias,
+            'description': description,
+            'name': name,
+        }
+        if numberOfContestants is not None:
+            parameters['numberOfContestants'] = str(numberOfContestants)
+        return self._client.query('/api/teamsGroup/update/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
+    def teams(
+            self,
+            *,
+            team_group_alias: str,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""Teams of a teams group
+
+        Args:
+            team_group_alias:
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {
+            'team_group_alias': team_group_alias,
+        }
+        return self._client.query('/api/teamsGroup/teams/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
+    def removeTeam(
+            self,
+            *,
+            team_group_alias: str,
+            usernameOrEmail: str,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""Remove team from teams group
+
+        Args:
+            team_group_alias:
+            usernameOrEmail:
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {
+            'team_group_alias': team_group_alias,
+            'usernameOrEmail': usernameOrEmail,
+        }
+        return self._client.query('/api/teamsGroup/removeTeam/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
+    def addMembers(
+            self,
+            *,
+            team_group_alias: str,
+            usernames: str,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""Add one or more users to a given team
+
+        Args:
+            team_group_alias: The username of the team.
+            usernames: Username of all members to add
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {
+            'team_group_alias': team_group_alias,
+            'usernames': usernames,
+        }
+        return self._client.query('/api/teamsGroup/addMembers/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
+    def list(
+            self,
+            *,
+            query: Optional[str] = None,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""Gets a list of teams groups. This returns an array instead of an object
+        since it is used by typeahead.
+
+        Args:
+            query:
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {}
+        if query is not None:
+            parameters['query'] = query
+        return self._client.query('/api/teamsGroup/list/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
+    def removeMember(
+            self,
+            *,
+            team_group_alias: str,
+            username: str,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""Remove an existing team member of a teams group
+
+        Args:
+            team_group_alias: The username of the team
+            username: The username of user to remove
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {
+            'team_group_alias': team_group_alias,
+            'username': username,
+        }
+        return self._client.query('/api/teamsGroup/removeMember/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
+    def teamsMembers(
+            self,
+            *,
+            page: int,
+            page_size: int,
+            team_group_alias: str,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""Get a list of team members of a teams group
+
+        Args:
+            page:
+            page_size:
+            team_group_alias: The username of the team.
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {
+            'page': str(page),
+            'page_size': str(page_size),
+            'team_group_alias': team_group_alias,
+        }
+        return self._client.query('/api/teamsGroup/teamsMembers/',
                                   payload=parameters,
                                   files_=files_,
                                   timeout_=timeout_,
@@ -6738,34 +7024,6 @@ class User:
                                   timeout_=timeout_,
                                   check_=check_)
 
-    def interviewStats(
-            self,
-            *,
-            interview: str,
-            username: str,
-            # Out-of-band parameters:
-            files_: Optional[Mapping[str, BinaryIO]] = None,
-            check_: bool = True,
-            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
-        r"""Get the results for this user in a given interview
-
-        Args:
-            interview:
-            username:
-
-        Returns:
-            The API result dict.
-        """
-        parameters: Dict[str, str] = {
-            'interview': interview,
-            'username': username,
-        }
-        return self._client.query('/api/user/interviewStats/',
-                                  payload=parameters,
-                                  files_=files_,
-                                  timeout_=timeout_,
-                                  check_=check_)
-
     def contestStats(
             self,
             *,
@@ -6875,8 +7133,7 @@ class User:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
             timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
-        r"""Gets a list of users. This returns an array instead of an object since
-        it is used by typeahead.
+        r"""Gets a list of users.
 
         Args:
             query:
@@ -7113,6 +7370,7 @@ class User:
             self,
             *,
             role: str,
+            username: str,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -7121,12 +7379,14 @@ class User:
 
         Args:
             role:
+            username:
 
         Returns:
             The API result dict.
         """
         parameters: Dict[str, str] = {
             'role': role,
+            'username': username,
         }
         return self._client.query('/api/user/addRole/',
                                   payload=parameters,
@@ -7138,6 +7398,7 @@ class User:
             self,
             *,
             role: str,
+            username: str,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -7146,12 +7407,14 @@ class User:
 
         Args:
             role:
+            username:
 
         Returns:
             The API result dict.
         """
         parameters: Dict[str, str] = {
             'role': role,
+            'username': username,
         }
         return self._client.query('/api/user/removeRole/',
                                   payload=parameters,
@@ -7213,6 +7476,7 @@ class User:
             self,
             *,
             experiment: str,
+            username: str,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -7221,12 +7485,14 @@ class User:
 
         Args:
             experiment:
+            username:
 
         Returns:
             The API result dict.
         """
         parameters: Dict[str, str] = {
             'experiment': experiment,
+            'username': username,
         }
         return self._client.query('/api/user/addExperiment/',
                                   payload=parameters,
@@ -7238,6 +7504,7 @@ class User:
             self,
             *,
             experiment: str,
+            username: str,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -7246,12 +7513,14 @@ class User:
 
         Args:
             experiment:
+            username:
 
         Returns:
             The API result dict.
         """
         parameters: Dict[str, str] = {
             'experiment': experiment,
+            'username': username,
         }
         return self._client.query('/api/user/removeExperiment/',
                                   payload=parameters,
@@ -7515,7 +7784,6 @@ class Client:
         self._group: Optional[Group] = None
         self._groupScoreboard: Optional[GroupScoreboard] = None
         self._identity: Optional[Identity] = None
-        self._interview: Optional[Interview] = None
         self._notification: Optional[Notification] = None
         self._problem: Optional[Problem] = None
         self._problemForfeited: Optional[ProblemForfeited] = None
@@ -7528,6 +7796,7 @@ class Client:
         self._session: Optional[Session] = None
         self._submission: Optional[Submission] = None
         self._tag: Optional[Tag] = None
+        self._teamsGroup: Optional[TeamsGroup] = None
         self._time: Optional[Time] = None
         self._user: Optional[User] = None
 
@@ -7551,13 +7820,12 @@ class Client:
         headers = {}
         if self.api_token is not None:
             if self.username is not None:
-                token = ','.join((
+                headers['Authorization'] = ','.join((
                     f'Credential={self.api_token}',
                     f'Username={self.username}',
                 ))
             else:
-                token = self.api_token
-            headers['Authorization'] = f'token {token}'
+                headers['Authorization'] = self.api_token
         elif self.auth_token is not None:
             payload['ouat'] = self.auth_token
 
@@ -7652,13 +7920,6 @@ class Client:
         return self._identity
 
     @property
-    def interview(self) -> Interview:
-        """Returns the Interview API."""
-        if self._interview is None:
-            self._interview = Interview(self)
-        return self._interview
-
-    @property
     def notification(self) -> Notification:
         """Returns the Notification API."""
         if self._notification is None:
@@ -7741,6 +8002,13 @@ class Client:
         if self._tag is None:
             self._tag = Tag(self)
         return self._tag
+
+    @property
+    def teamsGroup(self) -> TeamsGroup:
+        """Returns the TeamsGroup API."""
+        if self._teamsGroup is None:
+            self._teamsGroup = TeamsGroup(self)
+        return self._teamsGroup
 
     @property
     def time(self) -> Time:
