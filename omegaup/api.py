@@ -13,7 +13,7 @@ import pprint
 
 import omegaup.api
 
-client = api.Client(api_token='my API token')
+client = omegaup.api.Client(api_token='my API token')
 session = client.session.currentSession()
 pprint.pprint(session)
 ```
