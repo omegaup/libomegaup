@@ -1569,6 +1569,7 @@ class Contest:
             admission_mode: Optional[str] = None,
             alias: Optional[str] = None,
             contest_for_teams: Optional[bool] = None,
+            default_show_all_contestants_in_scoreboard: Optional[bool] = None,
             description: Optional[str] = None,
             feedback: Optional[Any] = None,
             languages: Optional[Any] = None,
@@ -1579,7 +1580,7 @@ class Contest:
             penalty_type: Optional[Any] = None,
             points_decay_factor: Optional[float] = None,
             problems: Optional[str] = None,
-            requests_user_information: Optional[Any] = None,
+            requests_user_information: Optional[str] = None,
             scoreboard: Optional[float] = None,
             show_scoreboard_after: Optional[bool] = None,
             start_time: Optional[datetime.datetime] = None,
@@ -1599,6 +1600,7 @@ class Contest:
             admission_mode:
             alias:
             contest_for_teams:
+            default_show_all_contestants_in_scoreboard:
             description:
             feedback:
             languages:
@@ -1631,6 +1633,9 @@ class Contest:
             parameters['alias'] = alias
         if contest_for_teams is not None:
             parameters['contest_for_teams'] = str(contest_for_teams)
+        if default_show_all_contestants_in_scoreboard is not None:
+            parameters['default_show_all_contestants_in_scoreboard'] = str(
+                default_show_all_contestants_in_scoreboard)
         if description is not None:
             parameters['description'] = description
         if feedback is not None:
@@ -1653,8 +1658,7 @@ class Contest:
         if problems is not None:
             parameters['problems'] = problems
         if requests_user_information is not None:
-            parameters['requests_user_information'] = str(
-                requests_user_information)
+            parameters['requests_user_information'] = requests_user_information
         if scoreboard is not None:
             parameters['scoreboard'] = str(scoreboard)
         if show_scoreboard_after is not None:
@@ -1708,12 +1712,12 @@ class Contest:
             *,
             contest_alias: str,
             problem_alias: str,
-            language: Optional[Any] = None,
+            language: Optional[str] = None,
             offset: Optional[int] = None,
             rowcount: Optional[int] = None,
-            status: Optional[Any] = None,
+            status: Optional[str] = None,
             username: Optional[str] = None,
-            verdict: Optional[Any] = None,
+            verdict: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -1738,17 +1742,17 @@ class Contest:
             'problem_alias': problem_alias,
         }
         if language is not None:
-            parameters['language'] = str(language)
+            parameters['language'] = language
         if offset is not None:
             parameters['offset'] = str(offset)
         if rowcount is not None:
             parameters['rowcount'] = str(rowcount)
         if status is not None:
-            parameters['status'] = str(status)
+            parameters['status'] = status
         if username is not None:
             parameters['username'] = username
         if verdict is not None:
-            parameters['verdict'] = str(verdict)
+            parameters['verdict'] = verdict
         return self._client.query('/api/contest/runs/',
                                   payload=parameters,
                                   files_=files_,
@@ -2006,8 +2010,10 @@ class Course:
             description: Optional[Any] = None,
             finish_time: Optional[Any] = None,
             languages: Optional[Any] = None,
+            level: Optional[str] = None,
             name: Optional[Any] = None,
             needs_basic_information: Optional[Any] = None,
+            objective: Optional[str] = None,
             public: Optional[Any] = None,
             requests_user_information: Optional[Any] = None,
             school_id: Optional[Any] = None,
@@ -2026,8 +2032,10 @@ class Course:
             description:
             finish_time:
             languages:
+            level:
             name:
             needs_basic_information:
+            objective:
             public:
             requests_user_information:
             school_id:
@@ -2049,11 +2057,15 @@ class Course:
             parameters['finish_time'] = str(finish_time)
         if languages is not None:
             parameters['languages'] = str(languages)
+        if level is not None:
+            parameters['level'] = level
         if name is not None:
             parameters['name'] = str(name)
         if needs_basic_information is not None:
             parameters['needs_basic_information'] = str(
                 needs_basic_information)
+        if objective is not None:
+            parameters['objective'] = objective
         if public is not None:
             parameters['public'] = str(public)
         if requests_user_information is not None:
@@ -2184,6 +2196,7 @@ class Course:
             points: float,
             problem_alias: str,
             commit: Optional[str] = None,
+            is_extra_problem: Optional[bool] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -2196,6 +2209,7 @@ class Course:
             points:
             problem_alias:
             commit:
+            is_extra_problem:
 
         Returns:
             The API result dict.
@@ -2208,6 +2222,8 @@ class Course:
         }
         if commit is not None:
             parameters['commit'] = commit
+        if is_extra_problem is not None:
+            parameters['is_extra_problem'] = str(is_extra_problem)
         return self._client.query('/api/course/addProblem/',
                                   payload=parameters,
                                   files_=files_,
@@ -2380,37 +2396,6 @@ class Course:
             'course_alias': course_alias,
         }
         return self._client.query('/api/course/removeAssignment/',
-                                  payload=parameters,
-                                  files_=files_,
-                                  timeout_=timeout_,
-                                  check_=check_)
-
-    def listCourses(
-            self,
-            *,
-            page: int,
-            page_size: int,
-            # Out-of-band parameters:
-            files_: Optional[Mapping[str, BinaryIO]] = None,
-            check_: bool = True,
-            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
-        r"""Lists all the courses this user is associated with.
-
-        Returns courses for which the current user is an admin and
-        for in which the user is a student.
-
-        Args:
-            page:
-            page_size:
-
-        Returns:
-            The API result dict.
-        """
-        parameters: Dict[str, str] = {
-            'page': str(page),
-            'page_size': str(page_size),
-        }
-        return self._client.query('/api/course/listCourses/',
                                   payload=parameters,
                                   files_=files_,
                                   timeout_=timeout_,
@@ -2789,10 +2774,43 @@ class Course:
                                   timeout_=timeout_,
                                   check_=check_)
 
+    def studentsProgress(
+            self,
+            *,
+            course: str,
+            length: int,
+            page: int,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> ApiReturnType:
+        r"""
+
+        Args:
+            course:
+            length:
+            page:
+
+        Returns:
+            The API result dict.
+        """
+        parameters: Dict[str, str] = {
+            'course': course,
+            'length': str(length),
+            'page': str(page),
+        }
+        return self._client.query('/api/course/studentsProgress/',
+                                  payload=parameters,
+                                  files_=files_,
+                                  timeout_=timeout_,
+                                  check_=check_)
+
     def registerForCourse(
             self,
             *,
             course_alias: str,
+            accept_teacher: Optional[bool] = None,
+            share_user_information: Optional[bool] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -2801,6 +2819,8 @@ class Course:
 
         Args:
             course_alias:
+            accept_teacher:
+            share_user_information:
 
         Returns:
             The API result dict.
@@ -2808,6 +2828,10 @@ class Course:
         parameters: Dict[str, str] = {
             'course_alias': course_alias,
         }
+        if accept_teacher is not None:
+            parameters['accept_teacher'] = str(accept_teacher)
+        if share_user_information is not None:
+            parameters['share_user_information'] = str(share_user_information)
         return self._client.query('/api/course/registerForCourse/',
                                   payload=parameters,
                                   files_=files_,
@@ -2938,9 +2962,9 @@ class Course:
             assignment_alias: str,
             course_alias: str,
             language: Optional[str] = None,
-            offset: Optional[Any] = None,
+            offset: Optional[int] = None,
             problem_alias: Optional[str] = None,
-            rowcount: Optional[Any] = None,
+            rowcount: Optional[int] = None,
             status: Optional[str] = None,
             username: Optional[str] = None,
             verdict: Optional[str] = None,
@@ -3022,8 +3046,10 @@ class Course:
             admission_mode: Optional[str] = None,
             description: Optional[str] = None,
             finish_time: Optional[datetime.datetime] = None,
+            level: Optional[str] = None,
             name: Optional[str] = None,
             needs_basic_information: Optional[bool] = None,
+            objective: Optional[str] = None,
             requests_user_information: Optional[str] = None,
             show_scoreboard: Optional[bool] = None,
             start_time: Optional[datetime.datetime] = None,
@@ -3041,8 +3067,10 @@ class Course:
             admission_mode:
             description:
             finish_time:
+            level:
             name:
             needs_basic_information:
+            objective:
             requests_user_information:
             show_scoreboard:
             start_time:
@@ -3062,11 +3090,15 @@ class Course:
             parameters['description'] = description
         if finish_time is not None:
             parameters['finish_time'] = str(int(finish_time.timestamp()))
+        if level is not None:
+            parameters['level'] = level
         if name is not None:
             parameters['name'] = name
         if needs_basic_information is not None:
             parameters['needs_basic_information'] = str(
                 needs_basic_information)
+        if objective is not None:
+            parameters['objective'] = objective
         if requests_user_information is not None:
             parameters['requests_user_information'] = requests_user_information
         if show_scoreboard is not None:
@@ -5162,6 +5194,7 @@ class Problem:
             *,
             page: int,
             page_size: int,
+            query: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -5172,6 +5205,7 @@ class Problem:
         Args:
             page:
             page_size:
+            query:
 
         Returns:
             The API result dict.
@@ -5180,6 +5214,8 @@ class Problem:
             'page': str(page),
             'page_size': str(page_size),
         }
+        if query is not None:
+            parameters['query'] = query
         return self._client.query('/api/problem/adminList/',
                                   payload=parameters,
                                   files_=files_,
@@ -5190,6 +5226,7 @@ class Problem:
             self,
             *,
             page: int,
+            query: Optional[str] = None,
             rowcount: Optional[int] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
@@ -5199,6 +5236,7 @@ class Problem:
 
         Args:
             page:
+            query:
             rowcount:
 
         Returns:
@@ -5207,6 +5245,8 @@ class Problem:
         parameters: Dict[str, str] = {
             'page': str(page),
         }
+        if query is not None:
+            parameters['query'] = query
         if rowcount is not None:
             parameters['rowcount'] = str(rowcount)
         return self._client.query('/api/problem/myList/',
@@ -6019,9 +6059,9 @@ class Run:
             problem_alias: str,
             rowcount: int,
             username: str,
-            language: Optional[Any] = None,
-            status: Optional[Any] = None,
-            verdict: Optional[Any] = None,
+            language: Optional[str] = None,
+            status: Optional[str] = None,
+            verdict: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -6047,11 +6087,11 @@ class Run:
             'username': username,
         }
         if language is not None:
-            parameters['language'] = str(language)
+            parameters['language'] = language
         if status is not None:
-            parameters['status'] = str(status)
+            parameters['status'] = status
         if verdict is not None:
-            parameters['verdict'] = str(verdict)
+            parameters['verdict'] = verdict
         return self._client.query('/api/run/list/',
                                   payload=parameters,
                                   files_=files_,
@@ -7216,6 +7256,10 @@ class User:
             state_id: str,
             auth_token: Optional[Any] = None,
             gender: Optional[str] = None,
+            has_competitive_objective: Optional[bool] = None,
+            has_learning_objective: Optional[bool] = None,
+            has_scholar_objective: Optional[bool] = None,
+            has_teaching_objective: Optional[bool] = None,
             hide_problem_tags: Optional[bool] = None,
             is_private: Optional[bool] = None,
             name: Optional[str] = None,
@@ -7237,6 +7281,10 @@ class User:
             state_id:
             auth_token:
             gender:
+            has_competitive_objective:
+            has_learning_objective:
+            has_scholar_objective:
+            has_teaching_objective:
             hide_problem_tags:
             is_private:
             name:
@@ -7259,6 +7307,15 @@ class User:
             parameters['auth_token'] = str(auth_token)
         if gender is not None:
             parameters['gender'] = gender
+        if has_competitive_objective is not None:
+            parameters['has_competitive_objective'] = str(
+                has_competitive_objective)
+        if has_learning_objective is not None:
+            parameters['has_learning_objective'] = str(has_learning_objective)
+        if has_scholar_objective is not None:
+            parameters['has_scholar_objective'] = str(has_scholar_objective)
+        if has_teaching_objective is not None:
+            parameters['has_teaching_objective'] = str(has_teaching_objective)
         if hide_problem_tags is not None:
             parameters['hide_problem_tags'] = str(hide_problem_tags)
         if is_private is not None:
