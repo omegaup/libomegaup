@@ -19,10 +19,13 @@ validatortest:
 		exit 1; \
 	fi
 
-build:
+.PHONY: docs
+docs: $(shell find omegaup -name '*.py')
+	python3 -m pdoc -o docs/ omegaup/
+
+build: docs
 	rm -rf dist/*
 	python3 setup.py sdist bdist_wheel
-	python3 -m pdoc -o docs/ omegaup/
 
 upload:
 	python3 -m twine upload dist/*
