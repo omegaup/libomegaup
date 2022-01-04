@@ -368,6 +368,7 @@ class Contest:
             page: int,
             page_size: int,
             query: str,
+            tab_name: str,
             active: Optional[int] = None,
             admission_mode: Optional[Any] = None,
             participating: Optional[int] = None,
@@ -382,6 +383,7 @@ class Contest:
             page:
             page_size:
             query:
+            tab_name:
             active:
             admission_mode:
             participating:
@@ -394,6 +396,7 @@ class Contest:
             'page': str(page),
             'page_size': str(page_size),
             'query': query,
+            'tab_name': tab_name,
         }
         if active is not None:
             parameters['active'] = str(active)
