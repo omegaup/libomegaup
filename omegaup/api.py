@@ -7171,6 +7171,7 @@ class User:
             self,
             *,
             query: Optional[str] = None,
+            rowcount: Optional[int] = None,
             term: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
@@ -7180,6 +7181,7 @@ class User:
 
         Args:
             query:
+            rowcount:
             term:
 
         Returns:
@@ -7188,6 +7190,8 @@ class User:
         parameters: Dict[str, str] = {}
         if query is not None:
             parameters['query'] = query
+        if rowcount is not None:
+            parameters['rowcount'] = str(rowcount)
         if term is not None:
             parameters['term'] = term
         return self._client.query('/api/user/list/',
