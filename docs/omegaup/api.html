@@ -1422,6 +1422,7 @@ constructor, which will then allow accessing the rest of the API functions.</p>
             <span class="n">page</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
             <span class="n">page_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
             <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">tab_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
             <span class="n">active</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">admission_mode</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">participating</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1436,6 +1437,7 @@ constructor, which will then allow accessing the rest of the API functions.</p>
 <span class="sd">            page:</span>
 <span class="sd">            page_size:</span>
 <span class="sd">            query:</span>
+<span class="sd">            tab_name:</span>
 <span class="sd">            active:</span>
 <span class="sd">            admission_mode:</span>
 <span class="sd">            participating:</span>
@@ -1448,6 +1450,7 @@ constructor, which will then allow accessing the rest of the API functions.</p>
             <span class="s1">&#39;page&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">page</span><span class="p">),</span>
             <span class="s1">&#39;page_size&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">page_size</span><span class="p">),</span>
             <span class="s1">&#39;query&#39;</span><span class="p">:</span> <span class="n">query</span><span class="p">,</span>
+            <span class="s1">&#39;tab_name&#39;</span><span class="p">:</span> <span class="n">tab_name</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="k">if</span> <span class="n">active</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;active&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">active</span><span class="p">)</span>
@@ -10231,6 +10234,7 @@ assignation timestamp for a certain badge</p>
             <span class="n">page</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
             <span class="n">page_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
             <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">tab_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
             <span class="n">active</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">admission_mode</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">participating</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -10245,6 +10249,7 @@ assignation timestamp for a certain badge</p>
 <span class="sd">            page:</span>
 <span class="sd">            page_size:</span>
 <span class="sd">            query:</span>
+<span class="sd">            tab_name:</span>
 <span class="sd">            active:</span>
 <span class="sd">            admission_mode:</span>
 <span class="sd">            participating:</span>
@@ -10257,6 +10262,7 @@ assignation timestamp for a certain badge</p>
             <span class="s1">&#39;page&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">page</span><span class="p">),</span>
             <span class="s1">&#39;page_size&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">page_size</span><span class="p">),</span>
             <span class="s1">&#39;query&#39;</span><span class="p">:</span> <span class="n">query</span><span class="p">,</span>
+            <span class="s1">&#39;tab_name&#39;</span><span class="p">:</span> <span class="n">tab_name</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="k">if</span> <span class="n">active</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;active&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">active</span><span class="p">)</span>
@@ -11831,6 +11837,7 @@ assignation timestamp for a certain badge</p>
     page: int,
     page_size: int,
     query: str,
+    tab_name: str,
     active: Optional[int] = None,
     admission_mode: Optional[Any] = None,
     participating: Optional[int] = None,
@@ -11849,6 +11856,7 @@ assignation timestamp for a certain badge</p>
             <span class="n">page</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
             <span class="n">page_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
             <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">tab_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
             <span class="n">active</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">admission_mode</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">participating</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -11863,6 +11871,7 @@ assignation timestamp for a certain badge</p>
 <span class="sd">            page:</span>
 <span class="sd">            page_size:</span>
 <span class="sd">            query:</span>
+<span class="sd">            tab_name:</span>
 <span class="sd">            active:</span>
 <span class="sd">            admission_mode:</span>
 <span class="sd">            participating:</span>
@@ -11875,6 +11884,7 @@ assignation timestamp for a certain badge</p>
             <span class="s1">&#39;page&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">page</span><span class="p">),</span>
             <span class="s1">&#39;page_size&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">page_size</span><span class="p">),</span>
             <span class="s1">&#39;query&#39;</span><span class="p">:</span> <span class="n">query</span><span class="p">,</span>
+            <span class="s1">&#39;tab_name&#39;</span><span class="p">:</span> <span class="n">tab_name</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="k">if</span> <span class="n">active</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;active&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">active</span><span class="p">)</span>
@@ -11899,6 +11909,7 @@ assignation timestamp for a certain badge</p>
     page:
     page_size:
     query:
+    tab_name:
     active:
     admission_mode:
     participating:
