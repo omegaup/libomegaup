@@ -48,7 +48,7 @@ class TestRunner(unittest.TextTestRunner):
             print(1)
         else:
             print(0)
-        return resultimport logging
+        return result
 
 
 class TestRunnerV2(unittest.TextTestRunner):
