@@ -57,7 +57,7 @@ class TestRunnerV2(unittest.TextTestRunner):
     it to be the expected failure message for the case and will fail
     with JE instead of WA. This is useful for invalid-inputs-enabled
     CI runs."""
-    
+
     def run(self,
             test: Union[unittest.suite.TestSuite, unittest.case.TestCase]
             ) -> unittest.result.TestResult:
@@ -79,8 +79,8 @@ class TestRunnerV2(unittest.TextTestRunner):
                     print(0)
                 else:
                     print("FAIL")
-                    logging.error("Unexpected veredict failure: " +
-                                  "refusing to score case.\n" +
+                    logging.error("Unexpected veredict failure: "
+                                  "refusing to score case.\n"
                                   "Expected: %s", expectedError)
         return result
 
@@ -90,8 +90,8 @@ def main(testRunnerVersion: int = 1) -> None:
     logging.basicConfig(level=logging.DEBUG)
 
     if testRunnerVersion == 1:
-      testRunnerType = TestRunner
+        testRunnerType = TestRunner
     else:
-      testRunnerType = TestRunnerV2
+        testRunnerType = TestRunnerV2
 
     unittest.main(testRunner=testRunnerType, argv=[sys.argv[0], '-v'])
