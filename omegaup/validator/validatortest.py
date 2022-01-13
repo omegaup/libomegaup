@@ -48,10 +48,50 @@ class TestRunner(unittest.TextTestRunner):
             print(1)
         else:
             print(0)
+        return resultimport logging
+
+
+class TestRunnerV2(unittest.TextTestRunner):
+    """A unittest.TestRunner that prints 1 on standard output on success.
+    If the associated .out file has contents, the test will consider
+    it to be the expected failure message for the case and will fail
+    with JE instead of WA. This is useful for invalid-inputs-enabled
+    CI runs."""
+    
+    def run(self,
+            test: Union[unittest.suite.TestSuite, unittest.case.TestCase]
+            ) -> unittest.result.TestResult:
+        result = super().run(test)
+        if result is not None:
+            if result.wasSuccessful():
+                print(1)
+            else:
+                # Check if we asserted what we expected.
+                with open('data.out', 'r') as file:
+                    expectedError = file.read().strip()
+
+                errorMatched = True
+                for (_, errorString) in result.failures:
+                    if expectedError not in errorString:
+                        errorMatched = False
+
+                if errorMatched and not result.errors:
+                    print(0)
+                else:
+                    print("FAIL")
+                    logging.error("Unexpected veredict failure: " +
+                                  "refusing to score case.\n" +
+                                  "Expected: %s", expectedError)
         return result
 
 
-def main() -> None:
+def main(testRunnerVersion: int = 1) -> None:
     """Executes the tests on the current file."""
     logging.basicConfig(level=logging.DEBUG)
-    unittest.main(testRunner=TestRunner, argv=[sys.argv[0], '-v'])
+
+    if testRunnerVersion == 1:
+      testRunnerType = TestRunner
+    else:
+      testRunnerType = TestRunnerV2
+
+    unittest.main(testRunner=testRunnerType, argv=[sys.argv[0], '-v'])
