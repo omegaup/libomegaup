@@ -90,8 +90,6 @@ def main(testRunnerVersion: int = 1) -> None:
     logging.basicConfig(level=logging.DEBUG)
 
     if testRunnerVersion == 1:
-        testRunnerType = TestRunner
+        unittest.main(testRunner=TestRunner, argv=[sys.argv[0], '-v'])
     else:
-        testRunnerType = TestRunnerV2
-
-    unittest.main(testRunner=testRunnerType, argv=[sys.argv[0], '-v'])
+        unittest.main(testRunner=TestRunnerV2, argv=[sys.argv[0], '-v'])

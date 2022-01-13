@@ -190,11 +190,9 @@
     <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">testRunnerVersion</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">testRunnerType</span> <span class="o">=</span> <span class="n">TestRunner</span>
+        <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">testRunner</span><span class="o">=</span><span class="n">TestRunner</span><span class="p">,</span> <span class="n">argv</span><span class="o">=</span><span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;-v&#39;</span><span class="p">])</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">testRunnerType</span> <span class="o">=</span> <span class="n">TestRunnerV2</span>
-
-    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">testRunner</span><span class="o">=</span><span class="n">testRunnerType</span><span class="p">,</span> <span class="n">argv</span><span class="o">=</span><span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;-v&#39;</span><span class="p">])</span>
+        <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">testRunner</span><span class="o">=</span><span class="n">TestRunnerV2</span><span class="p">,</span> <span class="n">argv</span><span class="o">=</span><span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;-v&#39;</span><span class="p">])</span>
 </pre></div>
 
         </details>
@@ -400,11 +398,9 @@ CI runs.</p>
     <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">testRunnerVersion</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">testRunnerType</span> <span class="o">=</span> <span class="n">TestRunner</span>
+        <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">testRunner</span><span class="o">=</span><span class="n">TestRunner</span><span class="p">,</span> <span class="n">argv</span><span class="o">=</span><span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;-v&#39;</span><span class="p">])</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">testRunnerType</span> <span class="o">=</span> <span class="n">TestRunnerV2</span>
-
-    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">testRunner</span><span class="o">=</span><span class="n">testRunnerType</span><span class="p">,</span> <span class="n">argv</span><span class="o">=</span><span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;-v&#39;</span><span class="p">])</span>
+        <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">testRunner</span><span class="o">=</span><span class="n">TestRunnerV2</span><span class="p">,</span> <span class="n">argv</span><span class="o">=</span><span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;-v&#39;</span><span class="p">])</span>
 </pre></div>
 
         </details>
