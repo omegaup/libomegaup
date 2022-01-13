@@ -3,14 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="pdoc 8.0.1" />
+    <meta name="generator" content="pdoc 8.2.0" />
     <title>omegaup.api API documentation</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2264%22%20height%3D%2264%22%20viewBox%3D%2244.5%202.5%2015%2015%22%3E%3Cpath%20d%3D%22M49.351%2021.041c-.233-.721-.546-2.408-.772-4.076-.042-.09-.067-.187-.046-.288-.166-1.347-.277-2.625-.241-3.351-1.378-1.008-2.271-2.586-2.271-4.362%200-.976.272-1.935.788-2.774.057-.094.122-.18.184-.268-.033-.167-.052-.339-.052-.516%200-1.477%201.202-2.679%202.679-2.679.791%200%201.496.352%201.987.9a6.3%206.3%200%200%201%201.001.029c.492-.564%201.207-.929%202.012-.929%201.477%200%202.679%201.202%202.679%202.679a2.65%202.65%200%200%201-.269%201.148c.383.747.595%201.572.595%202.41%200%202.311-1.507%204.29-3.635%205.107.037.699.147%202.27.423%203.294l.137.461c.156%202.136-4.612%205.166-5.199%203.215zm.127-4.919a4.78%204.78%200%200%200%20.775-.584c-.172-.115-.505-.254-.88-.378zm.331%202.302l.828-.502c-.202-.143-.576-.328-.984-.49zm.45%202.157l.701-.403c-.214-.115-.536-.249-.891-.376l.19.779zM49.13%204.141c0%20.152.123.276.276.276s.275-.124.275-.276-.123-.276-.276-.276-.275.124-.275.276zm.735-.389a1.15%201.15%200%200%201%20.314.783%201.16%201.16%200%200%201-1.162%201.162c-.457%200-.842-.27-1.032-.653-.026.117-.042.238-.042.362a1.68%201.68%200%200%200%201.679%201.679%201.68%201.68%200%200%200%201.679-1.679c0-.843-.626-1.535-1.436-1.654zm3.076%201.654a1.68%201.68%200%200%200%201.679%201.679%201.68%201.68%200%200%200%201.679-1.679c0-.037-.009-.072-.011-.109-.21.3-.541.508-.935.508a1.16%201.16%200%200%201-1.162-1.162%201.14%201.14%200%200%201%20.474-.912c-.015%200-.03-.005-.045-.005-.926.001-1.679.754-1.679%201.68zm1.861-1.265c0%20.152.123.276.276.276s.275-.124.275-.276-.123-.276-.276-.276-.275.124-.275.276zm1.823%204.823c0-.52-.103-1.035-.288-1.52-.466.394-1.06.64-1.717.64-1.144%200-2.116-.725-2.499-1.738-.383%201.012-1.355%201.738-2.499%201.738-.867%200-1.631-.421-2.121-1.062-.307.605-.478%201.267-.478%201.942%200%202.486%202.153%204.51%204.801%204.51s4.801-2.023%204.801-4.51zm-3.032%209.156l-.146-.492c-.276-1.02-.395-2.457-.444-3.268a6.11%206.11%200%200%201-1.18.115%206.01%206.01%200%200%201-2.536-.562l.006.175c.802.215%201.848.612%202.021%201.25.079.295-.021.601-.274.837l-.598.501c.667.304%201.243.698%201.311%201.179.02.144.022.507-.393.787l-.564.365c1.285.521%201.361.96%201.381%201.126.018.142.011.496-.427.746l-.854.489c.064-1.19%201.985-2.585%202.697-3.248zM49.34%209.925c0-.667%201-.667%201%200%200%20.653.818%201.205%201.787%201.205s1.787-.552%201.787-1.205c0-.667%201-.667%201%200%200%201.216-1.25%202.205-2.787%202.205s-2.787-.989-2.787-2.205zm-.887-7.633c-.093.077-.205.114-.317.114a.5.5%200%200%201-.318-.886L49.183.397a.5.5%200%200%201%20.703.068.5.5%200%200%201-.069.703zm7.661-.065c-.086%200-.173-.022-.253-.068l-1.523-.893c-.575-.337-.069-1.2.506-.863l1.523.892a.5.5%200%200%201%20.179.685c-.094.158-.261.247-.432.247z%22%20fill%3D%22%233bb300%22/%3E%3C/svg%3E"/>
 
 
 <style>/*! * Bootstrap Reboot v5.0.0 (https://getbootstrap.com/) * Copyright 2011-2021 The Bootstrap Authors * Copyright 2011-2021 Twitter, Inc. * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE) * Forked from Normalize.css, licensed MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md) */*,::after,::before{box-sizing:border-box}@media (prefers-reduced-motion:no-preference){:root{scroll-behavior:smooth}}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";font-size:1rem;font-weight:400;line-height:1.5;color:#212529;background-color:#fff;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}hr{margin:1rem 0;color:inherit;background-color:currentColor;border:0;opacity:.25}hr:not([size]){height:1px}h1,h2,h3,h4,h5,h6{margin-top:0;margin-bottom:.5rem;font-weight:500;line-height:1.2}h1{font-size:calc(1.375rem + 1.5vw)}@media (min-width:1200px){h1{font-size:2.5rem}}h2{font-size:calc(1.325rem + .9vw)}@media (min-width:1200px){h2{font-size:2rem}}h3{font-size:calc(1.3rem + .6vw)}@media (min-width:1200px){h3{font-size:1.75rem}}h4{font-size:calc(1.275rem + .3vw)}@media (min-width:1200px){h4{font-size:1.5rem}}h5{font-size:1.25rem}h6{font-size:1rem}p{margin-top:0;margin-bottom:1rem}abbr[data-bs-original-title],abbr[title]{-webkit-text-decoration:underline dotted;text-decoration:underline dotted;cursor:help;-webkit-text-decoration-skip-ink:none;text-decoration-skip-ink:none}address{margin-bottom:1rem;font-style:normal;line-height:inherit}ol,ul{padding-left:2rem}dl,ol,ul{margin-top:0;margin-bottom:1rem}ol ol,ol ul,ul ol,ul ul{margin-bottom:0}dt{font-weight:700}dd{margin-bottom:.5rem;margin-left:0}blockquote{margin:0 0 1rem}b,strong{font-weight:bolder}small{font-size:.875em}mark{padding:.2em;background-color:#fcf8e3}sub,sup{position:relative;font-size:.75em;line-height:0;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}a{color:#0d6efd;text-decoration:underline}a:hover{color:#0a58ca}a:not([href]):not([class]),a:not([href]):not([class]):hover{color:inherit;text-decoration:none}code,kbd,pre,samp{font-family:SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:1em;direction:ltr;unicode-bidi:bidi-override}pre{display:block;margin-top:0;margin-bottom:1rem;overflow:auto;font-size:.875em}pre code{font-size:inherit;color:inherit;word-break:normal}code{font-size:.875em;color:#d63384;word-wrap:break-word}a>code{color:inherit}kbd{padding:.2rem .4rem;font-size:.875em;color:#fff;background-color:#212529;border-radius:.2rem}kbd kbd{padding:0;font-size:1em;font-weight:700}figure{margin:0 0 1rem}img,svg{vertical-align:middle}table{caption-side:bottom;border-collapse:collapse}caption{padding-top:.5rem;padding-bottom:.5rem;color:#6c757d;text-align:left}th{text-align:inherit;text-align:-webkit-match-parent}tbody,td,tfoot,th,thead,tr{border-color:inherit;border-style:solid;border-width:0}label{display:inline-block}button{border-radius:0}button:focus:not(:focus-visible){outline:0}button,input,optgroup,select,textarea{margin:0;font-family:inherit;font-size:inherit;line-height:inherit}button,select{text-transform:none}[role=button]{cursor:pointer}select{word-wrap:normal}select:disabled{opacity:1}[list]::-webkit-calendar-picker-indicator{display:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button}[type=button]:not(:disabled),[type=reset]:not(:disabled),[type=submit]:not(:disabled),button:not(:disabled){cursor:pointer}::-moz-focus-inner{padding:0;border-style:none}textarea{resize:vertical}fieldset{min-width:0;padding:0;margin:0;border:0}legend{float:left;width:100%;padding:0;margin-bottom:.5rem;font-size:calc(1.275rem + .3vw);line-height:inherit}@media (min-width:1200px){legend{font-size:1.5rem}}legend+*{clear:left}::-webkit-datetime-edit-day-field,::-webkit-datetime-edit-fields-wrapper,::-webkit-datetime-edit-hour-field,::-webkit-datetime-edit-minute,::-webkit-datetime-edit-month-field,::-webkit-datetime-edit-text,::-webkit-datetime-edit-year-field{padding:0}::-webkit-inner-spin-button{height:auto}[type=search]{outline-offset:-2px;-webkit-appearance:textfield}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-color-swatch-wrapper{padding:0}::file-selector-button{font:inherit}::-webkit-file-upload-button{font:inherit;-webkit-appearance:button}output{display:inline-block}iframe{border:0}summary{display:list-item;cursor:pointer}progress{vertical-align:baseline}[hidden]{display:none!important}</style>
 <style>/*! pygments syntax highlighting */pre{line-height:125%;}td.linenos pre{color:#000000; background-color:#f0f0f0; padding-left:5px; padding-right:5px;}span.linenos{color:#000000; background-color:#f0f0f0; padding-left:5px; padding-right:5px;}td.linenos pre.special{color:#000000; background-color:#ffffc0; padding-left:5px; padding-right:5px;}span.linenos.special{color:#000000; background-color:#ffffc0; padding-left:5px; padding-right:5px;}.pdoc .hll{background-color:#ffffcc}.pdoc{background:#f8f8f8;}.pdoc .c{color:#408080; font-style:italic}.pdoc .err{border:1px solid #FF0000}.pdoc .k{color:#008000; font-weight:bold}.pdoc .o{color:#666666}.pdoc .ch{color:#408080; font-style:italic}.pdoc .cm{color:#408080; font-style:italic}.pdoc .cp{color:#BC7A00}.pdoc .cpf{color:#408080; font-style:italic}.pdoc .c1{color:#408080; font-style:italic}.pdoc .cs{color:#408080; font-style:italic}.pdoc .gd{color:#A00000}.pdoc .ge{font-style:italic}.pdoc .gr{color:#FF0000}.pdoc .gh{color:#000080; font-weight:bold}.pdoc .gi{color:#00A000}.pdoc .go{color:#888888}.pdoc .gp{color:#000080; font-weight:bold}.pdoc .gs{font-weight:bold}.pdoc .gu{color:#800080; font-weight:bold}.pdoc .gt{color:#0044DD}.pdoc .kc{color:#008000; font-weight:bold}.pdoc .kd{color:#008000; font-weight:bold}.pdoc .kn{color:#008000; font-weight:bold}.pdoc .kp{color:#008000}.pdoc .kr{color:#008000; font-weight:bold}.pdoc .kt{color:#B00040}.pdoc .m{color:#666666}.pdoc .s{color:#BA2121}.pdoc .na{color:#7D9029}.pdoc .nb{color:#008000}.pdoc .nc{color:#0000FF; font-weight:bold}.pdoc .no{color:#880000}.pdoc .nd{color:#AA22FF}.pdoc .ni{color:#999999; font-weight:bold}.pdoc .ne{color:#D2413A; font-weight:bold}.pdoc .nf{color:#0000FF}.pdoc .nl{color:#A0A000}.pdoc .nn{color:#0000FF; font-weight:bold}.pdoc .nt{color:#008000; font-weight:bold}.pdoc .nv{color:#19177C}.pdoc .ow{color:#AA22FF; font-weight:bold}.pdoc .w{color:#bbbbbb}.pdoc .mb{color:#666666}.pdoc .mf{color:#666666}.pdoc .mh{color:#666666}.pdoc .mi{color:#666666}.pdoc .mo{color:#666666}.pdoc .sa{color:#BA2121}.pdoc .sb{color:#BA2121}.pdoc .sc{color:#BA2121}.pdoc .dl{color:#BA2121}.pdoc .sd{color:#BA2121; font-style:italic}.pdoc .s2{color:#BA2121}.pdoc .se{color:#BB6622; font-weight:bold}.pdoc .sh{color:#BA2121}.pdoc .si{color:#BB6688; font-weight:bold}.pdoc .sx{color:#008000}.pdoc .sr{color:#BB6688}.pdoc .s1{color:#BA2121}.pdoc .ss{color:#19177C}.pdoc .bp{color:#008000}.pdoc .fm{color:#0000FF}.pdoc .vc{color:#19177C}.pdoc .vg{color:#19177C}.pdoc .vi{color:#19177C}.pdoc .vm{color:#19177C}.pdoc .il{color:#666666}</style>
-<style>/*! pdoc */:root{--pdoc-background:#fff;}.pdoc{--text:#212529;--muted:#6c757d;--link:#3660a5;--link-hover:#1659c5;--code:#f7f7f7;--active:#fff598;--accent:#eee;--accent2:#c1c1c1;--nav-hover:rgba(255, 255, 255, 0.5);--name:#0066BB;--def:#008800;--annotation:#007020;}body{background-color:var(--pdoc-background);}html, body{width:100%;height:100%;}@media (max-width:769px){#navtoggle{cursor:pointer;position:absolute;width:50px;height:40px;top:1rem;right:1rem;border-color:var(--text);color:var(--text);display:flex;opacity:0.8;}#navtoggle:hover{opacity:1;}#togglestate + div{display:none;}#togglestate:checked + div{display:inherit;}main, header{padding:2rem 3vw;}.git-button{display:none !important;}nav input[type="search"]:valid ~ *{display:none !important;}}@media (min-width:770px){:root{--sidebar-width:clamp(12.5rem, 28vw, 22rem);}nav{position:fixed;overflow:auto;height:100vh;width:var(--sidebar-width);}main, header{padding:3rem 2rem 3rem calc(var(--sidebar-width) + 3rem);width:calc(54rem + var(--sidebar-width));max-width:100%;}#navtoggle{display:none;}}#togglestate{display:none;}nav.pdoc{--pad:1.75rem;--indent:1.5rem;background-color:var(--accent);border-right:1px solid var(--accent2);box-shadow:0 0 20px rgba(50, 50, 50, .2) inset;padding:0 0 0 var(--pad);overflow-wrap:anywhere;scrollbar-width:thin; scrollbar-color:var(--accent2) transparent }nav.pdoc::-webkit-scrollbar{width:.4rem; }nav.pdoc::-webkit-scrollbar-thumb{background-color:var(--accent2); }nav.pdoc > div{padding:var(--pad) 0;}nav.pdoc .module-list-button{display:inline-flex;align-items:center;color:var(--text);border-color:var(--muted);margin-bottom:1rem;}nav.pdoc .module-list-button:hover{border-color:var(--text);}nav.pdoc input[type=search]{display:block;outline-offset:0;width:calc(100% - var(--pad));}nav.pdoc .logo{max-width:calc(100% - var(--pad));max-height:35vh;display:block;margin:0 auto 1rem;transform:translate(calc(-.5 * var(--pad)), 0);}nav.pdoc ul{list-style:none;padding-left:0;}nav.pdoc li{display:block;margin:0;padding:.2rem 0 .2rem var(--indent);transition:all 100ms;}nav.pdoc > div > ul > li{padding-left:0;}nav.pdoc li:hover{background-color:var(--nav-hover);}nav.pdoc a, nav.pdoc a:hover{color:var(--text);}nav.pdoc a{display:block;}nav.pdoc > h2:first-of-type{margin-top:1.5rem;}nav.pdoc .class:before{content:"class ";color:var(--muted);}nav.pdoc .function:after{content:"()";color:var(--muted);}nav.pdoc footer:before{content:"";display:block;width:calc(100% - var(--pad));border-top:solid var(--accent2) 1px;margin-top:1.5rem;padding-top:.5rem;}nav.pdoc footer{font-size:small;}html, main{scroll-behavior:smooth;}.pdoc{color:var(--text);box-sizing:border-box;line-height:1.5;background:none;}.pdoc .pdoc-button{display:inline-block;border:solid black 1px;border-radius:2px;font-size:.75rem;padding:calc(0.5em - 1px) 1em;transition:100ms all;}.pdoc .visually-hidden{position:absolute !important;width:1px !important;height:1px !important;padding:0 !important;margin:-1px !important;overflow:hidden !important;clip:rect(0, 0, 0, 0) !important;white-space:nowrap !important;border:0 !important;}.pdoc h1, .pdoc h2, .pdoc h3{font-weight:300;margin:.3em 0;padding:.2em 0;}.pdoc a{text-decoration:none;color:var(--link);}.pdoc a:hover{color:var(--link-hover);}.pdoc blockquote{margin-left:2rem;}.pdoc pre{background-color:var(--code);border-top:1px solid var(--accent2);border-bottom:1px solid var(--accent2);margin-bottom:1em;padding:.5rem 0 .5rem .5rem;overflow-x:auto;}.pdoc code{color:var(--text);padding:.2em .4em;margin:0;font-size:85%;background-color:var(--code);border-radius:6px;}.pdoc a > code{color:inherit;}.pdoc pre > code{display:inline-block;font-size:inherit;background:none;border:none;padding:0;}.pdoc .modulename{margin-top:0;font-weight:bold;}.pdoc .modulename a{color:var(--link);transition:100ms all;}.pdoc .git-button{float:right;border:solid var(--link) 1px;}.pdoc .git-button:hover{background-color:var(--link);color:var(--pdoc-background);}.pdoc details{--shift:-40px;text-align:right;margin-top:var(--shift);margin-bottom:calc(0px - var(--shift));clear:both;filter:opacity(1);}.pdoc details:not([open]){height:0;overflow:visible;}.pdoc details > summary{font-size:.75rem;cursor:pointer;color:var(--muted);border-width:0;padding:0 .7em;display:inline-block;display:inline list-item;user-select:none;}.pdoc details > summary:focus{outline:0;}.pdoc details > div{margin-top:calc(0px - var(--shift) / 2);text-align:left;}.pdoc .docstring{margin-bottom:1.5rem;}.pdoc > section:first-of-type > .docstring{margin-bottom:3rem;}.pdoc .docstring pre{margin-left:1em;margin-right:1em;}.pdoc h1:target,.pdoc h2:target,.pdoc h3:target,.pdoc h4:target,.pdoc h5:target,.pdoc h6:target{background-color:var(--active);box-shadow:-1rem 0 0 0 var(--active);}.pdoc div:target > .attr,.pdoc section:target > .attr,.pdoc dd:target > a{background-color:var(--active);}.pdoc .attr:hover{filter:contrast(0.95);}.pdoc .headerlink{position:absolute;width:0;margin-left:-1.5rem;line-height:1.4rem;font-size:1.5rem;font-weight:normal;transition:all 100ms ease-in-out;opacity:0;}.pdoc .attr > .headerlink{margin-left:-2.5rem;}.pdoc *:hover > .headerlink,.pdoc *:target > .attr > .headerlink{opacity:1;}.pdoc .attr{display:block;color:var(--text);margin:1rem 0 .5rem;padding:.4rem 5rem .4rem 1rem;background-color:var(--accent);}.pdoc .classattr{margin-left:2rem;}.pdoc .name{color:var(--name);font-weight:bold;}.pdoc .def{color:var(--def);font-weight:bold;}.pdoc .signature{white-space:pre-wrap;}.pdoc .annotation{color:var(--annotation);}.pdoc .inherited{margin-left:2rem;}.pdoc .inherited dt{font-weight:700;}.pdoc .inherited dt, .pdoc .inherited dd{display:inline;margin-left:0;margin-bottom:.5rem;}.pdoc .inherited dd:not(:last-child):after{content:", ";}.pdoc .inherited .class:before{content:"class ";}.pdoc .inherited .function a:after{content:"()";}.pdoc .search-result .docstring{overflow:auto;max-height:25vh;}.pdoc .search-result.focused > .attr{background-color:var(--active);}.pdoc .attribution{margin-top:2rem;display:block;opacity:0.5;transition:all 200ms;filter:grayscale(100%);}.pdoc .attribution:hover{opacity:1;filter:grayscale(0%);}.pdoc .attribution img{margin-left:5px;height:35px;vertical-align:middle;width:70px;transition:all 200ms;}</style>
+<style>/*! pdoc */:root{--pdoc-background:#fff;}.pdoc{--text:#212529;--muted:#6c757d;--link:#3660a5;--link-hover:#1659c5;--code:#f7f7f7;--active:#fff598;--accent:#eee;--accent2:#c1c1c1;--nav-hover:rgba(255, 255, 255, 0.5);--name:#0066BB;--def:#008800;--annotation:#007020;}body{background-color:var(--pdoc-background);}html, body{width:100%;height:100%;}@media (max-width:769px){#navtoggle{cursor:pointer;position:absolute;width:50px;height:40px;top:1rem;right:1rem;border-color:var(--text);color:var(--text);display:flex;opacity:0.8;}#navtoggle:hover{opacity:1;}#togglestate + div{display:none;}#togglestate:checked + div{display:inherit;}main, header{padding:2rem 3vw;}.git-button{display:none !important;}nav input[type="search"]:valid ~ *{display:none !important;}}@media (min-width:770px){:root{--sidebar-width:clamp(12.5rem, 28vw, 22rem);}nav{position:fixed;overflow:auto;height:100vh;width:var(--sidebar-width);}main, header{padding:3rem 2rem 3rem calc(var(--sidebar-width) + 3rem);width:calc(54rem + var(--sidebar-width));max-width:100%;}#navtoggle{display:none;}}#togglestate{display:none;}nav.pdoc{--pad:1.75rem;--indent:1.5rem;background-color:var(--accent);border-right:1px solid var(--accent2);box-shadow:0 0 20px rgba(50, 50, 50, .2) inset;padding:0 0 0 var(--pad);overflow-wrap:anywhere;scrollbar-width:thin; scrollbar-color:var(--accent2) transparent }nav.pdoc::-webkit-scrollbar{width:.4rem; }nav.pdoc::-webkit-scrollbar-thumb{background-color:var(--accent2); }nav.pdoc > div{padding:var(--pad) 0;}nav.pdoc .module-list-button{display:inline-flex;align-items:center;color:var(--text);border-color:var(--muted);margin-bottom:1rem;}nav.pdoc .module-list-button:hover{border-color:var(--text);}nav.pdoc input[type=search]{display:block;outline-offset:0;width:calc(100% - var(--pad));}nav.pdoc .logo{max-width:calc(100% - var(--pad));max-height:35vh;display:block;margin:0 auto 1rem;transform:translate(calc(-.5 * var(--pad)), 0);}nav.pdoc ul{list-style:none;padding-left:0;}nav.pdoc li{display:block;margin:0;padding:.2rem 0 .2rem var(--indent);transition:all 100ms;}nav.pdoc > div > ul > li{padding-left:0;}nav.pdoc li:hover{background-color:var(--nav-hover);}nav.pdoc a, nav.pdoc a:hover{color:var(--text);}nav.pdoc a{display:block;}nav.pdoc > h2:first-of-type{margin-top:1.5rem;}nav.pdoc .class:before{content:"class ";color:var(--muted);}nav.pdoc .function:after{content:"()";color:var(--muted);}nav.pdoc footer:before{content:"";display:block;width:calc(100% - var(--pad));border-top:solid var(--accent2) 1px;margin-top:1.5rem;padding-top:.5rem;}nav.pdoc footer{font-size:small;}html, main{scroll-behavior:smooth;}.pdoc{color:var(--text);box-sizing:border-box;line-height:1.5;background:none;}.pdoc .pdoc-button{display:inline-block;border:solid black 1px;border-radius:2px;font-size:.75rem;padding:calc(0.5em - 1px) 1em;transition:100ms all;}.pdoc .visually-hidden{position:absolute !important;width:1px !important;height:1px !important;padding:0 !important;margin:-1px !important;overflow:hidden !important;clip:rect(0, 0, 0, 0) !important;white-space:nowrap !important;border:0 !important;}.pdoc h1, .pdoc h2, .pdoc h3{font-weight:300;margin:.3em 0;padding:.2em 0;}.pdoc a{text-decoration:none;color:var(--link);}.pdoc a:hover{color:var(--link-hover);}.pdoc blockquote{margin-left:2rem;}.pdoc pre{background-color:var(--code);border-top:1px solid var(--accent2);border-bottom:1px solid var(--accent2);margin-bottom:1em;padding:.5rem 0 .5rem .5rem;overflow-x:auto;}.pdoc code{color:var(--text);padding:.2em .4em;margin:0;font-size:85%;background-color:var(--code);border-radius:6px;}.pdoc a > code{color:inherit;}.pdoc pre > code{display:inline-block;font-size:inherit;background:none;border:none;padding:0;}.pdoc .modulename{margin-top:0;font-weight:bold;}.pdoc .modulename a{color:var(--link);transition:100ms all;}.pdoc .git-button{float:right;border:solid var(--link) 1px;}.pdoc .git-button:hover{background-color:var(--link);color:var(--pdoc-background);}.pdoc details{--shift:-40px;text-align:right;margin-top:var(--shift);margin-bottom:calc(0px - var(--shift));clear:both;filter:opacity(1);}.pdoc details:not([open]){height:0;overflow:visible;}.pdoc details > summary{font-size:.75rem;cursor:pointer;color:var(--muted);border-width:0;padding:0 .7em;display:inline-block;display:inline list-item;user-select:none;}.pdoc details > summary:focus{outline:0;}.pdoc details > div{margin-top:calc(0px - var(--shift) / 2);text-align:left;}.pdoc .docstring{margin-bottom:1.5rem;}.pdoc > section:first-of-type > .docstring{margin-bottom:3rem;}.pdoc .docstring pre{margin-left:1em;margin-right:1em;}.pdoc h1:target,.pdoc h2:target,.pdoc h3:target,.pdoc h4:target,.pdoc h5:target,.pdoc h6:target{background-color:var(--active);box-shadow:-1rem 0 0 0 var(--active);}.pdoc div:target > .attr,.pdoc section:target > .attr,.pdoc dd:target > a{background-color:var(--active);}.pdoc .attr:hover{filter:contrast(0.95);}.pdoc .headerlink{position:absolute;width:0;margin-left:-1.5rem;line-height:1.4rem;font-size:1.5rem;font-weight:normal;transition:all 100ms ease-in-out;opacity:0;}.pdoc .attr > .headerlink{margin-left:-2.5rem;}.pdoc *:hover > .headerlink,.pdoc *:target > .attr > .headerlink{opacity:1;}.pdoc .attr{display:block;color:var(--text);margin:1rem 0 .5rem;padding:.4rem 5rem .4rem 1rem;background-color:var(--accent);}.pdoc .classattr{margin-left:2rem;}.pdoc .name{color:var(--name);font-weight:bold;}.pdoc .def{color:var(--def);font-weight:bold;}.pdoc .signature{white-space:pre-wrap;}.pdoc .annotation{color:var(--annotation);}.pdoc .inherited{margin-left:2rem;}.pdoc .inherited dt{font-weight:700;}.pdoc .inherited dt, .pdoc .inherited dd{display:inline;margin-left:0;margin-bottom:.5rem;}.pdoc .inherited dd:not(:last-child):after{content:", ";}.pdoc .inherited .class:before{content:"class ";}.pdoc .inherited .function a:after{content:"()";}.pdoc .search-result .docstring{overflow:auto;max-height:25vh;}.pdoc .search-result.focused > .attr{background-color:var(--active);}.pdoc .attribution{margin-top:2rem;display:block;opacity:0.5;transition:all 200ms;filter:grayscale(100%);}.pdoc .attribution:hover{opacity:1;filter:grayscale(0%);}.pdoc .attribution img{margin-left:5px;height:35px;vertical-align:middle;width:70px;transition:all 200ms;}.pdoc table{display:block;width:max-content;max-width:100%;overflow:auto;margin-bottom:1rem;}.pdoc table th{font-weight:600;}.pdoc table th, .pdoc table td{padding:6px 13px;border:1px solid var(--accent2);}</style>
 </head>
 <body>        <nav class="pdoc">
             <label id="navtoggle" for="togglestate" class="pdoc-button"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke-linecap='round' stroke="currentColor" stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg></label>
@@ -9234,9 +9234,9 @@ constructor, which will then allow accessing the rest of the API functions.</p>
             <span class="name">platformReportStats</span><span class="signature">(
     self,
     *,
-    end_time: Optional[int] = None,
-    start_time: Optional[int] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    end_time: Union[int, NoneType] = None,
+    start_time: Union[int, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -9373,8 +9373,8 @@ constructor, which will then allow accessing the rest of the API functions.</p>
     *,
     problem_alias: str,
     token: str,
-    username: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    username: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -9594,7 +9594,7 @@ constructor, which will then allow accessing the rest of the API functions.</p>
             <span class="name">list</span><span class="signature">(
     self,
     *,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -9640,7 +9640,7 @@ constructor, which will then allow accessing the rest of the API functions.</p>
             <span class="name">myList</span><span class="signature">(
     self,
     *,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -9686,8 +9686,8 @@ constructor, which will then allow accessing the rest of the API functions.</p>
             <span class="name">userList</span><span class="signature">(
     self,
     *,
-    target_username: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    target_username: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -9742,8 +9742,8 @@ constructor, which will then allow accessing the rest of the API functions.</p>
             <span class="name">myBadgeAssignationTime</span><span class="signature">(
     self,
     *,
-    badge_alias: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    badge_alias: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -9800,8 +9800,8 @@ for current user.</p>
             <span class="name">badgeDetails</span><span class="signature">(
     self,
     *,
-    badge_alias: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    badge_alias: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -10009,11 +10009,11 @@ assignation timestamp for a certain badge</p>
     *,
     message: str,
     problem_alias: str,
-    assignment_alias: Optional[str] = None,
-    contest_alias: Optional[str] = None,
-    course_alias: Optional[str] = None,
-    username: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    assignment_alias: Union[str, NoneType] = None,
+    contest_alias: Union[str, NoneType] = None,
+    course_alias: Union[str, NoneType] = None,
+    username: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -10093,7 +10093,7 @@ assignation timestamp for a certain badge</p>
     self,
     *,
     clarification_id: int,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -10149,10 +10149,10 @@ assignation timestamp for a certain badge</p>
     self,
     *,
     clarification_id: int,
-    answer: Optional[str] = None,
-    message: Optional[str] = None,
-    public: Optional[bool] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    answer: Union[str, NoneType] = None,
+    message: Union[str, NoneType] = None,
+    public: Union[bool, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -11842,11 +11842,11 @@ assignation timestamp for a certain badge</p>
     page_size: int,
     query: str,
     tab_name: str,
-    active: Optional[int] = None,
-    admission_mode: Optional[Any] = None,
-    participating: Optional[int] = None,
-    recommended: Optional[int] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    active: Union[int, NoneType] = None,
+    admission_mode: Union[Any, NoneType] = None,
+    participating: Union[int, NoneType] = None,
+    recommended: Union[int, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -11933,10 +11933,10 @@ assignation timestamp for a certain badge</p>
             <span class="name">adminList</span><span class="signature">(
     self,
     *,
-    page: Optional[int] = None,
-    page_size: Optional[int] = None,
-    show_archived: Optional[bool] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    page: Union[int, NoneType] = None,
+    page_size: Union[int, NoneType] = None,
+    show_archived: Union[bool, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -12003,11 +12003,11 @@ the director).</p>
             <span class="name">myList</span><span class="signature">(
     self,
     *,
-    page: Optional[int] = None,
-    page_size: Optional[int] = None,
-    query: Optional[str] = None,
-    show_archived: Optional[bool] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    page: Union[int, NoneType] = None,
+    page_size: Union[int, NoneType] = None,
+    query: Union[str, NoneType] = None,
+    show_archived: Union[bool, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -12077,11 +12077,11 @@ the director).</p>
             <span class="name">listParticipating</span><span class="signature">(
     self,
     *,
-    page: Optional[int] = None,
-    page_size: Optional[int] = None,
-    query: Optional[str] = None,
-    show_archived: Optional[bool] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    page: Union[int, NoneType] = None,
+    page_size: Union[int, NoneType] = None,
+    query: Union[str, NoneType] = None,
+    show_archived: Union[bool, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -12152,7 +12152,7 @@ the director).</p>
     self,
     *,
     contest_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -12206,7 +12206,7 @@ the director).</p>
     self,
     *,
     contest_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -12262,9 +12262,9 @@ the director).</p>
     contest_alias: str,
     privacy_git_object_id: str,
     statement_type: str,
-    share_user_information: Optional[bool] = None,
-    token: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    share_user_information: Union[bool, NoneType] = None,
+    token: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -12338,8 +12338,8 @@ the director).</p>
     self,
     *,
     contest_alias: str,
-    token: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    token: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -12404,8 +12404,8 @@ in the contest, \OmegaUp\Controllers\Contest::apiOpen() must be used.</p>
     self,
     *,
     contest_alias: str,
-    token: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    token: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -12470,10 +12470,10 @@ remaining time from the contest, or register the opened time.</p>
     self,
     *,
     contest_alias: str,
-    length: Optional[int] = None,
-    page: Optional[int] = None,
-    token: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    length: Union[int, NoneType] = None,
+    page: Union[int, NoneType] = None,
+    token: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -12547,9 +12547,9 @@ remaining time from the contest, or register the opened time.</p>
     description: str,
     start_time: int,
     title: str,
-    alias: Optional[str] = None,
-    auth_token: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    alias: Union[str, NoneType] = None,
+    auth_token: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -12628,7 +12628,7 @@ remaining time from the contest, or register the opened time.</p>
     *,
     alias: str,
     start_time: int,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -12685,29 +12685,29 @@ remaining time from the contest, or register the opened time.</p>
             <span class="name">create</span><span class="signature">(
     self,
     *,
-    admission_mode: Optional[Any] = None,
-    alias: Optional[Any] = None,
-    contest_for_teams: Optional[bool] = None,
-    description: Optional[Any] = None,
-    feedback: Optional[Any] = None,
-    finish_time: Optional[Any] = None,
-    languages: Optional[Any] = None,
-    needs_basic_information: Optional[bool] = None,
-    partial_score: Optional[bool] = None,
-    penalty: Optional[Any] = None,
-    penalty_calc_policy: Optional[Any] = None,
-    penalty_type: Optional[Any] = None,
-    points_decay_factor: Optional[Any] = None,
-    problems: Optional[str] = None,
-    requests_user_information: Optional[Any] = None,
-    scoreboard: Optional[Any] = None,
-    show_scoreboard_after: Optional[Any] = None,
-    start_time: Optional[Any] = None,
-    submissions_gap: Optional[Any] = None,
-    teams_group_alias: Optional[str] = None,
-    title: Optional[Any] = None,
-    window_length: Optional[int] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    admission_mode: Union[Any, NoneType] = None,
+    alias: Union[Any, NoneType] = None,
+    contest_for_teams: Union[bool, NoneType] = None,
+    description: Union[Any, NoneType] = None,
+    feedback: Union[Any, NoneType] = None,
+    finish_time: Union[Any, NoneType] = None,
+    languages: Union[Any, NoneType] = None,
+    needs_basic_information: Union[bool, NoneType] = None,
+    partial_score: Union[bool, NoneType] = None,
+    penalty: Union[Any, NoneType] = None,
+    penalty_calc_policy: Union[Any, NoneType] = None,
+    penalty_type: Union[Any, NoneType] = None,
+    points_decay_factor: Union[Any, NoneType] = None,
+    problems: Union[str, NoneType] = None,
+    requests_user_information: Union[Any, NoneType] = None,
+    scoreboard: Union[Any, NoneType] = None,
+    show_scoreboard_after: Union[Any, NoneType] = None,
+    start_time: Union[Any, NoneType] = None,
+    submissions_gap: Union[Any, NoneType] = None,
+    teams_group_alias: Union[str, NoneType] = None,
+    title: Union[Any, NoneType] = None,
+    window_length: Union[int, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -12870,7 +12870,7 @@ remaining time from the contest, or register the opened time.</p>
     self,
     *,
     contest_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -12929,8 +12929,8 @@ remaining time from the contest, or register the opened time.</p>
     order_in_contest: int,
     points: float,
     problem_alias: str,
-    commit: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    commit: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -13004,7 +13004,7 @@ remaining time from the contest, or register the opened time.</p>
     *,
     contest_alias: str,
     problem_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -13065,8 +13065,8 @@ remaining time from the contest, or register the opened time.</p>
     *,
     contest_alias: str,
     version: str,
-    problem_alias: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    problem_alias: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -13132,7 +13132,7 @@ remaining time from the contest, or register the opened time.</p>
     *,
     contest_alias: str,
     usernameOrEmail: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -13197,7 +13197,7 @@ Only users added through this API can view private contests</p>
     *,
     contest_alias: str,
     usernameOrEmail: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -13258,7 +13258,7 @@ Only users added through this API can view private contests</p>
     *,
     contest_alias: str,
     teams_group_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -13319,7 +13319,7 @@ Only users added through this API can view private contests</p>
     *,
     contest_alias: str,
     group: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -13380,7 +13380,7 @@ Only users added through this API can view private contests</p>
     *,
     contest_alias: str,
     group: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -13441,7 +13441,7 @@ Only users added through this API can view private contests</p>
     *,
     contest_alias: str,
     usernameOrEmail: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -13502,7 +13502,7 @@ Only users added through this API can view private contests</p>
     *,
     contest_alias: str,
     usernameOrEmail: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -13563,7 +13563,7 @@ Only users added through this API can view private contests</p>
     *,
     contest_alias: str,
     group: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -13624,7 +13624,7 @@ Only users added through this API can view private contests</p>
     *,
     contest_alias: str,
     group: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -13686,7 +13686,7 @@ Only users added through this API can view private contests</p>
     contest_alias: str,
     offset: int,
     rowcount: int,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -13753,7 +13753,7 @@ Only users added through this API can view private contests</p>
     offset: int,
     problem_alias: str,
     rowcount: int,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -13821,8 +13821,8 @@ Only users added through this API can view private contests</p>
     self,
     *,
     contest_alias: str,
-    token: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    token: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -13883,8 +13883,8 @@ Only users added through this API can view private contests</p>
     self,
     *,
     contest_alias: str,
-    token: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    token: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -13945,9 +13945,9 @@ Only users added through this API can view private contests</p>
     self,
     *,
     contest_aliases: str,
-    contest_params: Optional[Any] = None,
-    usernames_filter: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    contest_params: Union[Any, NoneType] = None,
+    usernames_filter: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -14013,7 +14013,7 @@ Only users added through this API can view private contests</p>
     self,
     *,
     contest_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -14068,9 +14068,9 @@ Only users added through this API can view private contests</p>
     *,
     contest_alias: str,
     username: str,
-    note: Optional[str] = None,
-    resolution: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    note: Union[str, NoneType] = None,
+    resolution: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -14138,7 +14138,7 @@ Only users added through this API can view private contests</p>
     self,
     *,
     contest_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -14194,8 +14194,8 @@ Only users added through this API can view private contests</p>
     self,
     *,
     contest_alias: str,
-    query: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    query: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -14256,7 +14256,7 @@ Only users added through this API can view private contests</p>
     self,
     *,
     contest_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -14315,27 +14315,27 @@ Only users added through this API can view private contests</p>
     finish_time: int,
     submissions_gap: int,
     window_length: int,
-    admission_mode: Optional[str] = None,
-    alias: Optional[str] = None,
-    contest_for_teams: Optional[bool] = None,
-    default_show_all_contestants_in_scoreboard: Optional[bool] = None,
-    description: Optional[str] = None,
-    feedback: Optional[Any] = None,
-    languages: Optional[Any] = None,
-    needs_basic_information: Optional[bool] = None,
-    partial_score: Optional[bool] = None,
-    penalty: Optional[int] = None,
-    penalty_calc_policy: Optional[Any] = None,
-    penalty_type: Optional[Any] = None,
-    points_decay_factor: Optional[float] = None,
-    problems: Optional[str] = None,
-    requests_user_information: Optional[str] = None,
-    scoreboard: Optional[float] = None,
-    show_scoreboard_after: Optional[bool] = None,
-    start_time: Optional[datetime.datetime] = None,
-    teams_group_alias: Optional[str] = None,
-    title: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    admission_mode: Union[str, NoneType] = None,
+    alias: Union[str, NoneType] = None,
+    contest_for_teams: Union[bool, NoneType] = None,
+    default_show_all_contestants_in_scoreboard: Union[bool, NoneType] = None,
+    description: Union[str, NoneType] = None,
+    feedback: Union[Any, NoneType] = None,
+    languages: Union[Any, NoneType] = None,
+    needs_basic_information: Union[bool, NoneType] = None,
+    partial_score: Union[bool, NoneType] = None,
+    penalty: Union[int, NoneType] = None,
+    penalty_calc_policy: Union[Any, NoneType] = None,
+    penalty_type: Union[Any, NoneType] = None,
+    points_decay_factor: Union[float, NoneType] = None,
+    problems: Union[str, NoneType] = None,
+    requests_user_information: Union[str, NoneType] = None,
+    scoreboard: Union[float, NoneType] = None,
+    show_scoreboard_after: Union[bool, NoneType] = None,
+    start_time: Union[datetime.datetime, NoneType] = None,
+    teams_group_alias: Union[str, NoneType] = None,
+    title: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -14507,7 +14507,7 @@ Only users added through this API can view private contests</p>
     contest_alias: str,
     end_time: datetime.datetime,
     username: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -14574,13 +14574,13 @@ option is turned on</p>
     *,
     contest_alias: str,
     problem_alias: str,
-    language: Optional[str] = None,
-    offset: Optional[int] = None,
-    rowcount: Optional[int] = None,
-    status: Optional[str] = None,
-    username: Optional[str] = None,
-    verdict: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    language: Union[str, NoneType] = None,
+    offset: Union[int, NoneType] = None,
+    rowcount: Union[int, NoneType] = None,
+    status: Union[str, NoneType] = None,
+    username: Union[str, NoneType] = None,
+    verdict: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -14669,8 +14669,8 @@ option is turned on</p>
             <span class="name">stats</span><span class="signature">(
     self,
     *,
-    contest_alias: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    contest_alias: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -14726,9 +14726,9 @@ option is turned on</p>
     self,
     *,
     contest_alias: str,
-    auth_token: Optional[str] = None,
-    filterBy: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    auth_token: Union[str, NoneType] = None,
+    filterBy: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -14794,8 +14794,8 @@ option is turned on</p>
     self,
     *,
     contest_alias: str,
-    token: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    token: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -14854,8 +14854,8 @@ option is turned on</p>
     self,
     *,
     contest_alias: str,
-    value: Optional[bool] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    value: Union[bool, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -14918,7 +14918,7 @@ Only omegaUp admins can call this API.</p>
     self,
     *,
     contest_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -14978,8 +14978,8 @@ previously agreed to share their information.</p>
     self,
     *,
     contest_alias: str,
-    archive: Optional[bool] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    archive: Union[bool, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -16439,7 +16439,7 @@ previously agreed to share their information.</p>
     self,
     *,
     course_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -16496,8 +16496,8 @@ previously agreed to share their information.</p>
     course_alias: str,
     name: str,
     start_time: datetime.datetime,
-    token: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    token: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -16569,22 +16569,22 @@ previously agreed to share their information.</p>
             <span class="name">create</span><span class="signature">(
     self,
     *,
-    admission_mode: Optional[Any] = None,
-    alias: Optional[Any] = None,
-    description: Optional[Any] = None,
-    finish_time: Optional[Any] = None,
-    languages: Optional[Any] = None,
-    level: Optional[str] = None,
-    name: Optional[Any] = None,
-    needs_basic_information: Optional[Any] = None,
-    objective: Optional[str] = None,
-    public: Optional[Any] = None,
-    requests_user_information: Optional[Any] = None,
-    school_id: Optional[Any] = None,
-    show_scoreboard: Optional[Any] = None,
-    start_time: Optional[Any] = None,
-    unlimited_duration: Optional[bool] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    admission_mode: Union[Any, NoneType] = None,
+    alias: Union[Any, NoneType] = None,
+    description: Union[Any, NoneType] = None,
+    finish_time: Union[Any, NoneType] = None,
+    languages: Union[Any, NoneType] = None,
+    level: Union[str, NoneType] = None,
+    name: Union[Any, NoneType] = None,
+    needs_basic_information: Union[Any, NoneType] = None,
+    objective: Union[str, NoneType] = None,
+    public: Union[Any, NoneType] = None,
+    requests_user_information: Union[Any, NoneType] = None,
+    school_id: Union[Any, NoneType] = None,
+    show_scoreboard: Union[Any, NoneType] = None,
+    start_time: Union[Any, NoneType] = None,
+    unlimited_duration: Union[bool, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -16712,17 +16712,17 @@ previously agreed to share their information.</p>
     self,
     *,
     course_alias: str,
-    alias: Optional[Any] = None,
-    assignment_type: Optional[Any] = None,
-    description: Optional[Any] = None,
-    finish_time: Optional[Any] = None,
-    name: Optional[Any] = None,
-    order: Optional[int] = None,
-    problems: Optional[str] = None,
-    publish_time_delay: Optional[Any] = None,
-    start_time: Optional[Any] = None,
-    unlimited_duration: Optional[bool] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    alias: Union[Any, NoneType] = None,
+    assignment_type: Union[Any, NoneType] = None,
+    description: Union[Any, NoneType] = None,
+    finish_time: Union[Any, NoneType] = None,
+    name: Union[Any, NoneType] = None,
+    order: Union[int, NoneType] = None,
+    problems: Union[str, NoneType] = None,
+    publish_time_delay: Union[Any, NoneType] = None,
+    start_time: Union[Any, NoneType] = None,
+    unlimited_duration: Union[bool, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -16831,8 +16831,8 @@ previously agreed to share their information.</p>
     course: str,
     finish_time: datetime.datetime,
     start_time: datetime.datetime,
-    unlimited_duration: Optional[bool] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    unlimited_duration: Union[bool, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -16908,9 +16908,9 @@ previously agreed to share their information.</p>
     course_alias: str,
     points: float,
     problem_alias: str,
-    commit: Optional[str] = None,
-    is_extra_problem: Optional[bool] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    commit: Union[str, NoneType] = None,
+    is_extra_problem: Union[bool, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -16990,7 +16990,7 @@ previously agreed to share their information.</p>
     assignment_alias: str,
     course_alias: str,
     problems: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -17053,7 +17053,7 @@ previously agreed to share their information.</p>
     *,
     assignments: str,
     course_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -17112,7 +17112,7 @@ previously agreed to share their information.</p>
     *,
     course_alias: str,
     problem_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -17172,7 +17172,7 @@ previously agreed to share their information.</p>
     assignment_alias: str,
     course_alias: str,
     problem_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -17236,7 +17236,7 @@ previously agreed to share their information.</p>
     self,
     *,
     course_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -17293,7 +17293,7 @@ previously agreed to share their information.</p>
     *,
     assignment_alias: str,
     course_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -17353,7 +17353,7 @@ previously agreed to share their information.</p>
     self,
     *,
     course_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -17413,7 +17413,7 @@ join the course</p>
     course_alias: str,
     resolution: bool,
     username: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -17479,7 +17479,7 @@ interested to join the course.</p>
     self,
     *,
     course_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -17537,7 +17537,7 @@ interested to join the course.</p>
     assignment_alias: str,
     course_alias: str,
     usernameOrEmail: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -17599,7 +17599,7 @@ interested to join the course.</p>
     self,
     *,
     alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -17660,8 +17660,8 @@ interested to join the course.</p>
     share_user_information: bool,
     statement_type: str,
     usernameOrEmail: str,
-    accept_teacher: Optional[bool] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    accept_teacher: Union[bool, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -17743,7 +17743,7 @@ interested to join the course.</p>
     *,
     course_alias: str,
     usernameOrEmail: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -17803,7 +17803,7 @@ interested to join the course.</p>
     self,
     *,
     course_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -17860,7 +17860,7 @@ interested to join the course.</p>
     *,
     course_alias: str,
     usernameOrEmail: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -17921,7 +17921,7 @@ interested to join the course.</p>
     *,
     course_alias: str,
     usernameOrEmail: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -17982,7 +17982,7 @@ interested to join the course.</p>
     *,
     course_alias: str,
     group: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -18043,7 +18043,7 @@ interested to join the course.</p>
     *,
     course_alias: str,
     group: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -18103,7 +18103,7 @@ interested to join the course.</p>
     self,
     *,
     course_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -18161,7 +18161,7 @@ interested to join the course.</p>
     course: str,
     length: int,
     page: int,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -18223,9 +18223,9 @@ interested to join the course.</p>
     self,
     *,
     course_alias: str,
-    accept_teacher: Optional[bool] = None,
-    share_user_information: Optional[bool] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    accept_teacher: Union[bool, NoneType] = None,
+    share_user_information: Union[bool, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -18289,7 +18289,7 @@ interested to join the course.</p>
     self,
     *,
     alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -18345,9 +18345,9 @@ interested to join the course.</p>
     self,
     *,
     course_alias: str,
-    length: Optional[int] = None,
-    page: Optional[int] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    length: Union[int, NoneType] = None,
+    page: Union[int, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -18414,7 +18414,7 @@ interested to join the course.</p>
     *,
     archive: bool,
     course_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -18475,8 +18475,8 @@ interested to join the course.</p>
     *,
     assignment: str,
     course: str,
-    token: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    token: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -18542,14 +18542,14 @@ interested to join the course.</p>
     *,
     assignment_alias: str,
     course_alias: str,
-    language: Optional[str] = None,
-    offset: Optional[int] = None,
-    problem_alias: Optional[str] = None,
-    rowcount: Optional[int] = None,
-    status: Optional[str] = None,
-    username: Optional[str] = None,
-    verdict: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    language: Union[str, NoneType] = None,
+    offset: Union[int, NoneType] = None,
+    problem_alias: Union[str, NoneType] = None,
+    rowcount: Union[int, NoneType] = None,
+    status: Union[str, NoneType] = None,
+    username: Union[str, NoneType] = None,
+    verdict: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -18644,7 +18644,7 @@ interested to join the course.</p>
     self,
     *,
     alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -18702,18 +18702,18 @@ interested to join the course.</p>
     alias: str,
     languages: str,
     school_id: int,
-    admission_mode: Optional[str] = None,
-    description: Optional[str] = None,
-    finish_time: Optional[datetime.datetime] = None,
-    level: Optional[str] = None,
-    name: Optional[str] = None,
-    needs_basic_information: Optional[bool] = None,
-    objective: Optional[str] = None,
-    requests_user_information: Optional[str] = None,
-    show_scoreboard: Optional[bool] = None,
-    start_time: Optional[datetime.datetime] = None,
-    unlimited_duration: Optional[bool] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    admission_mode: Union[str, NoneType] = None,
+    description: Union[str, NoneType] = None,
+    finish_time: Union[datetime.datetime, NoneType] = None,
+    level: Union[str, NoneType] = None,
+    name: Union[str, NoneType] = None,
+    needs_basic_information: Union[bool, NoneType] = None,
+    objective: Union[str, NoneType] = None,
+    requests_user_information: Union[str, NoneType] = None,
+    show_scoreboard: Union[bool, NoneType] = None,
+    start_time: Union[datetime.datetime, NoneType] = None,
+    unlimited_duration: Union[bool, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -18835,7 +18835,7 @@ interested to join the course.</p>
     course_alias: str,
     offset: int,
     rowcount: int,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -18903,7 +18903,7 @@ interested to join the course.</p>
     offset: int,
     problem_alias: str,
     rowcount: int,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -18976,8 +18976,8 @@ interested to join the course.</p>
     *,
     assignment: str,
     course: str,
-    token: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    token: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -19043,8 +19043,8 @@ interested to join the course.</p>
     *,
     assignment: str,
     course: str,
-    token: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    token: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -19109,7 +19109,7 @@ interested to join the course.</p>
     self,
     *,
     course_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -19165,7 +19165,7 @@ interested to join the course.</p>
     self,
     *,
     course_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -19282,7 +19282,7 @@ interested to join the course.</p>
             <span class="name">status</span><span class="signature">(
     self,
     *,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -19623,7 +19623,7 @@ interested to join the course.</p>
     alias: str,
     description: str,
     name: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -19689,7 +19689,7 @@ interested to join the course.</p>
     alias: str,
     description: str,
     name: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -19754,7 +19754,7 @@ interested to join the course.</p>
     *,
     group_alias: str,
     usernameOrEmail: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -19815,7 +19815,7 @@ interested to join the course.</p>
     *,
     group_alias: str,
     usernameOrEmail: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -19874,7 +19874,7 @@ interested to join the course.</p>
             <span class="name">myList</span><span class="signature">(
     self,
     *,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -19920,8 +19920,8 @@ interested to join the course.</p>
             <span class="name">list</span><span class="signature">(
     self,
     *,
-    query: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    query: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -19979,7 +19979,7 @@ array instead of an object since it is used by typeahead.</p>
     self,
     *,
     group_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -20035,7 +20035,7 @@ array instead of an object since it is used by typeahead.</p>
     self,
     *,
     group_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -20092,9 +20092,9 @@ array instead of an object since it is used by typeahead.</p>
     *,
     group_alias: str,
     name: str,
-    alias: Optional[str] = None,
-    description: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    alias: Union[str, NoneType] = None,
+    description: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -20333,8 +20333,8 @@ array instead of an object since it is used by typeahead.</p>
     group_alias: str,
     scoreboard_alias: str,
     weight: float,
-    only_ac: Optional[bool] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    only_ac: Union[bool, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -20409,7 +20409,7 @@ array instead of an object since it is used by typeahead.</p>
     contest_alias: str,
     group_alias: str,
     scoreboard_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -20474,7 +20474,7 @@ array instead of an object since it is used by typeahead.</p>
     *,
     group_alias: str,
     scoreboard_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -20535,8 +20535,8 @@ the given scoreboard_alias</p>
             <span class="name">list</span><span class="signature">(
     self,
     *,
-    group_alias: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    group_alias: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -20929,11 +20929,11 @@ the given scoreboard_alias</p>
     password: str,
     school_name: str,
     username: str,
-    country_id: Optional[str] = None,
-    group_alias: Optional[str] = None,
-    identities: Optional[Any] = None,
-    state_id: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    country_id: Union[str, NoneType] = None,
+    group_alias: Union[str, NoneType] = None,
+    identities: Union[Any, NoneType] = None,
+    state_id: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -21025,10 +21025,10 @@ the given scoreboard_alias</p>
     self,
     *,
     identities: str,
-    group_alias: Optional[str] = None,
-    name: Optional[Any] = None,
-    username: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    group_alias: Union[str, NoneType] = None,
+    name: Union[Any, NoneType] = None,
+    username: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -21100,7 +21100,7 @@ the given scoreboard_alias</p>
     *,
     team_group_alias: str,
     team_identities: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -21165,10 +21165,10 @@ the given scoreboard_alias</p>
     original_username: str,
     school_name: str,
     username: str,
-    country_id: Optional[str] = None,
-    identities: Optional[Any] = None,
-    state_id: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    country_id: Union[str, NoneType] = None,
+    identities: Union[Any, NoneType] = None,
+    state_id: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -21264,10 +21264,10 @@ the given scoreboard_alias</p>
     original_username: str,
     school_name: str,
     username: str,
-    country_id: Optional[str] = None,
-    identities: Optional[Any] = None,
-    state_id: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    country_id: Union[str, NoneType] = None,
+    identities: Union[Any, NoneType] = None,
+    state_id: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -21360,9 +21360,9 @@ the given scoreboard_alias</p>
     group_alias: str,
     password: str,
     username: str,
-    identities: Optional[Any] = None,
-    name: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    identities: Union[Any, NoneType] = None,
+    name: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -21436,8 +21436,8 @@ the given scoreboard_alias</p>
     self,
     *,
     usernameOrEmail: str,
-    auth_token: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    auth_token: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -21584,7 +21584,7 @@ the given scoreboard_alias</p>
             <span class="name">myList</span><span class="signature">(
     self,
     *,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -21630,8 +21630,8 @@ the given scoreboard_alias</p>
             <span class="name">readNotifications</span><span class="signature">(
     self,
     *,
-    notifications: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    notifications: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -23003,25 +23003,25 @@ the given scoreboard_alias</p>
     *,
     problem_alias: str,
     visibility: str,
-    allow_user_add_tags: Optional[bool] = None,
-    email_clarifications: Optional[bool] = None,
-    extra_wall_time: Optional[Any] = None,
-    group_score_policy: Optional[str] = None,
-    input_limit: Optional[Any] = None,
-    languages: Optional[Any] = None,
-    memory_limit: Optional[Any] = None,
-    output_limit: Optional[Any] = None,
-    overall_wall_time_limit: Optional[Any] = None,
-    problem_level: Optional[str] = None,
-    selected_tags: Optional[str] = None,
-    show_diff: Optional[str] = None,
-    source: Optional[str] = None,
-    time_limit: Optional[Any] = None,
-    title: Optional[str] = None,
-    update_published: Optional[str] = None,
-    validator: Optional[str] = None,
-    validator_time_limit: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    allow_user_add_tags: Union[bool, NoneType] = None,
+    email_clarifications: Union[bool, NoneType] = None,
+    extra_wall_time: Union[Any, NoneType] = None,
+    group_score_policy: Union[str, NoneType] = None,
+    input_limit: Union[Any, NoneType] = None,
+    languages: Union[Any, NoneType] = None,
+    memory_limit: Union[Any, NoneType] = None,
+    output_limit: Union[Any, NoneType] = None,
+    overall_wall_time_limit: Union[Any, NoneType] = None,
+    problem_level: Union[str, NoneType] = None,
+    selected_tags: Union[str, NoneType] = None,
+    show_diff: Union[str, NoneType] = None,
+    source: Union[str, NoneType] = None,
+    time_limit: Union[Any, NoneType] = None,
+    title: Union[str, NoneType] = None,
+    update_published: Union[str, NoneType] = None,
+    validator: Union[str, NoneType] = None,
+    validator_time_limit: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -23173,7 +23173,7 @@ the given scoreboard_alias</p>
     *,
     problem_alias: str,
     usernameOrEmail: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -23234,7 +23234,7 @@ the given scoreboard_alias</p>
     *,
     group: str,
     problem_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -23294,8 +23294,8 @@ the given scoreboard_alias</p>
     self,
     *,
     problem_alias: str,
-    level_tag: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    level_tag: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -23357,8 +23357,8 @@ the given scoreboard_alias</p>
     *,
     name: str,
     problem_alias: str,
-    public: Optional[bool] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    public: Union[bool, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -23424,7 +23424,7 @@ the given scoreboard_alias</p>
     *,
     problem_alias: str,
     usernameOrEmail: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -23485,7 +23485,7 @@ the given scoreboard_alias</p>
     *,
     group: str,
     problem_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -23546,7 +23546,7 @@ the given scoreboard_alias</p>
     *,
     name: str,
     problem_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -23606,7 +23606,7 @@ the given scoreboard_alias</p>
     self,
     *,
     problem_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -23662,7 +23662,7 @@ the given scoreboard_alias</p>
     self,
     *,
     problem_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -23718,8 +23718,8 @@ the given scoreboard_alias</p>
     self,
     *,
     problem_alias: str,
-    include_voted: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    include_voted: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -23780,7 +23780,7 @@ the given scoreboard_alias</p>
     self,
     *,
     problem_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -23837,27 +23837,27 @@ the given scoreboard_alias</p>
     *,
     message: str,
     problem_alias: str,
-    allow_user_add_tags: Optional[bool] = None,
-    email_clarifications: Optional[bool] = None,
-    extra_wall_time: Optional[Any] = None,
-    group_score_policy: Optional[str] = None,
-    input_limit: Optional[Any] = None,
-    languages: Optional[Any] = None,
-    memory_limit: Optional[Any] = None,
-    output_limit: Optional[Any] = None,
-    overall_wall_time_limit: Optional[Any] = None,
-    problem_level: Optional[str] = None,
-    redirect: Optional[Any] = None,
-    selected_tags: Optional[str] = None,
-    show_diff: Optional[str] = None,
-    source: Optional[str] = None,
-    time_limit: Optional[Any] = None,
-    title: Optional[str] = None,
-    update_published: Optional[str] = None,
-    validator: Optional[str] = None,
-    validator_time_limit: Optional[Any] = None,
-    visibility: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    allow_user_add_tags: Union[bool, NoneType] = None,
+    email_clarifications: Union[bool, NoneType] = None,
+    extra_wall_time: Union[Any, NoneType] = None,
+    group_score_policy: Union[str, NoneType] = None,
+    input_limit: Union[Any, NoneType] = None,
+    languages: Union[Any, NoneType] = None,
+    memory_limit: Union[Any, NoneType] = None,
+    output_limit: Union[Any, NoneType] = None,
+    overall_wall_time_limit: Union[Any, NoneType] = None,
+    problem_level: Union[str, NoneType] = None,
+    redirect: Union[Any, NoneType] = None,
+    selected_tags: Union[str, NoneType] = None,
+    show_diff: Union[str, NoneType] = None,
+    source: Union[str, NoneType] = None,
+    time_limit: Union[Any, NoneType] = None,
+    title: Union[str, NoneType] = None,
+    update_published: Union[str, NoneType] = None,
+    validator: Union[str, NoneType] = None,
+    validator_time_limit: Union[Any, NoneType] = None,
+    visibility: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -24021,26 +24021,26 @@ the given scoreboard_alias</p>
     problem_alias: str,
     statement: str,
     visibility: str,
-    allow_user_add_tags: Optional[bool] = None,
-    email_clarifications: Optional[bool] = None,
-    extra_wall_time: Optional[Any] = None,
-    group_score_policy: Optional[str] = None,
-    input_limit: Optional[Any] = None,
-    lang: Optional[Any] = None,
-    languages: Optional[Any] = None,
-    memory_limit: Optional[Any] = None,
-    output_limit: Optional[Any] = None,
-    overall_wall_time_limit: Optional[Any] = None,
-    problem_level: Optional[str] = None,
-    selected_tags: Optional[str] = None,
-    show_diff: Optional[str] = None,
-    source: Optional[str] = None,
-    time_limit: Optional[Any] = None,
-    title: Optional[str] = None,
-    update_published: Optional[str] = None,
-    validator: Optional[str] = None,
-    validator_time_limit: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    allow_user_add_tags: Union[bool, NoneType] = None,
+    email_clarifications: Union[bool, NoneType] = None,
+    extra_wall_time: Union[Any, NoneType] = None,
+    group_score_policy: Union[str, NoneType] = None,
+    input_limit: Union[Any, NoneType] = None,
+    lang: Union[Any, NoneType] = None,
+    languages: Union[Any, NoneType] = None,
+    memory_limit: Union[Any, NoneType] = None,
+    output_limit: Union[Any, NoneType] = None,
+    overall_wall_time_limit: Union[Any, NoneType] = None,
+    problem_level: Union[str, NoneType] = None,
+    selected_tags: Union[str, NoneType] = None,
+    show_diff: Union[str, NoneType] = None,
+    source: Union[str, NoneType] = None,
+    time_limit: Union[Any, NoneType] = None,
+    title: Union[str, NoneType] = None,
+    update_published: Union[str, NoneType] = None,
+    validator: Union[str, NoneType] = None,
+    validator_time_limit: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -24207,26 +24207,26 @@ the given scoreboard_alias</p>
     problem_alias: str,
     solution: str,
     visibility: str,
-    allow_user_add_tags: Optional[bool] = None,
-    email_clarifications: Optional[bool] = None,
-    extra_wall_time: Optional[Any] = None,
-    group_score_policy: Optional[str] = None,
-    input_limit: Optional[Any] = None,
-    lang: Optional[str] = None,
-    languages: Optional[Any] = None,
-    memory_limit: Optional[Any] = None,
-    output_limit: Optional[Any] = None,
-    overall_wall_time_limit: Optional[Any] = None,
-    problem_level: Optional[str] = None,
-    selected_tags: Optional[str] = None,
-    show_diff: Optional[str] = None,
-    source: Optional[str] = None,
-    time_limit: Optional[Any] = None,
-    title: Optional[str] = None,
-    update_published: Optional[str] = None,
-    validator: Optional[str] = None,
-    validator_time_limit: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    allow_user_add_tags: Union[bool, NoneType] = None,
+    email_clarifications: Union[bool, NoneType] = None,
+    extra_wall_time: Union[Any, NoneType] = None,
+    group_score_policy: Union[str, NoneType] = None,
+    input_limit: Union[Any, NoneType] = None,
+    lang: Union[str, NoneType] = None,
+    languages: Union[Any, NoneType] = None,
+    memory_limit: Union[Any, NoneType] = None,
+    output_limit: Union[Any, NoneType] = None,
+    overall_wall_time_limit: Union[Any, NoneType] = None,
+    problem_level: Union[str, NoneType] = None,
+    selected_tags: Union[str, NoneType] = None,
+    show_diff: Union[str, NoneType] = None,
+    source: Union[str, NoneType] = None,
+    time_limit: Union[Any, NoneType] = None,
+    title: Union[str, NoneType] = None,
+    update_published: Union[str, NoneType] = None,
+    validator: Union[str, NoneType] = None,
+    validator_time_limit: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -24390,13 +24390,13 @@ the given scoreboard_alias</p>
     self,
     *,
     problem_alias: str,
-    contest_alias: Optional[str] = None,
-    lang: Optional[str] = None,
-    prevent_problemset_open: Optional[bool] = None,
-    problemset_id: Optional[int] = None,
-    show_solvers: Optional[bool] = None,
-    statement_type: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    contest_alias: Union[str, NoneType] = None,
+    lang: Union[str, NoneType] = None,
+    prevent_problemset_open: Union[bool, NoneType] = None,
+    problemset_id: Union[int, NoneType] = None,
+    show_solvers: Union[bool, NoneType] = None,
+    statement_type: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -24482,13 +24482,13 @@ the given scoreboard_alias</p>
             <span class="name">solution</span><span class="signature">(
     self,
     *,
-    contest_alias: Optional[str] = None,
-    forfeit_problem: Optional[bool] = None,
-    lang: Optional[str] = None,
-    problem_alias: Optional[str] = None,
-    problemset_id: Optional[Any] = None,
-    statement_type: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    contest_alias: Union[str, NoneType] = None,
+    forfeit_problem: Union[bool, NoneType] = None,
+    lang: Union[str, NoneType] = None,
+    problem_alias: Union[str, NoneType] = None,
+    problemset_id: Union[Any, NoneType] = None,
+    statement_type: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -24568,9 +24568,9 @@ the given scoreboard_alias</p>
             <span class="name">versions</span><span class="signature">(
     self,
     *,
-    problem_alias: Optional[str] = None,
-    problemset_id: Optional[int] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    problem_alias: Union[str, NoneType] = None,
+    problemset_id: Union[int, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -24630,10 +24630,10 @@ the given scoreboard_alias</p>
             <span class="name">selectVersion</span><span class="signature">(
     self,
     *,
-    commit: Optional[str] = None,
-    problem_alias: Optional[str] = None,
-    update_published: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    commit: Union[str, NoneType] = None,
+    problem_alias: Union[str, NoneType] = None,
+    update_published: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -24699,8 +24699,8 @@ the given scoreboard_alias</p>
     self,
     *,
     version: str,
-    problem_alias: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    problem_alias: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -24760,15 +24760,15 @@ the given scoreboard_alias</p>
             <span class="name">runs</span><span class="signature">(
     self,
     *,
-    language: Optional[str] = None,
-    offset: Optional[int] = None,
-    problem_alias: Optional[str] = None,
-    rowcount: Optional[int] = None,
-    show_all: Optional[bool] = None,
-    status: Optional[str] = None,
-    username: Optional[str] = None,
-    verdict: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    language: Union[str, NoneType] = None,
+    offset: Union[int, NoneType] = None,
+    problem_alias: Union[str, NoneType] = None,
+    rowcount: Union[int, NoneType] = None,
+    show_all: Union[bool, NoneType] = None,
+    status: Union[str, NoneType] = None,
+    username: Union[str, NoneType] = None,
+    verdict: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -24859,9 +24859,9 @@ the given scoreboard_alias</p>
     self,
     *,
     problem_alias: str,
-    offset: Optional[Any] = None,
-    rowcount: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    offset: Union[Any, NoneType] = None,
+    rowcount: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -24927,7 +24927,7 @@ the given scoreboard_alias</p>
     self,
     *,
     problem_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -24983,24 +24983,24 @@ the given scoreboard_alias</p>
     self,
     *,
     only_quality_seal: bool,
-    difficulty: Optional[str] = None,
-    difficulty_range: Optional[str] = None,
-    language: Optional[Any] = None,
-    level: Optional[str] = None,
-    max_difficulty: Optional[int] = None,
-    min_difficulty: Optional[int] = None,
-    min_visibility: Optional[int] = None,
-    offset: Optional[Any] = None,
-    only_karel: Optional[Any] = None,
-    order_by: Optional[Any] = None,
-    page: Optional[Any] = None,
-    programming_languages: Optional[str] = None,
-    query: Optional[str] = None,
-    require_all_tags: Optional[Any] = None,
-    rowcount: Optional[Any] = None,
-    some_tags: Optional[Any] = None,
-    sort_order: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    difficulty: Union[str, NoneType] = None,
+    difficulty_range: Union[str, NoneType] = None,
+    language: Union[Any, NoneType] = None,
+    level: Union[str, NoneType] = None,
+    max_difficulty: Union[int, NoneType] = None,
+    min_difficulty: Union[int, NoneType] = None,
+    min_visibility: Union[int, NoneType] = None,
+    offset: Union[Any, NoneType] = None,
+    only_karel: Union[Any, NoneType] = None,
+    order_by: Union[Any, NoneType] = None,
+    page: Union[Any, NoneType] = None,
+    programming_languages: Union[str, NoneType] = None,
+    query: Union[str, NoneType] = None,
+    require_all_tags: Union[Any, NoneType] = None,
+    rowcount: Union[Any, NoneType] = None,
+    some_tags: Union[Any, NoneType] = None,
+    sort_order: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -25142,8 +25142,8 @@ the given scoreboard_alias</p>
     *,
     page: int,
     page_size: int,
-    query: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    query: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -25210,9 +25210,9 @@ the owner).</p>
     self,
     *,
     page: int,
-    query: Optional[str] = None,
-    rowcount: Optional[int] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    query: Union[str, NoneType] = None,
+    rowcount: Union[int, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -25277,12 +25277,12 @@ the owner).</p>
             <span class="name">bestScore</span><span class="signature">(
     self,
     *,
-    contest_alias: Optional[str] = None,
-    problem_alias: Optional[str] = None,
-    problemset_id: Optional[Any] = None,
-    statement_type: Optional[str] = None,
-    username: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    contest_alias: Union[str, NoneType] = None,
+    problem_alias: Union[str, NoneType] = None,
+    problemset_id: Union[Any, NoneType] = None,
+    statement_type: Union[str, NoneType] = None,
+    username: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -25357,7 +25357,7 @@ the owner).</p>
             <span class="name">randomLanguageProblem</span><span class="signature">(
     self,
     *,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -25401,7 +25401,7 @@ the owner).</p>
             <span class="name">randomKarelProblem</span><span class="signature">(
     self,
     *,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -25508,7 +25508,7 @@ the owner).</p>
             <span class="name">getCounts</span><span class="signature">(
     self,
     *,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -25739,10 +25739,10 @@ and the number of solutions already seen</p>
     contest_alias: str,
     course: str,
     problemset_id: int,
-    auth_token: Optional[Any] = None,
-    token: Optional[str] = None,
-    tokens: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    auth_token: Union[Any, NoneType] = None,
+    token: Union[str, NoneType] = None,
+    tokens: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -25826,10 +25826,10 @@ and the number of solutions already seen</p>
     contest_alias: str,
     course: str,
     problemset_id: int,
-    auth_token: Optional[Any] = None,
-    token: Optional[Any] = None,
-    tokens: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    auth_token: Union[Any, NoneType] = None,
+    token: Union[Any, NoneType] = None,
+    tokens: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -25913,10 +25913,10 @@ and the number of solutions already seen</p>
     contest_alias: str,
     course: str,
     problemset_id: int,
-    auth_token: Optional[Any] = None,
-    token: Optional[Any] = None,
-    tokens: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    auth_token: Union[Any, NoneType] = None,
+    token: Union[Any, NoneType] = None,
+    tokens: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -26292,7 +26292,7 @@ and the number of solutions already seen</p>
     contents: str,
     nomination: str,
     problem_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -26482,8 +26482,8 @@ the <code>contents</code> field should be a JSON blob with the following fields:
     qualitynomination_id: int,
     rationale: str,
     status: str,
-    all: Optional[bool] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    all: Union[bool, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -26557,10 +26557,10 @@ the <code>contents</code> field should be a JSON blob with the following fields:
     *,
     offset: int,
     rowcount: int,
-    column: Optional[str] = None,
-    query: Optional[str] = None,
-    status: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    column: Union[str, NoneType] = None,
+    query: Union[str, NoneType] = None,
+    status: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -26634,7 +26634,7 @@ the <code>contents</code> field should be a JSON blob with the following fields:
     *,
     page: int,
     page_size: int,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -26695,7 +26695,7 @@ the <code>contents</code> field should be a JSON blob with the following fields:
     *,
     offset: int,
     rowcount: int,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -26753,7 +26753,7 @@ the <code>contents</code> field should be a JSON blob with the following fields:
     self,
     *,
     qualitynomination_id: int,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -26941,7 +26941,7 @@ nominator or a member of the reviewer group.</p>
     self,
     *,
     email: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -27001,7 +27001,7 @@ instructions to reset he's password, if and only if the email is valid.</p>
     self,
     *,
     email: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -27062,7 +27062,7 @@ token and then they can send it to end user</p>
     password: str,
     password_confirmation: str,
     reset_token: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -27413,9 +27413,9 @@ the correct parameters are suplied.</p>
     contest_alias: str,
     problem_alias: str,
     source: str,
-    language: Optional[Any] = None,
-    problemset_id: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    language: Union[Any, NoneType] = None,
+    problemset_id: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -27489,7 +27489,7 @@ the correct parameters are suplied.</p>
     self,
     *,
     run_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -27545,8 +27545,8 @@ the correct parameters are suplied.</p>
     self,
     *,
     run_alias: str,
-    debug: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    debug: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -27607,7 +27607,7 @@ the correct parameters are suplied.</p>
     self,
     *,
     run_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -27663,7 +27663,7 @@ the correct parameters are suplied.</p>
     self,
     *,
     run_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -27719,7 +27719,7 @@ the correct parameters are suplied.</p>
     self,
     *,
     run_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -27776,7 +27776,7 @@ Used in the arena, any contestant can view its own codes and compile errors</p>
             <span class="name">counts</span><span class="signature">(
     self,
     *,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -27826,10 +27826,10 @@ Used in the arena, any contestant can view its own codes and compile errors</p>
     problem_alias: str,
     rowcount: int,
     username: str,
-    language: Optional[str] = None,
-    status: Optional[str] = None,
-    verdict: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    language: Union[str, NoneType] = None,
+    status: Union[str, NoneType] = None,
+    verdict: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -28041,9 +28041,9 @@ Used in the arena, any contestant can view its own codes and compile errors</p>
             <span class="name">list</span><span class="signature">(
     self,
     *,
-    query: Optional[Any] = None,
-    term: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    query: Union[Any, NoneType] = None,
+    term: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -28104,9 +28104,9 @@ Used in the arena, any contestant can view its own codes and compile errors</p>
     self,
     *,
     name: str,
-    country_id: Optional[str] = None,
-    state_id: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    country_id: Union[str, NoneType] = None,
+    state_id: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -28172,7 +28172,7 @@ Used in the arena, any contestant can view its own codes and compile errors</p>
     self,
     *,
     school_id: int,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -28304,9 +28304,9 @@ Used in the arena, any contestant can view its own codes and compile errors</p>
     self,
     *,
     alias: str,
-    course_alias: Optional[str] = None,
-    token: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    course_alias: Union[str, NoneType] = None,
+    token: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -28467,8 +28467,8 @@ Used in the arena, any contestant can view its own codes and compile errors</p>
             <span class="name">currentSession</span><span class="signature">(
     self,
     *,
-    auth_token: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    auth_token: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -28530,7 +28530,7 @@ contestant's machine and the server.</p>
     self,
     *,
     storeToken: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -28664,7 +28664,7 @@ contestant's machine and the server.</p>
     course_alias: str,
     feedback: str,
     guid: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -28831,9 +28831,9 @@ contestant's machine and the server.</p>
             <span class="name">list</span><span class="signature">(
     self,
     *,
-    query: Optional[Any] = None,
-    term: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    query: Union[Any, NoneType] = None,
+    term: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -28895,7 +28895,7 @@ contestant's machine and the server.</p>
     *,
     problemLevel: str,
     rows: int,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -29259,7 +29259,7 @@ contestant's machine and the server.</p>
     self,
     *,
     team_group_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -29317,8 +29317,8 @@ contestant's machine and the server.</p>
     alias: str,
     description: str,
     name: str,
-    numberOfContestants: Optional[int] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    numberOfContestants: Union[int, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -29389,8 +29389,8 @@ contestant's machine and the server.</p>
     alias: str,
     description: str,
     name: str,
-    numberOfContestants: Optional[int] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    numberOfContestants: Union[int, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -29459,7 +29459,7 @@ contestant's machine and the server.</p>
     self,
     *,
     team_group_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -29516,7 +29516,7 @@ contestant's machine and the server.</p>
     *,
     team_group_alias: str,
     usernameOrEmail: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -29577,7 +29577,7 @@ contestant's machine and the server.</p>
     *,
     team_group_alias: str,
     usernames: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -29636,8 +29636,8 @@ contestant's machine and the server.</p>
             <span class="name">list</span><span class="signature">(
     self,
     *,
-    query: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    query: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -29696,7 +29696,7 @@ since it is used by typeahead.</p>
     *,
     team_group_alias: str,
     username: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -29758,7 +29758,7 @@ since it is used by typeahead.</p>
     page: int,
     page_size: int,
     team_group_alias: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -29887,7 +29887,7 @@ since it is used by typeahead.</p>
             <span class="name">get</span><span class="signature">(
     self,
     *,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -31084,7 +31084,7 @@ since it is used by typeahead.</p>
             <span class="name">create</span><span class="signature">(
     self,
     *,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -31132,7 +31132,7 @@ since it is used by typeahead.</p>
     *,
     password: str,
     usernameOrEmail: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -31199,9 +31199,9 @@ password</p>
     *,
     old_password: str,
     username: str,
-    password: Optional[str] = None,
-    permission_key: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    password: Union[str, NoneType] = None,
+    permission_key: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -31271,8 +31271,8 @@ password</p>
     self,
     *,
     id: str,
-    usernameOrEmail: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    usernameOrEmail: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -31332,7 +31332,7 @@ password</p>
             <span class="name">mailingListBackfill</span><span class="signature">(
     self,
     *,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -31385,10 +31385,10 @@ password</p>
     old_password: str,
     permission_key: str,
     username: str,
-    change_password: Optional[Any] = None,
-    password: Optional[str] = None,
-    usernameOrEmail: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    change_password: Union[Any, NoneType] = None,
+    password: Union[str, NoneType] = None,
+    usernameOrEmail: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -31480,10 +31480,10 @@ password</p>
             <span class="name">profile</span><span class="signature">(
     self,
     *,
-    category: Optional[Any] = None,
-    omit_rank: Optional[bool] = None,
-    username: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    category: Union[Any, NoneType] = None,
+    omit_rank: Union[bool, NoneType] = None,
+    username: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -31549,7 +31549,7 @@ password</p>
     self,
     *,
     email: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -31605,7 +31605,7 @@ password</p>
     self,
     *,
     email: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -31669,9 +31669,9 @@ password</p>
             <span class="name">coderOfTheMonth</span><span class="signature">(
     self,
     *,
-    category: Optional[Any] = None,
-    date: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    category: Union[Any, NoneType] = None,
+    date: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -31735,9 +31735,9 @@ date, calculate it and save it.</p>
             <span class="name">coderOfTheMonthList</span><span class="signature">(
     self,
     *,
-    category: Optional[Any] = None,
-    date: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    category: Union[Any, NoneType] = None,
+    date: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -31798,8 +31798,8 @@ date, calculate it and save it.</p>
     self,
     *,
     username: str,
-    category: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    category: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -31859,8 +31859,8 @@ date, calculate it and save it.</p>
             <span class="name">contestStats</span><span class="signature">(
     self,
     *,
-    username: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    username: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -31915,8 +31915,8 @@ date, calculate it and save it.</p>
             <span class="name">problemsSolved</span><span class="signature">(
     self,
     *,
-    username: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    username: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -31971,8 +31971,8 @@ date, calculate it and save it.</p>
             <span class="name">listUnsolvedProblems</span><span class="signature">(
     self,
     *,
-    username: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    username: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -32027,8 +32027,8 @@ date, calculate it and save it.</p>
             <span class="name">problemsCreated</span><span class="signature">(
     self,
     *,
-    username: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    username: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -32083,10 +32083,10 @@ date, calculate it and save it.</p>
             <span class="name">list</span><span class="signature">(
     self,
     *,
-    query: Optional[str] = None,
-    rowcount: Optional[int] = None,
-    term: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    query: Union[str, NoneType] = None,
+    rowcount: Union[int, NoneType] = None,
+    term: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -32151,8 +32151,8 @@ date, calculate it and save it.</p>
             <span class="name">stats</span><span class="signature">(
     self,
     *,
-    username: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    username: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -32209,7 +32209,7 @@ date, calculate it and save it.</p>
     *,
     password: str,
     username: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -32273,20 +32273,20 @@ date, calculate it and save it.</p>
     graduation_date: str,
     locale: str,
     state_id: str,
-    auth_token: Optional[Any] = None,
-    gender: Optional[str] = None,
-    has_competitive_objective: Optional[bool] = None,
-    has_learning_objective: Optional[bool] = None,
-    has_scholar_objective: Optional[bool] = None,
-    has_teaching_objective: Optional[bool] = None,
-    hide_problem_tags: Optional[bool] = None,
-    is_private: Optional[bool] = None,
-    name: Optional[str] = None,
-    scholar_degree: Optional[str] = None,
-    school_id: Optional[int] = None,
-    school_name: Optional[Any] = None,
-    username: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    auth_token: Union[Any, NoneType] = None,
+    gender: Union[str, NoneType] = None,
+    has_competitive_objective: Union[bool, NoneType] = None,
+    has_learning_objective: Union[bool, NoneType] = None,
+    has_scholar_objective: Union[bool, NoneType] = None,
+    has_teaching_objective: Union[bool, NoneType] = None,
+    hide_problem_tags: Union[bool, NoneType] = None,
+    is_private: Union[bool, NoneType] = None,
+    name: Union[str, NoneType] = None,
+    scholar_degree: Union[str, NoneType] = None,
+    school_id: Union[int, NoneType] = None,
+    school_name: Union[Any, NoneType] = None,
+    username: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -32424,8 +32424,8 @@ date, calculate it and save it.</p>
     self,
     *,
     email: str,
-    originalEmail: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    originalEmail: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -32487,12 +32487,12 @@ date, calculate it and save it.</p>
     *,
     filter: str,
     problemset_id: int,
-    auth_token: Optional[str] = None,
-    contest_admin: Optional[str] = None,
-    contest_alias: Optional[str] = None,
-    token: Optional[str] = None,
-    tokens: Optional[Any] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    auth_token: Union[str, NoneType] = None,
+    contest_admin: Union[str, NoneType] = None,
+    contest_alias: Union[str, NoneType] = None,
+    token: Union[str, NoneType] = None,
+    tokens: Union[Any, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -32598,7 +32598,7 @@ contest updates with an access token.</p>
     *,
     role: str,
     username: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -32659,7 +32659,7 @@ contest updates with an access token.</p>
     *,
     role: str,
     username: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -32719,7 +32719,7 @@ contest updates with an access token.</p>
     self,
     *,
     group: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -32775,7 +32775,7 @@ contest updates with an access token.</p>
     self,
     *,
     group: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -32832,7 +32832,7 @@ contest updates with an access token.</p>
     *,
     experiment: str,
     username: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -32893,7 +32893,7 @@ contest updates with an access token.</p>
     *,
     experiment: str,
     username: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -32952,8 +32952,8 @@ contest updates with an access token.</p>
             <span class="name">lastPrivacyPolicyAccepted</span><span class="signature">(
     self,
     *,
-    username: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    username: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -33010,8 +33010,8 @@ contest updates with an access token.</p>
     *,
     privacy_git_object_id: str,
     statement_type: str,
-    username: Optional[str] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    username: Union[str, NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -33077,7 +33077,7 @@ contest updates with an access token.</p>
     *,
     password: str,
     username: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -33136,7 +33136,7 @@ contest updates with an access token.</p>
             <span class="name">listAssociatedIdentities</span><span class="signature">(
     self,
     *,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -33182,7 +33182,7 @@ contest updates with an access token.</p>
             <span class="name">generateGitToken</span><span class="signature">(
     self,
     *,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -33231,7 +33231,7 @@ against the gitserver.</p>
     self,
     *,
     name: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -33336,7 +33336,7 @@ caller.</p>
             <span class="name">listAPITokens</span><span class="signature">(
     self,
     *,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -33383,7 +33383,7 @@ caller.</p>
     self,
     *,
     name: str,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     check_: bool = True,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60)
 ) -&gt; Dict[str, Any]</span>:
@@ -33729,10 +33729,10 @@ caller.</p>
         
             <span class="name">Client</span><span class="signature">(
     *,
-    username: Optional[str] = None,
-    password: Optional[str] = None,
-    api_token: Optional[str] = None,
-    auth_token: Optional[str] = None,
+    username: Union[str, NoneType] = None,
+    password: Union[str, NoneType] = None,
+    api_token: Union[str, NoneType] = None,
+    auth_token: Union[str, NoneType] = None,
     url: str = &#39;https://omegaup.com&#39;
 )</span>
     </div>
@@ -33802,8 +33802,8 @@ caller.</p>
             <span class="name">query</span><span class="signature">(
     self,
     endpoint: str,
-    payload: Optional[Mapping[str, str]] = None,
-    files_: Optional[Mapping[str, BinaryIO]] = None,
+    payload: Union[Mapping[str, str], NoneType] = None,
+    files_: Union[Mapping[str, BinaryIO], NoneType] = None,
     timeout_: datetime.timedelta = datetime.timedelta(seconds=60),
     check_: bool = True
 ) -&gt; Dict[str, Any]</span>:
