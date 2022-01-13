@@ -21,7 +21,7 @@ validatortest:
 
 .PHONY: docs
 docs: $(shell find omegaup -name '*.py')
-	python3.9 -m pdoc -o docs/ omegaup/
+	python3 -m pdoc -o docs/ omegaup/
 
 build: docs
 	rm -rf dist/*
