@@ -157,7 +157,7 @@
 <span class="sd">    it to be the expected failure message for the case and will fail</span>
 <span class="sd">    with JE instead of WA. This is useful for invalid-inputs-enabled</span>
 <span class="sd">    CI runs.&quot;&quot;&quot;</span>
-    
+
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
             <span class="n">test</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">unittest</span><span class="o">.</span><span class="n">suite</span><span class="o">.</span><span class="n">TestSuite</span><span class="p">,</span> <span class="n">unittest</span><span class="o">.</span><span class="n">case</span><span class="o">.</span><span class="n">TestCase</span><span class="p">]</span>
             <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">unittest</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">TestResult</span><span class="p">:</span>
@@ -179,8 +179,8 @@
                     <span class="nb">print</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FAIL&quot;</span><span class="p">)</span>
-                    <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unexpected veredict failure: &quot;</span> <span class="o">+</span>
-                                  <span class="s2">&quot;refusing to score case.</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unexpected veredict failure: &quot;</span>
+                                  <span class="s2">&quot;refusing to score case.</span><span class="se">\n</span><span class="s2">&quot;</span>
                                   <span class="s2">&quot;Expected: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">expectedError</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span>
 
@@ -190,9 +190,9 @@
     <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">testRunnerVersion</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-      <span class="n">testRunnerType</span> <span class="o">=</span> <span class="n">TestRunner</span>
+        <span class="n">testRunnerType</span> <span class="o">=</span> <span class="n">TestRunner</span>
     <span class="k">else</span><span class="p">:</span>
-      <span class="n">testRunnerType</span> <span class="o">=</span> <span class="n">TestRunnerV2</span>
+        <span class="n">testRunnerType</span> <span class="o">=</span> <span class="n">TestRunnerV2</span>
 
     <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">testRunner</span><span class="o">=</span><span class="n">testRunnerType</span><span class="p">,</span> <span class="n">argv</span><span class="o">=</span><span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;-v&#39;</span><span class="p">])</span>
 </pre></div>
@@ -289,7 +289,7 @@
 <span class="sd">    it to be the expected failure message for the case and will fail</span>
 <span class="sd">    with JE instead of WA. This is useful for invalid-inputs-enabled</span>
 <span class="sd">    CI runs.&quot;&quot;&quot;</span>
-    
+
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
             <span class="n">test</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">unittest</span><span class="o">.</span><span class="n">suite</span><span class="o">.</span><span class="n">TestSuite</span><span class="p">,</span> <span class="n">unittest</span><span class="o">.</span><span class="n">case</span><span class="o">.</span><span class="n">TestCase</span><span class="p">]</span>
             <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">unittest</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">TestResult</span><span class="p">:</span>
@@ -311,8 +311,8 @@
                     <span class="nb">print</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FAIL&quot;</span><span class="p">)</span>
-                    <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unexpected veredict failure: &quot;</span> <span class="o">+</span>
-                                  <span class="s2">&quot;refusing to score case.</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unexpected veredict failure: &quot;</span>
+                                  <span class="s2">&quot;refusing to score case.</span><span class="se">\n</span><span class="s2">&quot;</span>
                                   <span class="s2">&quot;Expected: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">expectedError</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span>
 </pre></div>
@@ -361,8 +361,8 @@ CI runs.</p>
                     <span class="nb">print</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FAIL&quot;</span><span class="p">)</span>
-                    <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unexpected veredict failure: &quot;</span> <span class="o">+</span>
-                                  <span class="s2">&quot;refusing to score case.</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unexpected veredict failure: &quot;</span>
+                                  <span class="s2">&quot;refusing to score case.</span><span class="se">\n</span><span class="s2">&quot;</span>
                                   <span class="s2">&quot;Expected: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">expectedError</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span>
 </pre></div>
@@ -400,9 +400,9 @@ CI runs.</p>
     <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">testRunnerVersion</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-      <span class="n">testRunnerType</span> <span class="o">=</span> <span class="n">TestRunner</span>
+        <span class="n">testRunnerType</span> <span class="o">=</span> <span class="n">TestRunner</span>
     <span class="k">else</span><span class="p">:</span>
-      <span class="n">testRunnerType</span> <span class="o">=</span> <span class="n">TestRunnerV2</span>
+        <span class="n">testRunnerType</span> <span class="o">=</span> <span class="n">TestRunnerV2</span>
 
     <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">testRunner</span><span class="o">=</span><span class="n">testRunnerType</span><span class="p">,</span> <span class="n">argv</span><span class="o">=</span><span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;-v&#39;</span><span class="p">])</span>
 </pre></div>
