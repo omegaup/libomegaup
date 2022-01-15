@@ -7889,7 +7889,7 @@ class Client:
                     f'Username={self.username}',
                 ))
             else:
-                headers['Authorization'] = self.api_token
+                headers['Authorization'] = f'token {self.api_token}'
         elif self.auth_token is not None:
             payload['ouat'] = self.auth_token
 
