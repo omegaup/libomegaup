@@ -5045,8 +5045,8 @@ class Problem:
             self,
             *,
             problem_alias: str,
-            offset: Optional[Any] = None,
-            rowcount: Optional[Any] = None,
+            offset: Optional[int] = None,
+            rowcount: Optional[int] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
