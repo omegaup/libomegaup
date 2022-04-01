@@ -71,16 +71,16 @@
     <span class="nd">@p</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;integer between </span><span class="si">{</span><span class="nb">min</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="nb">max</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
     <span class="k">def</span> <span class="nf">parser</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">num</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">integer</span>
-        <span class="k">if</span> <span class="nb">min</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">min</span> <span class="o">&lt;=</span> <span class="n">num</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">min</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">min</span> <span class="o">&lt;=</span> <span class="n">num</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">p</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span><span class="s1">&#39;out of bounds&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">max</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">num</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">max</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">num</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">p</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span><span class="s1">&#39;out of bounds&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">num</span>
 
     <span class="k">return</span> <span class="n">parser</span>
 
 
-<span class="n">natural</span> <span class="o">=</span> <span class="n">boundInteger</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">natural</span> <span class="o">=</span> <span class="n">boundInteger</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">desc</span><span class="p">(</span><span class="s2">&quot;natural number&quot;</span><span class="p">)</span>
 </pre></div>
 
         </details>
@@ -100,9 +100,9 @@
     <span class="nd">@p</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;integer between </span><span class="si">{</span><span class="nb">min</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="nb">max</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
     <span class="k">def</span> <span class="nf">parser</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">num</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">integer</span>
-        <span class="k">if</span> <span class="nb">min</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">min</span> <span class="o">&lt;=</span> <span class="n">num</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">min</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">min</span> <span class="o">&lt;=</span> <span class="n">num</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">p</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span><span class="s1">&#39;out of bounds&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">max</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">num</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">max</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">num</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">p</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span><span class="s1">&#39;out of bounds&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">num</span>
 
