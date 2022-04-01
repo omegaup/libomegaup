@@ -60,22 +60,27 @@
 
 <span class="kn">import</span> <span class="nn">parsy</span> <span class="k">as</span> <span class="nn">p</span>   <span class="c1"># type: ignore</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
 
-<span class="n">space</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">regex</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">desc</span><span class="p">(</span><span class="s2">&quot;space&quot;</span><span class="p">)</span>
-<span class="n">eol</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">regex</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">desc</span><span class="p">(</span><span class="s2">&quot;eol&quot;</span><span class="p">)</span>
+<span class="n">space</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">string</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">desc</span><span class="p">(</span><span class="s2">&quot;space&quot;</span><span class="p">)</span>
+<span class="n">eol</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">string</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">desc</span><span class="p">(</span><span class="s2">&quot;eol&quot;</span><span class="p">)</span>
 <span class="n">integer</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">regex</span><span class="p">(</span><span class="s2">&quot;-?[0-9]+&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">desc</span><span class="p">(</span><span class="s2">&quot;integer&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">boundInteger</span><span class="p">(</span><span class="nb">min</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">boundInteger</span><span class="p">(</span><span class="nb">min</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">max</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
     <span class="nd">@p</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;integer between </span><span class="si">{</span><span class="nb">min</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="nb">max</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
-    <span class="k">def</span> <span class="nf">parser</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">parser</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">num</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">integer</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">min</span> <span class="o">&lt;=</span> <span class="n">num</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">min</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">min</span> <span class="o">&lt;=</span> <span class="n">num</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">p</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span><span class="s1">&#39;out of bounds&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">max</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">num</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">p</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span><span class="s1">&#39;out of bounds&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">num</span>
 
     <span class="k">return</span> <span class="n">parser</span>
+
+
+<span class="n">natural</span> <span class="o">=</span> <span class="n">boundInteger</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 </pre></div>
 
         </details>
@@ -86,16 +91,18 @@
 
         
             <span class="def">def</span>
-            <span class="name">boundInteger</span><span class="signature">(min: int, max: int) -&gt; Any</span>:
+            <span class="name">boundInteger</span><span class="signature">(min: Optional[int], max: Optional[int]) -&gt; Any</span>:
     </div>
 
                 <details>
             <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">boundInteger</span><span class="p">(</span><span class="nb">min</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+            <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">boundInteger</span><span class="p">(</span><span class="nb">min</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">max</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
     <span class="nd">@p</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;integer between </span><span class="si">{</span><span class="nb">min</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="nb">max</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
-    <span class="k">def</span> <span class="nf">parser</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">parser</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">num</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">integer</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">min</span> <span class="o">&lt;=</span> <span class="n">num</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">min</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">min</span> <span class="o">&lt;=</span> <span class="n">num</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">p</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span><span class="s1">&#39;out of bounds&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">max</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">num</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">p</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span><span class="s1">&#39;out of bounds&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">num</span>
 
