@@ -3,13 +3,13 @@
 test: pytest lint mypy validatortest
 
 lint:
-	python3.9 -m flake8 --exclude=.env,.tox,dist,docs,build,*.egg --ignore=E501,W503 .
+	python3 -m flake8 --exclude=.env,.tox,dist,docs,build,*.egg --ignore=E501,W503 .
 
 mypy:
-	python3.9 -m mypy --strict .
+	python3 -m mypy --strict .
 
 pytest:
-	python3.9 -m pytest -xvv
+	python3 -m pytest -xvv
 
 validatortest:
 	cd tests && \
@@ -21,7 +21,7 @@ validatortest:
 
 .PHONY: docs
 docs: $(shell find omegaup -name '*.py')
-	python3.9 -m pdoc -o docs/ omegaup/
+	python3 -m pdoc -o docs/ omegaup/
 
 build: docs
 	rm -rf dist/*
