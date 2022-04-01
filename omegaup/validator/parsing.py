@@ -24,4 +24,4 @@ def boundInteger(min: Optional[int], max: Optional[int]) -> Any:
     return parser
 
 
-natural = boundInteger(0, None)
+natural = boundInteger(0, None).desc("natural number")
