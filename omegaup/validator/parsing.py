@@ -15,9 +15,9 @@ def boundInteger(min: Optional[int], max: Optional[int]) -> Any:
     @p.generate(f"integer between {min} and {max}")  # type: ignore
     def parser() -> Any:
         num = yield integer
-        if min and not min <= num:
+        if min is not None and not min <= num:
             return p.fail('out of bounds')
-        if max and not num <= max:
+        if max is not None and not num <= max:
             return p.fail('out of bounds')
         return num
 

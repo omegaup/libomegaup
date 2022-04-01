@@ -16,6 +16,8 @@ class TestValidatorParsing(unittest.TestCase):
         self.assertEqual(oup.natural.parse('1234'), 1234)
         self.assertRaises(p.ParseError,
                           lambda: oup.boundInteger(0, 1).parse("2"))
+        self.assertRaises(p.ParseError,
+                          lambda: oup.natural.parse("-1"))
 
 
 # vim: tabstop=4 expandtab shiftwidth=4 softtabstop=4
