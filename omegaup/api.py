@@ -2592,15 +2592,17 @@ class _ContestListMinePayload:
 class _ContestListPayload:
     """_ContestListPayload"""
     contests: Dict[str, Sequence['_ContestListItem']]
+    countContests: Dict[str, int]
     isLogged: bool
-    query: str
+    query: Optional[str]
 
     def __init__(
         self,
         *,
         contests: Dict[str, Sequence[Dict[str, Any]]],
+        countContests: Dict[str, int],
         isLogged: bool,
-        query: str,
+        query: Optional[str] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
@@ -2608,29 +2610,58 @@ class _ContestListPayload:
             k: [_ContestListItem(**v) for v in v]
             for k, v in contests.items()
         }
+        self.countContests = {k: v for k, v in countContests.items()}
         self.isLogged = isLogged
-        self.query = query
+        if query is not None:
+            self.query = query
+        else:
+            self.query = None
 
 
 @dataclasses.dataclass
 class _ContestListv2Payload:
     """_ContestListv2Payload"""
     contests: '_ContestList'
+    countContests: '_ContestListv2Payload_countContests'
     query: Optional[str]
 
     def __init__(
         self,
         *,
         contests: Dict[str, Any],
+        countContests: Dict[str, Any],
         query: Optional[str] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
         self.contests = _ContestList(**contests)
+        self.countContests = _ContestListv2Payload_countContests(
+            **countContests)
         if query is not None:
             self.query = query
         else:
             self.query = None
+
+
+@dataclasses.dataclass
+class _ContestListv2Payload_countContests:
+    """_ContestListv2Payload_countContests"""
+    current: int
+    future: int
+    past: int
+
+    def __init__(
+        self,
+        *,
+        current: int,
+        future: int,
+        past: int,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.current = current
+        self.future = future
+        self.past = past
 
 
 @dataclasses.dataclass
@@ -6158,30 +6189,36 @@ class _OmegaUp_Controllers_Contest__apiList:
 class _OmegaUp_Controllers_Contest__apiListParticipating:
     """_OmegaUp_Controllers_Contest__apiListParticipating"""
     contests: Sequence['_Contest']
+    count: int
 
     def __init__(
         self,
         *,
         contests: Sequence[Dict[str, Any]],
+        count: int,
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
         self.contests = [_Contest(**v) for v in contests]
+        self.count = count
 
 
 @dataclasses.dataclass
 class _OmegaUp_Controllers_Contest__apiMyList:
     """_OmegaUp_Controllers_Contest__apiMyList"""
     contests: Sequence['_Contest']
+    count: int
 
     def __init__(
         self,
         *,
         contests: Sequence[Dict[str, Any]],
+        count: int,
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
         self.contests = [_Contest(**v) for v in contests]
+        self.count = count
 
 
 @dataclasses.dataclass
