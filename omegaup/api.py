@@ -74,6 +74,7 @@ class _OmegaUp_DAO_VO_Contests:
     problemset_id: Optional[int]
     recommended: Optional[bool]
     rerun_id: Optional[int]
+    score_mode: Optional[str]
     scoreboard: Optional[int]
     show_scoreboard_after: Optional[bool]
     start_time: Optional[datetime.datetime]
@@ -107,6 +108,7 @@ class _OmegaUp_DAO_VO_Contests:
         problemset_id: Optional[int] = None,
         recommended: Optional[bool] = None,
         rerun_id: Optional[int] = None,
+        score_mode: Optional[str] = None,
         scoreboard: Optional[int] = None,
         show_scoreboard_after: Optional[bool] = None,
         start_time: Optional[int] = None,
@@ -146,6 +148,7 @@ class _OmegaUp_DAO_VO_Contests:
         self.problemset_id = problemset_id
         self.recommended = recommended
         self.rerun_id = rerun_id
+        self.score_mode = score_mode
         self.scoreboard = scoreboard
         self.show_scoreboard_after = show_scoreboard_after
         if start_time is not None:
@@ -14443,6 +14446,7 @@ class Contest:
             points_decay_factor: Optional[Any] = None,
             problems: Optional[str] = None,
             requests_user_information: Optional[Any] = None,
+            score_mode: Optional[str] = None,
             scoreboard: Optional[Any] = None,
             show_scoreboard_after: Optional[Any] = None,
             start_time: Optional[Any] = None,
@@ -14472,6 +14476,7 @@ class Contest:
             points_decay_factor:
             problems:
             requests_user_information:
+            score_mode:
             scoreboard:
             show_scoreboard_after:
             start_time:
@@ -14516,6 +14521,8 @@ class Contest:
         if requests_user_information is not None:
             parameters['requests_user_information'] = str(
                 requests_user_information)
+        if score_mode is not None:
+            parameters['score_mode'] = score_mode
         if scoreboard is not None:
             parameters['scoreboard'] = str(scoreboard)
         if show_scoreboard_after is not None:
