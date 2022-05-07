@@ -15769,21 +15769,21 @@ class Course:
     def create(
             self,
             *,
-            admission_mode: Optional[Any] = None,
-            alias: Optional[Any] = None,
-            description: Optional[Any] = None,
-            finish_time: Optional[Any] = None,
-            languages: Optional[Any] = None,
+            alias: str,
+            description: str,
+            name: str,
+            start_time: int,
+            admission_mode: Optional[str] = None,
+            archived: Optional[bool] = None,
+            finish_time: Optional[int] = None,
+            languages: Optional[str] = None,
             level: Optional[str] = None,
-            name: Optional[Any] = None,
-            needs_basic_information: Optional[Any] = None,
+            minimum_progress_for_certificate: Optional[int] = None,
+            needs_basic_information: Optional[bool] = None,
             objective: Optional[str] = None,
-            public: Optional[Any] = None,
-            requests_user_information: Optional[Any] = None,
-            school_id: Optional[Any] = None,
-            show_scoreboard: Optional[Any] = None,
-            start_time: Optional[Any] = None,
-            unlimited_duration: Optional[bool] = None,
+            requests_user_information: Optional[str] = None,
+            school_id: Optional[int] = None,
+            show_scoreboard: Optional[bool] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -15791,58 +15791,55 @@ class Course:
         r"""Create new course API
 
         Args:
-            admission_mode:
             alias:
             description:
+            name:
+            start_time:
+            admission_mode:
+            archived:
             finish_time:
             languages:
             level:
-            name:
+            minimum_progress_for_certificate:
             needs_basic_information:
             objective:
-            public:
             requests_user_information:
             school_id:
             show_scoreboard:
-            start_time:
-            unlimited_duration:
 
         Returns:
             The API result object.
         """
-        parameters: Dict[str, str] = {}
+        parameters: Dict[str, str] = {
+            'alias': alias,
+            'description': description,
+            'name': name,
+            'start_time': str(start_time),
+        }
         if admission_mode is not None:
-            parameters['admission_mode'] = str(admission_mode)
-        if alias is not None:
-            parameters['alias'] = str(alias)
-        if description is not None:
-            parameters['description'] = str(description)
+            parameters['admission_mode'] = admission_mode
+        if archived is not None:
+            parameters['archived'] = str(archived)
         if finish_time is not None:
             parameters['finish_time'] = str(finish_time)
         if languages is not None:
-            parameters['languages'] = str(languages)
+            parameters['languages'] = languages
         if level is not None:
             parameters['level'] = level
-        if name is not None:
-            parameters['name'] = str(name)
+        if minimum_progress_for_certificate is not None:
+            parameters['minimum_progress_for_certificate'] = str(
+                minimum_progress_for_certificate)
         if needs_basic_information is not None:
             parameters['needs_basic_information'] = str(
                 needs_basic_information)
         if objective is not None:
             parameters['objective'] = objective
-        if public is not None:
-            parameters['public'] = str(public)
         if requests_user_information is not None:
-            parameters['requests_user_information'] = str(
-                requests_user_information)
+            parameters['requests_user_information'] = requests_user_information
         if school_id is not None:
             parameters['school_id'] = str(school_id)
         if show_scoreboard is not None:
             parameters['show_scoreboard'] = str(show_scoreboard)
-        if start_time is not None:
-            parameters['start_time'] = str(start_time)
-        if unlimited_duration is not None:
-            parameters['unlimited_duration'] = str(unlimited_duration)
         self._client.query('/api/course/create/',
                            payload=parameters,
                            files_=files_,
