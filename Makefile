@@ -19,11 +19,11 @@ validatortest:
 		exit 1; \
 	fi
 
-.PHONY: docs
-docs: $(shell find omegaup -name '*.py')
+.docs.stamp: $(shell find omegaup -name '*.py')
 	python3 -m pdoc -o docs/ omegaup/
+	touch "$@"
 
-build: docs
+build: .docs.stamp
 	rm -rf dist/*
 	python3 setup.py sdist bdist_wheel
 
