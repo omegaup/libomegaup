@@ -928,7 +928,7 @@ class _AssignmentDetailsPayload:
     """_AssignmentDetailsPayload"""
     courseDetails: '_CourseDetails'
     currentAssignment: '_ArenaAssignment'
-    scoreboard: '_Scoreboard'
+    scoreboard: Optional['_Scoreboard']
     shouldShowFirstAssociatedIdentityRunWarning: bool
     showRanking: bool
 
@@ -937,15 +937,18 @@ class _AssignmentDetailsPayload:
         *,
         courseDetails: Dict[str, Any],
         currentAssignment: Dict[str, Any],
-        scoreboard: Dict[str, Any],
         shouldShowFirstAssociatedIdentityRunWarning: bool,
         showRanking: bool,
+        scoreboard: Optional[Dict[str, Any]] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
         self.courseDetails = _CourseDetails(**courseDetails)
         self.currentAssignment = _ArenaAssignment(**currentAssignment)
-        self.scoreboard = _Scoreboard(**scoreboard)
+        if scoreboard is not None:
+            self.scoreboard = _Scoreboard(**scoreboard)
+        else:
+            self.scoreboard = None
         self.shouldShowFirstAssociatedIdentityRunWarning = shouldShowFirstAssociatedIdentityRunWarning
         self.showRanking = showRanking
 
