@@ -19077,6 +19077,7 @@ class Problem:
         query: Optional[str] = None,
         require_all_tags: Optional[Any] = None,
         rowcount: Optional[Any] = None,
+        search_type: Optional[str] = None,
         some_tags: Optional[Any] = None,
         sort_order: Optional[Any] = None,
         # Out-of-band parameters:
@@ -19103,6 +19104,7 @@ class Problem:
             query:
             require_all_tags:
             rowcount:
+            search_type:
             some_tags:
             sort_order:
 
@@ -19142,6 +19144,8 @@ class Problem:
             parameters['require_all_tags'] = str(require_all_tags)
         if rowcount is not None:
             parameters['rowcount'] = str(rowcount)
+        if search_type is not None:
+            parameters['search_type'] = search_type
         if some_tags is not None:
             parameters['some_tags'] = str(some_tags)
         if sort_order is not None:
