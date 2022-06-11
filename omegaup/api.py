@@ -7377,6 +7377,21 @@ class _OmegaUp_Controllers_Problem__apiList:
 
 
 @dataclasses.dataclass
+class _OmegaUp_Controllers_Problem__apiListForTypeahead:
+    """_OmegaUp_Controllers_Problem__apiListForTypeahead"""
+    results: Sequence['_ListItem']
+
+    def __init__(
+        self,
+        *,
+        results: Sequence[Dict[str, Any]],
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.results = [_ListItem(**v) for v in results]
+
+
+@dataclasses.dataclass
 class _OmegaUp_Controllers_Problem__apiMyList:
     """_OmegaUp_Controllers_Problem__apiMyList"""
     pagerItems: Sequence['_PageItem']
@@ -17978,6 +17993,9 @@ ProblemClarificationsResponse = _OmegaUp_Controllers_Problem__apiClarifications
 ProblemStatsResponse = _OmegaUp_Controllers_Problem__apiStats
 """The return type of the ProblemStats API."""
 
+ProblemListForTypeaheadResponse = _OmegaUp_Controllers_Problem__apiListForTypeahead
+"""The return type of the ProblemListForTypeahead API."""
+
 ProblemListResponse = _OmegaUp_Controllers_Problem__apiList
 """The return type of the ProblemList API."""
 
@@ -19058,6 +19076,44 @@ class Problem:
                                  timeout_=timeout_,
                                  check_=check_))
 
+    def listForTypeahead(
+        self,
+        *,
+        query: str,
+        search_type: str,
+        offset: Optional[int] = None,
+        rowcount: Optional[int] = None,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> ProblemListForTypeaheadResponse:
+        r"""List of public problems shown in the typeahead component
+
+        Args:
+            query:
+            search_type:
+            offset:
+            rowcount:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {
+            'query': query,
+            'search_type': search_type,
+        }
+        if offset is not None:
+            parameters['offset'] = str(offset)
+        if rowcount is not None:
+            parameters['rowcount'] = str(rowcount)
+        return _OmegaUp_Controllers_Problem__apiListForTypeahead(
+            **self._client.query('/api/problem/listForTypeahead/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
+
     def list(
         self,
         *,
@@ -19069,15 +19125,14 @@ class Problem:
         max_difficulty: Optional[int] = None,
         min_difficulty: Optional[int] = None,
         min_visibility: Optional[int] = None,
-        offset: Optional[Any] = None,
+        offset: Optional[int] = None,
         only_karel: Optional[Any] = None,
         order_by: Optional[Any] = None,
-        page: Optional[Any] = None,
+        page: Optional[int] = None,
         programming_languages: Optional[str] = None,
         query: Optional[str] = None,
         require_all_tags: Optional[Any] = None,
-        rowcount: Optional[Any] = None,
-        search_type: Optional[str] = None,
+        rowcount: Optional[int] = None,
         some_tags: Optional[Any] = None,
         sort_order: Optional[Any] = None,
         # Out-of-band parameters:
@@ -19104,7 +19159,6 @@ class Problem:
             query:
             require_all_tags:
             rowcount:
-            search_type:
             some_tags:
             sort_order:
 
@@ -19144,8 +19198,6 @@ class Problem:
             parameters['require_all_tags'] = str(require_all_tags)
         if rowcount is not None:
             parameters['rowcount'] = str(rowcount)
-        if search_type is not None:
-            parameters['search_type'] = search_type
         if some_tags is not None:
             parameters['some_tags'] = str(some_tags)
         if sort_order is not None:
