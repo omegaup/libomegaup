@@ -15277,6 +15277,7 @@ class Contest:
         points_decay_factor: Optional[float] = None,
         problems: Optional[str] = None,
         requests_user_information: Optional[str] = None,
+        score_mode: Optional[str] = None,
         scoreboard: Optional[float] = None,
         show_scoreboard_after: Optional[bool] = None,
         start_time: Optional[datetime.datetime] = None,
@@ -15309,6 +15310,7 @@ class Contest:
             points_decay_factor:
             problems:
             requests_user_information:
+            score_mode:
             scoreboard:
             show_scoreboard_after:
             start_time:
@@ -15356,6 +15358,8 @@ class Contest:
             parameters['problems'] = problems
         if requests_user_information is not None:
             parameters['requests_user_information'] = requests_user_information
+        if score_mode is not None:
+            parameters['score_mode'] = score_mode
         if scoreboard is not None:
             parameters['scoreboard'] = str(scoreboard)
         if show_scoreboard_after is not None:
