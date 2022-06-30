@@ -8382,24 +8382,18 @@ class _OmegaUp_Controllers_School__apiCreate:
 
 
 @dataclasses.dataclass
-class _OmegaUp_Controllers_School__apiList_entry:
-    """_OmegaUp_Controllers_School__apiList_entry"""
-    id: int
-    label: str
-    value: str
+class _OmegaUp_Controllers_School__apiList:
+    """_OmegaUp_Controllers_School__apiList"""
+    results: Sequence['_SchoolListItem']
 
     def __init__(
         self,
         *,
-        id: int,
-        label: str,
-        value: str,
+        results: Sequence[Dict[str, Any]],
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
-        self.id = id
-        self.label = label
-        self.value = value
+        self.results = [_SchoolListItem(**v) for v in results]
 
 
 @dataclasses.dataclass
@@ -11445,6 +11439,24 @@ class _SchoolCoderOfTheMonth:
         self.classname = classname
         self.time = time
         self.username = username
+
+
+@dataclasses.dataclass
+class _SchoolListItem:
+    """_SchoolListItem"""
+    key: int
+    value: str
+
+    def __init__(
+        self,
+        *,
+        key: int,
+        value: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.key = key
+        self.value = value
 
 
 @dataclasses.dataclass
@@ -20249,7 +20261,7 @@ class Run:
                                  check_=check_))
 
 
-SchoolListResponse = Sequence['_OmegaUp_Controllers_School__apiList_entry']
+SchoolListResponse = _OmegaUp_Controllers_School__apiList
 """The return type of the SchoolList API."""
 
 SchoolCreateResponse = _OmegaUp_Controllers_School__apiCreate
@@ -20265,8 +20277,8 @@ class School:
     def list(
             self,
             *,
-            query: Optional[Any] = None,
-            term: Optional[Any] = None,
+            query: Optional[str] = None,
+            term: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -20283,17 +20295,15 @@ class School:
         """
         parameters: Dict[str, str] = {}
         if query is not None:
-            parameters['query'] = str(query)
+            parameters['query'] = query
         if term is not None:
-            parameters['term'] = str(term)
-        return [
-            _OmegaUp_Controllers_School__apiList_entry(**v)
-            for v in self._client.query('/api/school/list/',
-                                        payload=parameters,
-                                        files_=files_,
-                                        timeout_=timeout_,
-                                        check_=check_)
-        ]
+            parameters['term'] = term
+        return _OmegaUp_Controllers_School__apiList(
+            **self._client.query('/api/school/list/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
 
     def create(
         self,
@@ -21579,7 +21589,7 @@ class User:
             name: Optional[str] = None,
             scholar_degree: Optional[str] = None,
             school_id: Optional[int] = None,
-            school_name: Optional[Any] = None,
+            school_name: Optional[str] = None,
             username: Optional[Any] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
@@ -21641,7 +21651,7 @@ class User:
         if school_id is not None:
             parameters['school_id'] = str(school_id)
         if school_name is not None:
-            parameters['school_name'] = str(school_name)
+            parameters['school_name'] = school_name
         if username is not None:
             parameters['username'] = str(username)
         self._client.query('/api/user/update/',
