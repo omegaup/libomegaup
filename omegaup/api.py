@@ -8635,6 +8635,21 @@ class _OmegaUp_Controllers_User__apiCreateAPIToken:
 
 
 @dataclasses.dataclass
+class _OmegaUp_Controllers_User__apiDeleteRequest:
+    """_OmegaUp_Controllers_User__apiDeleteRequest"""
+    token: str
+
+    def __init__(
+        self,
+        *,
+        token: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.token = token
+
+
+@dataclasses.dataclass
 class _OmegaUp_Controllers_User__apiExtraInformation:
     """_OmegaUp_Controllers_User__apiExtraInformation"""
     birth_date: Optional[datetime.datetime]
@@ -20967,6 +20982,9 @@ UserStatsResponse = _OmegaUp_Controllers_User__apiStats
 UserValidateFilterResponse = _OmegaUp_Controllers_User__apiValidateFilter
 """The return type of the UserValidateFilter API."""
 
+UserDeleteRequestResponse = _OmegaUp_Controllers_User__apiDeleteRequest
+"""The return type of the UserDeleteRequest API."""
+
 UserLastPrivacyPolicyAcceptedResponse = _OmegaUp_Controllers_User__apiLastPrivacyPolicyAccepted
 """The return type of the UserLastPrivacyPolicyAccepted API."""
 
@@ -21800,6 +21818,62 @@ class User:
             'username': username,
         }
         self._client.query('/api/user/removeRole/',
+                           payload=parameters,
+                           files_=files_,
+                           timeout_=timeout_,
+                           check_=check_)
+
+    def deleteRequest(
+        self,
+        *,
+        username: Optional[str] = None,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> UserDeleteRequestResponse:
+        r"""
+
+        Args:
+            username:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {}
+        if username is not None:
+            parameters['username'] = username
+        return _OmegaUp_Controllers_User__apiDeleteRequest(
+            **self._client.query('/api/user/deleteRequest/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
+
+    def deleteConfirm(
+            self,
+            *,
+            token: str,
+            username: Optional[str] = None,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
+        r"""
+
+        Args:
+            token:
+            username:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {
+            'token': token,
+        }
+        if username is not None:
+            parameters['username'] = username
+        self._client.query('/api/user/deleteConfirm/',
                            payload=parameters,
                            files_=files_,
                            timeout_=timeout_,
