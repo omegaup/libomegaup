@@ -70,6 +70,7 @@ class _OmegaUp_DAO_VO_Contests:
     penalty: Optional[int]
     penalty_calc_policy: Optional[str]
     penalty_type: Optional[str]
+    plagiarism_threshold: Optional[bool]
     points_decay_factor: Optional[float]
     problemset_id: Optional[int]
     recommended: Optional[bool]
@@ -104,6 +105,7 @@ class _OmegaUp_DAO_VO_Contests:
         penalty: Optional[int] = None,
         penalty_calc_policy: Optional[str] = None,
         penalty_type: Optional[str] = None,
+        plagiarism_threshold: Optional[bool] = None,
         points_decay_factor: Optional[float] = None,
         problemset_id: Optional[int] = None,
         recommended: Optional[bool] = None,
@@ -144,6 +146,7 @@ class _OmegaUp_DAO_VO_Contests:
         self.penalty = penalty
         self.penalty_calc_policy = penalty_calc_policy
         self.penalty_type = penalty_type
+        self.plagiarism_threshold = plagiarism_threshold
         self.points_decay_factor = points_decay_factor
         self.problemset_id = problemset_id
         self.recommended = recommended
@@ -227,6 +230,8 @@ class _OmegaUp_DAO_VO_Identities:
 class _OmegaUp_DAO_VO_Users:
     """Type definition for the \\OmegaUp\\DAO\\VO\\Users Data Object."""
     birth_date: Optional[str]
+    creation_timestamp: Optional[datetime.datetime]
+    deletion_token: Optional[str]
     facebook_user_id: Optional[str]
     git_token: Optional[str]
     has_competitive_objective: Optional[bool]
@@ -238,6 +243,10 @@ class _OmegaUp_DAO_VO_Users:
     is_private: Optional[bool]
     main_email_id: Optional[int]
     main_identity_id: Optional[int]
+    parent_email_verification_deadline: Optional[datetime.datetime]
+    parent_email_verification_initial: Optional[datetime.datetime]
+    parent_verified: Optional[bool]
+    parental_verification_token: Optional[str]
     preferred_language: Optional[str]
     reset_digest: Optional[str]
     reset_sent_at: Optional[datetime.datetime]
@@ -250,6 +259,8 @@ class _OmegaUp_DAO_VO_Users:
         self,
         *,
         birth_date: Optional[str] = None,
+        creation_timestamp: Optional[int] = None,
+        deletion_token: Optional[str] = None,
         facebook_user_id: Optional[str] = None,
         git_token: Optional[str] = None,
         has_competitive_objective: Optional[bool] = None,
@@ -261,6 +272,10 @@ class _OmegaUp_DAO_VO_Users:
         is_private: Optional[bool] = None,
         main_email_id: Optional[int] = None,
         main_identity_id: Optional[int] = None,
+        parent_email_verification_deadline: Optional[int] = None,
+        parent_email_verification_initial: Optional[int] = None,
+        parent_verified: Optional[bool] = None,
+        parental_verification_token: Optional[str] = None,
         preferred_language: Optional[str] = None,
         reset_digest: Optional[str] = None,
         reset_sent_at: Optional[int] = None,
@@ -273,6 +288,12 @@ class _OmegaUp_DAO_VO_Users:
     ):
         """Create a new \\OmegaUp\\DAO\\VO\\Users Data Object."""
         self.birth_date = birth_date
+        if creation_timestamp is not None:
+            self.creation_timestamp = datetime.datetime.fromtimestamp(
+                creation_timestamp)
+        else:
+            self.creation_timestamp = None
+        self.deletion_token = deletion_token
         self.facebook_user_id = facebook_user_id
         self.git_token = git_token
         self.has_competitive_objective = has_competitive_objective
@@ -284,6 +305,18 @@ class _OmegaUp_DAO_VO_Users:
         self.is_private = is_private
         self.main_email_id = main_email_id
         self.main_identity_id = main_identity_id
+        if parent_email_verification_deadline is not None:
+            self.parent_email_verification_deadline = datetime.datetime.fromtimestamp(
+                parent_email_verification_deadline)
+        else:
+            self.parent_email_verification_deadline = None
+        if parent_email_verification_initial is not None:
+            self.parent_email_verification_initial = datetime.datetime.fromtimestamp(
+                parent_email_verification_initial)
+        else:
+            self.parent_email_verification_initial = None
+        self.parent_verified = parent_verified
+        self.parental_verification_token = parental_verification_token
         self.preferred_language = preferred_language
         self.reset_digest = reset_digest
         if reset_sent_at is not None:
