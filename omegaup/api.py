@@ -16642,6 +16642,90 @@ class Course:
                            timeout_=timeout_,
                            check_=check_)
 
+    def addTeachingAssistant(
+            self,
+            *,
+            course_alias: str,
+            usernameOrEmail: str,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
+        r"""Adds a teaching assistant to a course
+
+        Args:
+            course_alias:
+            usernameOrEmail:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {
+            'course_alias': course_alias,
+            'usernameOrEmail': usernameOrEmail,
+        }
+        self._client.query('/api/course/addTeachingAssistant/',
+                           payload=parameters,
+                           files_=files_,
+                           timeout_=timeout_,
+                           check_=check_)
+
+    def addGroupTeachingAssistant(
+            self,
+            *,
+            course_alias: str,
+            group: str,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
+        r"""Adds an group teaching assistant to a course
+
+        Args:
+            course_alias:
+            group:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {
+            'course_alias': course_alias,
+            'group': group,
+        }
+        self._client.query('/api/course/addGroupTeachingAssistant/',
+                           payload=parameters,
+                           files_=files_,
+                           timeout_=timeout_,
+                           check_=check_)
+
+    def removeGroupTeachingAssistant(
+            self,
+            *,
+            course_alias: str,
+            group: str,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
+        r"""Removes a group teaching assistant from a course
+
+        Args:
+            course_alias:
+            group:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {
+            'course_alias': course_alias,
+            'group': group,
+        }
+        self._client.query('/api/course/removeGroupTeachingAssistant/',
+                           payload=parameters,
+                           files_=files_,
+                           timeout_=timeout_,
+                           check_=check_)
+
     def introDetails(
         self,
         *,
