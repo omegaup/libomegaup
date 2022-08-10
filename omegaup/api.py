@@ -6680,12 +6680,18 @@ class _OmegaUp_Controllers_Course__apiAdmins:
     admins: Sequence['_OmegaUp_Controllers_Course__apiAdmins_admins_entry']
     group_admins: Sequence[
         '_OmegaUp_Controllers_Course__apiAdmins_group_admins_entry']
+    group_teaching_assistants: Sequence[
+        '_OmegaUp_Controllers_Course__apiAdmins_group_teaching_assistants_entry']
+    teaching_assistants: Sequence[
+        '_OmegaUp_Controllers_Course__apiAdmins_teaching_assistants_entry']
 
     def __init__(
         self,
         *,
         admins: Sequence[Dict[str, Any]],
         group_admins: Sequence[Dict[str, Any]],
+        group_teaching_assistants: Sequence[Dict[str, Any]],
+        teaching_assistants: Sequence[Dict[str, Any]],
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
@@ -6696,6 +6702,14 @@ class _OmegaUp_Controllers_Course__apiAdmins:
         self.group_admins = [
             _OmegaUp_Controllers_Course__apiAdmins_group_admins_entry(**v)
             for v in group_admins
+        ]
+        self.group_teaching_assistants = [
+            _OmegaUp_Controllers_Course__apiAdmins_group_teaching_assistants_entry(
+                **v) for v in group_teaching_assistants
+        ]
+        self.teaching_assistants = [
+            _OmegaUp_Controllers_Course__apiAdmins_teaching_assistants_entry(
+                **v) for v in teaching_assistants
         ]
 
 
@@ -6736,6 +6750,45 @@ class _OmegaUp_Controllers_Course__apiAdmins_group_admins_entry:
         self.alias = alias
         self.name = name
         self.role = role
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_Course__apiAdmins_group_teaching_assistants_entry:
+    """_OmegaUp_Controllers_Course__apiAdmins_group_teaching_assistants_entry"""
+    alias: str
+    name: str
+    role: str
+
+    def __init__(
+        self,
+        *,
+        alias: str,
+        name: str,
+        role: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.alias = alias
+        self.name = name
+        self.role = role
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_Course__apiAdmins_teaching_assistants_entry:
+    """_OmegaUp_Controllers_Course__apiAdmins_teaching_assistants_entry"""
+    role: str
+    username: str
+
+    def __init__(
+        self,
+        *,
+        role: str,
+        username: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.role = role
+        self.username = username
 
 
 @dataclasses.dataclass
@@ -16721,6 +16774,34 @@ class Course:
             'group': group,
         }
         self._client.query('/api/course/removeGroupTeachingAssistant/',
+                           payload=parameters,
+                           files_=files_,
+                           timeout_=timeout_,
+                           check_=check_)
+
+    def removeTeachingAssistant(
+            self,
+            *,
+            course_alias: str,
+            usernameOrEmail: str,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
+        r"""Removes a teaching assistant from a course
+
+        Args:
+            course_alias:
+            usernameOrEmail:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {
+            'course_alias': course_alias,
+            'usernameOrEmail': usernameOrEmail,
+        }
+        self._client.query('/api/course/removeTeachingAssistant/',
                            payload=parameters,
                            files_=files_,
                            timeout_=timeout_,
