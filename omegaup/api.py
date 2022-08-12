@@ -20703,6 +20703,8 @@ class Submission:
             course_alias: str,
             feedback: str,
             guid: str,
+            range_bytes_end: Optional[int] = None,
+            range_bytes_start: Optional[int] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -20714,6 +20716,8 @@ class Submission:
             course_alias:
             feedback:
             guid:
+            range_bytes_end:
+            range_bytes_start:
 
         Returns:
             The API result object.
@@ -20724,6 +20728,10 @@ class Submission:
             'feedback': feedback,
             'guid': guid,
         }
+        if range_bytes_end is not None:
+            parameters['range_bytes_end'] = str(range_bytes_end)
+        if range_bytes_start is not None:
+            parameters['range_bytes_start'] = str(range_bytes_start)
         self._client.query('/api/submission/setFeedback/',
                            payload=parameters,
                            files_=files_,
