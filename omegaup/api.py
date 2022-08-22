@@ -58,6 +58,7 @@ class _OmegaUp_DAO_VO_Contests:
     archived: Optional[bool]
     certificate_cutoff: Optional[int]
     certificates_status: Optional[str]
+    check_plagiarism: Optional[bool]
     contest_for_teams: Optional[bool]
     contest_id: Optional[int]
     default_show_all_contestants_in_scoreboard: Optional[bool]
@@ -93,6 +94,7 @@ class _OmegaUp_DAO_VO_Contests:
         archived: Optional[bool] = None,
         certificate_cutoff: Optional[int] = None,
         certificates_status: Optional[str] = None,
+        check_plagiarism: Optional[bool] = None,
         contest_for_teams: Optional[bool] = None,
         contest_id: Optional[int] = None,
         default_show_all_contestants_in_scoreboard: Optional[bool] = None,
@@ -128,6 +130,7 @@ class _OmegaUp_DAO_VO_Contests:
         self.archived = archived
         self.certificate_cutoff = certificate_cutoff
         self.certificates_status = certificates_status
+        self.check_plagiarism = check_plagiarism
         self.contest_for_teams = contest_for_teams
         self.contest_id = contest_id
         self.default_show_all_contestants_in_scoreboard = default_show_all_contestants_in_scoreboard
