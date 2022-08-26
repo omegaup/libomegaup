@@ -14567,6 +14567,7 @@ class Contest:
             *,
             admission_mode: Optional[Any] = None,
             alias: Optional[Any] = None,
+            check_plagiarism: Optional[bool] = None,
             contest_for_teams: Optional[bool] = None,
             description: Optional[Any] = None,
             feedback: Optional[Any] = None,
@@ -14597,6 +14598,7 @@ class Contest:
         Args:
             admission_mode:
             alias:
+            check_plagiarism:
             contest_for_teams:
             description:
             feedback:
@@ -14627,6 +14629,8 @@ class Contest:
             parameters['admission_mode'] = str(admission_mode)
         if alias is not None:
             parameters['alias'] = str(alias)
+        if check_plagiarism is not None:
+            parameters['check_plagiarism'] = str(check_plagiarism)
         if contest_for_teams is not None:
             parameters['contest_for_teams'] = str(contest_for_teams)
         if description is not None:
@@ -15380,6 +15384,7 @@ class Contest:
         window_length: int,
         admission_mode: Optional[str] = None,
         alias: Optional[str] = None,
+        check_plagiarism: Optional[bool] = None,
         contest_for_teams: Optional[bool] = None,
         default_show_all_contestants_in_scoreboard: Optional[bool] = None,
         description: Optional[str] = None,
@@ -15413,6 +15418,7 @@ class Contest:
             window_length:
             admission_mode:
             alias:
+            check_plagiarism:
             contest_for_teams:
             default_show_all_contestants_in_scoreboard:
             description:
@@ -15446,6 +15452,8 @@ class Contest:
             parameters['admission_mode'] = admission_mode
         if alias is not None:
             parameters['alias'] = alias
+        if check_plagiarism is not None:
+            parameters['check_plagiarism'] = str(check_plagiarism)
         if contest_for_teams is not None:
             parameters['contest_for_teams'] = str(contest_for_teams)
         if default_show_all_contestants_in_scoreboard is not None:
