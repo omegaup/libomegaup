@@ -3693,6 +3693,7 @@ class _CourseEditPayload:
     selectedAssignment: Optional['_CourseAssignment']
     students: Sequence['_CourseStudent']
     tags: Sequence[str]
+    teachingAssistants: Sequence['_CourseAdmin']
 
     def __init__(
         self,
@@ -3705,6 +3706,7 @@ class _CourseEditPayload:
         identityRequests: Sequence[Dict[str, Any]],
         students: Sequence[Dict[str, Any]],
         tags: Sequence[str],
+        teachingAssistants: Sequence[Dict[str, Any]],
         selectedAssignment: Optional[Dict[str, Any]] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
@@ -3725,6 +3727,9 @@ class _CourseEditPayload:
             self.selectedAssignment = None
         self.students = [_CourseStudent(**v) for v in students]
         self.tags = [v for v in tags]
+        self.teachingAssistants = [
+            _CourseAdmin(**v) for v in teachingAssistants
+        ]
 
 
 @dataclasses.dataclass
