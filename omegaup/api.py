@@ -3689,6 +3689,7 @@ class _CourseEditPayload:
     assignmentProblems: Sequence['_ProblemsetProblem']
     course: '_CourseDetails'
     groupsAdmins: Sequence['_CourseGroupAdmin']
+    groupsTeachingAssistants: Sequence['_CourseGroupAdmin']
     identityRequests: Sequence['_IdentityRequest']
     selectedAssignment: Optional['_CourseAssignment']
     students: Sequence['_CourseStudent']
@@ -3703,6 +3704,7 @@ class _CourseEditPayload:
         assignmentProblems: Sequence[Dict[str, Any]],
         course: Dict[str, Any],
         groupsAdmins: Sequence[Dict[str, Any]],
+        groupsTeachingAssistants: Sequence[Dict[str, Any]],
         identityRequests: Sequence[Dict[str, Any]],
         students: Sequence[Dict[str, Any]],
         tags: Sequence[str],
@@ -3718,6 +3720,9 @@ class _CourseEditPayload:
         ]
         self.course = _CourseDetails(**course)
         self.groupsAdmins = [_CourseGroupAdmin(**v) for v in groupsAdmins]
+        self.groupsTeachingAssistants = [
+            _CourseGroupAdmin(**v) for v in groupsTeachingAssistants
+        ]
         self.identityRequests = [
             _IdentityRequest(**v) for v in identityRequests
         ]
