@@ -964,6 +964,7 @@ class _AssignmentDetailsPayload:
     """_AssignmentDetailsPayload"""
     courseDetails: '_CourseDetails'
     currentAssignment: '_ArenaAssignment'
+    isTeachingAssistant: bool
     scoreboard: Optional['_Scoreboard']
     shouldShowFirstAssociatedIdentityRunWarning: bool
     showRanking: bool
@@ -973,6 +974,7 @@ class _AssignmentDetailsPayload:
         *,
         courseDetails: Dict[str, Any],
         currentAssignment: Dict[str, Any],
+        isTeachingAssistant: bool,
         shouldShowFirstAssociatedIdentityRunWarning: bool,
         showRanking: bool,
         scoreboard: Optional[Dict[str, Any]] = None,
@@ -981,6 +983,7 @@ class _AssignmentDetailsPayload:
     ):
         self.courseDetails = _CourseDetails(**courseDetails)
         self.currentAssignment = _ArenaAssignment(**currentAssignment)
+        self.isTeachingAssistant = isTeachingAssistant
         if scoreboard is not None:
             self.scoreboard = _Scoreboard(**scoreboard)
         else:
@@ -16823,6 +16826,37 @@ class Course:
             'usernameOrEmail': usernameOrEmail,
         }
         self._client.query('/api/course/removeTeachingAssistant/',
+                           payload=parameters,
+                           files_=files_,
+                           timeout_=timeout_,
+                           check_=check_)
+
+    def requestFeedback(
+            self,
+            *,
+            assignment_alias: str,
+            course_alias: str,
+            guid: str,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
+        r"""Request feedback
+
+        Args:
+            assignment_alias:
+            course_alias:
+            guid:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {
+            'assignment_alias': assignment_alias,
+            'course_alias': course_alias,
+            'guid': guid,
+        }
+        self._client.query('/api/course/requestFeedback/',
                            payload=parameters,
                            files_=files_,
                            timeout_=timeout_,
