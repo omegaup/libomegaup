@@ -468,6 +468,7 @@ class _AdminCourses_admin_filteredCourses:
     archived: '_CoursesByTimeType'
     current: '_CoursesByTimeType'
     past: '_CoursesByTimeType'
+    teachingAssistant: '_CoursesByTimeType'
 
     def __init__(
         self,
@@ -475,12 +476,14 @@ class _AdminCourses_admin_filteredCourses:
         archived: Dict[str, Any],
         current: Dict[str, Any],
         past: Dict[str, Any],
+        teachingAssistant: Dict[str, Any],
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
         self.archived = _CoursesByTimeType(**archived)
         self.current = _CoursesByTimeType(**current)
         self.past = _CoursesByTimeType(**past)
+        self.teachingAssistant = _CoursesByTimeType(**teachingAssistant)
 
 
 @dataclasses.dataclass
@@ -964,6 +967,7 @@ class _AssignmentDetailsPayload:
     """_AssignmentDetailsPayload"""
     courseDetails: '_CourseDetails'
     currentAssignment: '_ArenaAssignment'
+    isTeachingAssistant: bool
     scoreboard: Optional['_Scoreboard']
     shouldShowFirstAssociatedIdentityRunWarning: bool
     showRanking: bool
@@ -973,6 +977,7 @@ class _AssignmentDetailsPayload:
         *,
         courseDetails: Dict[str, Any],
         currentAssignment: Dict[str, Any],
+        isTeachingAssistant: bool,
         shouldShowFirstAssociatedIdentityRunWarning: bool,
         showRanking: bool,
         scoreboard: Optional[Dict[str, Any]] = None,
@@ -981,6 +986,7 @@ class _AssignmentDetailsPayload:
     ):
         self.courseDetails = _CourseDetails(**courseDetails)
         self.currentAssignment = _ArenaAssignment(**currentAssignment)
+        self.isTeachingAssistant = isTeachingAssistant
         if scoreboard is not None:
             self.scoreboard = _Scoreboard(**scoreboard)
         else:
@@ -4197,27 +4203,29 @@ class _CoursesByTimeType:
 class _CoursesList:
     """_CoursesList"""
     admin: Sequence['_FilteredCourse']
-    archived: Optional[Sequence['_FilteredCourse']]
+    archived: Sequence['_FilteredCourse']
     public: Sequence['_FilteredCourse']
     student: Sequence['_FilteredCourse']
+    teachingAssistant: Sequence['_FilteredCourse']
 
     def __init__(
         self,
         *,
         admin: Sequence[Dict[str, Any]],
+        archived: Sequence[Dict[str, Any]],
         public: Sequence[Dict[str, Any]],
         student: Sequence[Dict[str, Any]],
-        archived: Optional[Sequence[Dict[str, Any]]] = None,
+        teachingAssistant: Sequence[Dict[str, Any]],
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
         self.admin = [_FilteredCourse(**v) for v in admin]
-        if archived is not None:
-            self.archived = [_FilteredCourse(**v) for v in archived]
-        else:
-            self.archived = None
+        self.archived = [_FilteredCourse(**v) for v in archived]
         self.public = [_FilteredCourse(**v) for v in public]
         self.student = [_FilteredCourse(**v) for v in student]
+        self.teachingAssistant = [
+            _FilteredCourse(**v) for v in teachingAssistant
+        ]
 
 
 @dataclasses.dataclass
@@ -16823,6 +16831,37 @@ class Course:
             'usernameOrEmail': usernameOrEmail,
         }
         self._client.query('/api/course/removeTeachingAssistant/',
+                           payload=parameters,
+                           files_=files_,
+                           timeout_=timeout_,
+                           check_=check_)
+
+    def requestFeedback(
+            self,
+            *,
+            assignment_alias: str,
+            course_alias: str,
+            guid: str,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
+        r"""Request feedback
+
+        Args:
+            assignment_alias:
+            course_alias:
+            guid:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {
+            'assignment_alias': assignment_alias,
+            'course_alias': course_alias,
+            'guid': guid,
+        }
+        self._client.query('/api/course/requestFeedback/',
                            payload=parameters,
                            files_=files_,
                            timeout_=timeout_,
