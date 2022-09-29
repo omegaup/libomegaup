@@ -20769,7 +20769,7 @@ class Submission:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
             timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
-        r"""Request feedback
+        r"""Updates the admin feedback for a submission
 
         Args:
             assignment_alias:
