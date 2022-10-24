@@ -246,7 +246,7 @@ class _OmegaUp_DAO_VO_Users:
     is_private: Optional[bool]
     main_email_id: Optional[int]
     main_identity_id: Optional[int]
-    parent_email_id: Optional[str]
+    parent_email_id: Optional[int]
     parent_email_verification_deadline: Optional[datetime.datetime]
     parent_email_verification_initial: Optional[datetime.datetime]
     parent_verified: Optional[bool]
@@ -276,7 +276,7 @@ class _OmegaUp_DAO_VO_Users:
         is_private: Optional[bool] = None,
         main_email_id: Optional[int] = None,
         main_identity_id: Optional[int] = None,
-        parent_email_id: Optional[str] = None,
+        parent_email_id: Optional[int] = None,
         parent_email_verification_deadline: Optional[int] = None,
         parent_email_verification_initial: Optional[int] = None,
         parent_verified: Optional[bool] = None,
