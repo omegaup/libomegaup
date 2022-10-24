@@ -20271,9 +20271,9 @@ class Run:
             self,
             *,
             contest_alias: str,
+            language: str,
             problem_alias: str,
             source: str,
-            language: Optional[Any] = None,
             problemset_id: Optional[Any] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
@@ -20284,9 +20284,9 @@ class Run:
 
         Args:
             contest_alias:
+            language:
             problem_alias:
             source:
-            language:
             problemset_id:
 
         Returns:
@@ -20294,11 +20294,10 @@ class Run:
         """
         parameters: Dict[str, str] = {
             'contest_alias': contest_alias,
+            'language': language,
             'problem_alias': problem_alias,
             'source': source,
         }
-        if language is not None:
-            parameters['language'] = str(language)
         if problemset_id is not None:
             parameters['problemset_id'] = str(problemset_id)
         return _OmegaUp_Controllers_Run__apiCreate(
@@ -20338,7 +20337,7 @@ class Run:
             self,
             *,
             run_alias: str,
-            debug: Optional[Any] = None,
+            debug: Optional[bool] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
