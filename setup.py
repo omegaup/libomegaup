@@ -14,8 +14,9 @@ with open('requirements/test.txt', 'r') as fh:
 
 setuptools.setup(
     name='omegaup',
-    version=subprocess.check_output(['/usr/bin/git', 'describe', '--tags'],
-                                    universal_newlines=True),
+    version=subprocess.check_output(
+        ['/usr/bin/git', 'describe', '--tags'],
+        universal_newlines=True).strip().lstrip('v'),
     author='omegaUp',
     author_email='lhchavez@omegaup.org',
     description='Utilities for interacting with omegaUp',
