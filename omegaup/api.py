@@ -9919,6 +9919,7 @@ class _ProblemListCollectionPayload_problemCount_entry:
 @dataclasses.dataclass
 class _ProblemListItem:
     """_ProblemListItem"""
+    accepted: int
     alias: str
     difficulty: Optional[float]
     difficulty_histogram: Sequence[int]
@@ -9929,6 +9930,7 @@ class _ProblemListItem:
     quality_seal: bool
     ratio: float
     score: float
+    submissions: int
     tags: Sequence['_ProblemListItem_tags_entry']
     title: str
     visibility: int
@@ -9936,6 +9938,7 @@ class _ProblemListItem:
     def __init__(
         self,
         *,
+        accepted: int,
         alias: str,
         difficulty_histogram: Sequence[int],
         points: float,
@@ -9944,6 +9947,7 @@ class _ProblemListItem:
         quality_seal: bool,
         ratio: float,
         score: float,
+        submissions: int,
         tags: Sequence[Dict[str, Any]],
         title: str,
         visibility: int,
@@ -9952,6 +9956,7 @@ class _ProblemListItem:
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
+        self.accepted = accepted
         self.alias = alias
         if difficulty is not None:
             self.difficulty = difficulty
@@ -9968,6 +9973,7 @@ class _ProblemListItem:
         self.quality_seal = quality_seal
         self.ratio = ratio
         self.score = score
+        self.submissions = submissions
         self.tags = [_ProblemListItem_tags_entry(**v) for v in tags]
         self.title = title
         self.visibility = visibility
