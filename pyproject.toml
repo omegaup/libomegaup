@@ -1,0 +1,36 @@
+[build-system]
+requires = [
+    "setuptools >= 65.5.1",
+    "wheel",
+    "setuptools-git-versioning",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "omegaup"
+authors = [
+  { name="omegaUp", email="lhchavez@omegaup.org" },
+]
+description = "Utilities for interacting with omegaUp"
+readme = "README.md"
+requires-python = ">=3.6"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+]
+dynamic = ["version", "dependencies", "optional-dependencies"]
+
+[project.urls]
+"Homepage" = "https://github.com/omegaup/libomegaup"
+"Bug Tracker" = "https://github.com/omegaup/libomegaup/issues"
+
+[tool.setuptools.package-data]
+omegaup = ["py.typed"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = "requirements.txt"}
+optional-dependencies.testing = {file = "requirements/test.txt"}
+
+[tool.setuptools-git-versioning]
+enabled = true
