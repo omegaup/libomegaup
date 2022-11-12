@@ -2435,6 +2435,7 @@ class _ContestEditPayload:
     details: '_ContestAdminDetails'
     group_admins: Sequence['_ContestGroupAdmin']
     groups: Sequence['_ContestGroup']
+    original_contest_admission_mode: Optional[str]
     problems: Sequence['_ProblemsetProblemWithVersions']
     requests: Sequence['_ContestRequest']
     teams_group: Optional['_ContestGroup']
@@ -2450,6 +2451,7 @@ class _ContestEditPayload:
         problems: Sequence[Dict[str, Any]],
         requests: Sequence[Dict[str, Any]],
         users: Sequence[Dict[str, Any]],
+        original_contest_admission_mode: Optional[str] = None,
         teams_group: Optional[Dict[str, Any]] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
@@ -2458,6 +2460,10 @@ class _ContestEditPayload:
         self.details = _ContestAdminDetails(**details)
         self.group_admins = [_ContestGroupAdmin(**v) for v in group_admins]
         self.groups = [_ContestGroup(**v) for v in groups]
+        if original_contest_admission_mode is not None:
+            self.original_contest_admission_mode = original_contest_admission_mode
+        else:
+            self.original_contest_admission_mode = None
         self.problems = [_ProblemsetProblemWithVersions(**v) for v in problems]
         self.requests = [_ContestRequest(**v) for v in requests]
         if teams_group is not None:
