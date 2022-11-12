@@ -10986,13 +10986,17 @@ class _Run:
     contest_alias: Optional[str]
     contest_score: Optional[float]
     country: str
+    execution: Optional[str]
     guid: str
     language: str
     memory: int
+    output: Optional[str]
     penalty: int
     runtime: int
     score: float
     status: str
+    status_memory: Optional[str]
+    status_runtime: Optional[str]
     submit_delay: int
     time: datetime.datetime
     type: Optional[str]
@@ -11018,6 +11022,10 @@ class _Run:
         verdict: str,
         contest_alias: Optional[str] = None,
         contest_score: Optional[float] = None,
+        execution: Optional[str] = None,
+        output: Optional[str] = None,
+        status_memory: Optional[str] = None,
+        status_runtime: Optional[str] = None,
         type: Optional[str] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
@@ -11033,13 +11041,29 @@ class _Run:
         else:
             self.contest_score = None
         self.country = country
+        if execution is not None:
+            self.execution = execution
+        else:
+            self.execution = None
         self.guid = guid
         self.language = language
         self.memory = memory
+        if output is not None:
+            self.output = output
+        else:
+            self.output = None
         self.penalty = penalty
         self.runtime = runtime
         self.score = score
         self.status = status
+        if status_memory is not None:
+            self.status_memory = status_memory
+        else:
+            self.status_memory = None
+        if status_runtime is not None:
+            self.status_runtime = status_runtime
+        else:
+            self.status_runtime = None
         self.submit_delay = submit_delay
         self.time = datetime.datetime.fromtimestamp(time)
         if type is not None:
@@ -11407,13 +11431,17 @@ class _RunWithDetails:
     contest_score: Optional[float]
     country: str
     details: Optional['_RunDetailsV2']
+    execution: Optional[str]
     guid: str
     language: str
     memory: int
+    output: Optional[str]
     penalty: int
     runtime: int
     score: float
     status: str
+    status_memory: Optional[str]
+    status_runtime: Optional[str]
     submit_delay: int
     time: datetime.datetime
     type: Optional[str]
@@ -11440,6 +11468,10 @@ class _RunWithDetails:
         contest_alias: Optional[str] = None,
         contest_score: Optional[float] = None,
         details: Optional[Dict[str, Any]] = None,
+        execution: Optional[str] = None,
+        output: Optional[str] = None,
+        status_memory: Optional[str] = None,
+        status_runtime: Optional[str] = None,
         type: Optional[str] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
@@ -11459,13 +11491,29 @@ class _RunWithDetails:
             self.details = _RunDetailsV2(**details)
         else:
             self.details = None
+        if execution is not None:
+            self.execution = execution
+        else:
+            self.execution = None
         self.guid = guid
         self.language = language
         self.memory = memory
+        if output is not None:
+            self.output = output
+        else:
+            self.output = None
         self.penalty = penalty
         self.runtime = runtime
         self.score = score
         self.status = status
+        if status_memory is not None:
+            self.status_memory = status_memory
+        else:
+            self.status_memory = None
+        if status_runtime is not None:
+            self.status_runtime = status_runtime
+        else:
+            self.status_runtime = None
         self.submit_delay = submit_delay
         self.time = datetime.datetime.fromtimestamp(time)
         if type is not None:
