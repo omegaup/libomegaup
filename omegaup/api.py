@@ -2059,7 +2059,7 @@ class _ContestAdminDetails:
     opened: bool
     original_contest_alias: Optional[str]
     original_problemset_id: Optional[int]
-    partial_score: bool
+    partial_score: Optional[bool]
     penalty: int
     penalty_calc_policy: str
     penalty_type: str
@@ -2068,6 +2068,7 @@ class _ContestAdminDetails:
     problemset_id: int
     requests_user_information: str
     rerun_id: Optional[int]
+    score_mode: str
     scoreboard: int
     scoreboard_url: Optional[str]
     scoreboard_url_admin: Optional[str]
@@ -2097,13 +2098,13 @@ class _ContestAdminDetails:
         languages: Sequence[str],
         needs_basic_information: bool,
         opened: bool,
-        partial_score: bool,
         penalty: int,
         penalty_calc_policy: str,
         penalty_type: str,
         points_decay_factor: float,
         problemset_id: int,
         requests_user_information: str,
+        score_mode: str,
         scoreboard: int,
         show_penalty: bool,
         show_scoreboard_after: bool,
@@ -2112,6 +2113,7 @@ class _ContestAdminDetails:
         title: str,
         original_contest_alias: Optional[str] = None,
         original_problemset_id: Optional[int] = None,
+        partial_score: Optional[bool] = None,
         problems: Optional[Sequence[Dict[str, Any]]] = None,
         rerun_id: Optional[int] = None,
         scoreboard_url: Optional[str] = None,
@@ -2147,7 +2149,10 @@ class _ContestAdminDetails:
             self.original_problemset_id = original_problemset_id
         else:
             self.original_problemset_id = None
-        self.partial_score = partial_score
+        if partial_score is not None:
+            self.partial_score = partial_score
+        else:
+            self.partial_score = None
         self.penalty = penalty
         self.penalty_calc_policy = penalty_calc_policy
         self.penalty_type = penalty_type
@@ -2162,6 +2167,7 @@ class _ContestAdminDetails:
             self.rerun_id = rerun_id
         else:
             self.rerun_id = None
+        self.score_mode = score_mode
         self.scoreboard = scoreboard
         if scoreboard_url is not None:
             self.scoreboard_url = scoreboard_url
@@ -2215,6 +2221,7 @@ class _ContestDetails:
     problemset_id: int
     requests_user_information: str
     rerun_id: Optional[int]
+    score_mode: str
     scoreboard: int
     scoreboard_url: Optional[str]
     scoreboard_url_admin: Optional[str]
@@ -2251,6 +2258,7 @@ class _ContestDetails:
         problems: Sequence[Dict[str, Any]],
         problemset_id: int,
         requests_user_information: str,
+        score_mode: str,
         scoreboard: int,
         show_penalty: bool,
         show_scoreboard_after: bool,
@@ -2301,6 +2309,7 @@ class _ContestDetails:
             self.rerun_id = rerun_id
         else:
             self.rerun_id = None
+        self.score_mode = score_mode
         self.scoreboard = scoreboard
         if scoreboard_url is not None:
             self.scoreboard_url = scoreboard_url
@@ -2896,6 +2905,7 @@ class _ContestPublicDetails:
     points_decay_factor: float
     problemset_id: int
     rerun_id: Optional[int]
+    score_mode: str
     scoreboard: int
     show_penalty: bool
     show_scoreboard_after: bool
@@ -2924,6 +2934,7 @@ class _ContestPublicDetails:
         penalty_type: str,
         points_decay_factor: float,
         problemset_id: int,
+        score_mode: str,
         scoreboard: int,
         show_penalty: bool,
         show_scoreboard_after: bool,
@@ -2956,6 +2967,7 @@ class _ContestPublicDetails:
             self.rerun_id = rerun_id
         else:
             self.rerun_id = None
+        self.score_mode = score_mode
         self.scoreboard = scoreboard
         self.show_penalty = show_penalty
         self.show_scoreboard_after = show_scoreboard_after
