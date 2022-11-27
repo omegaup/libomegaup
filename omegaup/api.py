@@ -1898,7 +1898,6 @@ class _Contest:
     languages: Optional[str]
     last_updated: datetime.datetime
     original_finish_time: Optional[datetime.datetime]
-    partial_score: bool
     penalty: Optional[int]
     penalty_calc_policy: Optional[str]
     penalty_type: Optional[str]
@@ -1906,6 +1905,7 @@ class _Contest:
     problemset_id: int
     recommended: bool
     rerun_id: Optional[int]
+    score_mode: str
     scoreboard: Optional[int]
     scoreboard_url: str
     scoreboard_url_admin: str
@@ -1925,9 +1925,9 @@ class _Contest:
         description: str,
         finish_time: int,
         last_updated: int,
-        partial_score: bool,
         problemset_id: int,
         recommended: bool,
+        score_mode: str,
         scoreboard_url: str,
         scoreboard_url_admin: str,
         start_time: int,
@@ -1972,7 +1972,6 @@ class _Contest:
                 original_finish_time)
         else:
             self.original_finish_time = None
-        self.partial_score = partial_score
         if penalty is not None:
             self.penalty = penalty
         else:
@@ -1995,6 +1994,7 @@ class _Contest:
             self.rerun_id = rerun_id
         else:
             self.rerun_id = None
+        self.score_mode = score_mode
         if scoreboard is not None:
             self.scoreboard = scoreboard
         else:
@@ -2059,7 +2059,6 @@ class _ContestAdminDetails:
     opened: bool
     original_contest_alias: Optional[str]
     original_problemset_id: Optional[int]
-    partial_score: Optional[bool]
     penalty: int
     penalty_calc_policy: str
     penalty_type: str
@@ -2113,7 +2112,6 @@ class _ContestAdminDetails:
         title: str,
         original_contest_alias: Optional[str] = None,
         original_problemset_id: Optional[int] = None,
-        partial_score: Optional[bool] = None,
         problems: Optional[Sequence[Dict[str, Any]]] = None,
         rerun_id: Optional[int] = None,
         scoreboard_url: Optional[str] = None,
@@ -2149,10 +2147,6 @@ class _ContestAdminDetails:
             self.original_problemset_id = original_problemset_id
         else:
             self.original_problemset_id = None
-        if partial_score is not None:
-            self.partial_score = partial_score
-        else:
-            self.partial_score = None
         self.penalty = penalty
         self.penalty_calc_policy = penalty_calc_policy
         self.penalty_type = penalty_type
@@ -2212,7 +2206,6 @@ class _ContestDetails:
     opened: bool
     original_contest_alias: Optional[str]
     original_problemset_id: Optional[int]
-    partial_score: bool
     penalty: int
     penalty_calc_policy: str
     penalty_type: str
@@ -2250,7 +2243,6 @@ class _ContestDetails:
         languages: Sequence[str],
         needs_basic_information: bool,
         opened: bool,
-        partial_score: bool,
         penalty: int,
         penalty_calc_policy: str,
         penalty_type: str,
@@ -2297,7 +2289,6 @@ class _ContestDetails:
             self.original_problemset_id = original_problemset_id
         else:
             self.original_problemset_id = None
-        self.partial_score = partial_score
         self.penalty = penalty
         self.penalty_calc_policy = penalty_calc_policy
         self.penalty_type = penalty_type
@@ -2574,15 +2565,18 @@ class _ContestListItem:
     contest_id: int
     contestants: int
     description: str
+    duration: Optional[int]
     finish_time: datetime.datetime
     last_updated: datetime.datetime
     organizer: str
     original_finish_time: datetime.datetime
-    partial_score: bool
     participating: bool
     problemset_id: int
     recommended: bool
     rerun_id: Optional[int]
+    score_mode: Optional[str]
+    scoreboard_url: Optional[str]
+    scoreboard_url_admin: Optional[str]
     start_time: datetime.datetime
     title: str
     window_length: Optional[int]
@@ -2599,13 +2593,16 @@ class _ContestListItem:
         last_updated: int,
         organizer: str,
         original_finish_time: int,
-        partial_score: bool,
         participating: bool,
         problemset_id: int,
         recommended: bool,
         start_time: int,
         title: str,
+        duration: Optional[int] = None,
         rerun_id: Optional[int] = None,
+        score_mode: Optional[str] = None,
+        scoreboard_url: Optional[str] = None,
+        scoreboard_url_admin: Optional[str] = None,
         window_length: Optional[int] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
@@ -2615,12 +2612,15 @@ class _ContestListItem:
         self.contest_id = contest_id
         self.contestants = contestants
         self.description = description
+        if duration is not None:
+            self.duration = duration
+        else:
+            self.duration = None
         self.finish_time = datetime.datetime.fromtimestamp(finish_time)
         self.last_updated = datetime.datetime.fromtimestamp(last_updated)
         self.organizer = organizer
         self.original_finish_time = datetime.datetime.fromtimestamp(
             original_finish_time)
-        self.partial_score = partial_score
         self.participating = participating
         self.problemset_id = problemset_id
         self.recommended = recommended
@@ -2628,6 +2628,18 @@ class _ContestListItem:
             self.rerun_id = rerun_id
         else:
             self.rerun_id = None
+        if score_mode is not None:
+            self.score_mode = score_mode
+        else:
+            self.score_mode = None
+        if scoreboard_url is not None:
+            self.scoreboard_url = scoreboard_url
+        else:
+            self.scoreboard_url = None
+        if scoreboard_url_admin is not None:
+            self.scoreboard_url_admin = scoreboard_url_admin
+        else:
+            self.scoreboard_url_admin = None
         self.start_time = datetime.datetime.fromtimestamp(start_time)
         self.title = title
         if window_length is not None:
@@ -2898,7 +2910,6 @@ class _ContestPublicDetails:
     feedback: str
     finish_time: datetime.datetime
     languages: str
-    partial_score: bool
     penalty: int
     penalty_calc_policy: str
     penalty_type: str
@@ -2928,7 +2939,6 @@ class _ContestPublicDetails:
         feedback: str,
         finish_time: int,
         languages: str,
-        partial_score: bool,
         penalty: int,
         penalty_calc_policy: str,
         penalty_type: str,
@@ -2957,7 +2967,6 @@ class _ContestPublicDetails:
         self.feedback = feedback
         self.finish_time = datetime.datetime.fromtimestamp(finish_time)
         self.languages = languages
-        self.partial_score = partial_score
         self.penalty = penalty
         self.penalty_calc_policy = penalty_calc_policy
         self.penalty_type = penalty_type
@@ -10498,7 +10507,6 @@ class _Problemset:
     opened: Optional[bool]
     original_contest_alias: Optional[str]
     original_problemset_id: Optional[int]
-    partial_score: Optional[bool]
     penalty: Optional[int]
     penalty_calc_policy: Optional[str]
     penalty_type: Optional[str]
@@ -10507,6 +10515,7 @@ class _Problemset:
     problemset_id: Optional[int]
     requests_user_information: Optional[str]
     rerun_id: Optional[int]
+    score_mode: Optional[str]
     scoreboard: Optional[int]
     scoreboard_url: Optional[str]
     scoreboard_url_admin: Optional[str]
@@ -10540,7 +10549,6 @@ class _Problemset:
         opened: Optional[bool] = None,
         original_contest_alias: Optional[str] = None,
         original_problemset_id: Optional[int] = None,
-        partial_score: Optional[bool] = None,
         penalty: Optional[int] = None,
         penalty_calc_policy: Optional[str] = None,
         penalty_type: Optional[str] = None,
@@ -10549,6 +10557,7 @@ class _Problemset:
         problemset_id: Optional[int] = None,
         requests_user_information: Optional[str] = None,
         rerun_id: Optional[int] = None,
+        score_mode: Optional[str] = None,
         scoreboard: Optional[int] = None,
         scoreboard_url: Optional[str] = None,
         scoreboard_url_admin: Optional[str] = None,
@@ -10637,10 +10646,6 @@ class _Problemset:
             self.original_problemset_id = original_problemset_id
         else:
             self.original_problemset_id = None
-        if partial_score is not None:
-            self.partial_score = partial_score
-        else:
-            self.partial_score = None
         if penalty is not None:
             self.penalty = penalty
         else:
@@ -10673,6 +10678,10 @@ class _Problemset:
             self.rerun_id = rerun_id
         else:
             self.rerun_id = None
+        if score_mode is not None:
+            self.score_mode = score_mode
+        else:
+            self.score_mode = None
         if scoreboard is not None:
             self.scoreboard = scoreboard
         else:
@@ -11982,13 +11991,13 @@ class _ScoreboardContest:
     languages: str
     last_updated: int
     only_ac: Optional[bool]
-    partial_score: bool
     penalty: str
     penalty_calc_policy: str
     points_decay_factor: float
     problemset_id: int
     recommended: bool
     rerun_id: int
+    score_mode: str
     scoreboard: int
     show_scoreboard_after: bool
     start_time: datetime.datetime
@@ -12010,13 +12019,13 @@ class _ScoreboardContest:
         finish_time: int,
         languages: str,
         last_updated: int,
-        partial_score: bool,
         penalty: str,
         penalty_calc_policy: str,
         points_decay_factor: float,
         problemset_id: int,
         recommended: bool,
         rerun_id: int,
+        score_mode: str,
         scoreboard: int,
         show_scoreboard_after: bool,
         start_time: int,
@@ -12042,13 +12051,13 @@ class _ScoreboardContest:
             self.only_ac = only_ac
         else:
             self.only_ac = None
-        self.partial_score = partial_score
         self.penalty = penalty
         self.penalty_calc_policy = penalty_calc_policy
         self.points_decay_factor = points_decay_factor
         self.problemset_id = problemset_id
         self.recommended = recommended
         self.rerun_id = rerun_id
+        self.score_mode = score_mode
         self.scoreboard = scoreboard
         self.show_scoreboard_after = show_scoreboard_after
         self.start_time = datetime.datetime.fromtimestamp(start_time)
@@ -14667,7 +14676,6 @@ class Contest:
             finish_time: Optional[Any] = None,
             languages: Optional[Any] = None,
             needs_basic_information: Optional[bool] = None,
-            partial_score: Optional[bool] = None,
             penalty: Optional[Any] = None,
             penalty_calc_policy: Optional[Any] = None,
             penalty_type: Optional[Any] = None,
@@ -14698,7 +14706,6 @@ class Contest:
             finish_time:
             languages:
             needs_basic_information:
-            partial_score:
             penalty:
             penalty_calc_policy:
             penalty_type:
@@ -14737,8 +14744,6 @@ class Contest:
         if needs_basic_information is not None:
             parameters['needs_basic_information'] = str(
                 needs_basic_information)
-        if partial_score is not None:
-            parameters['partial_score'] = str(partial_score)
         if penalty is not None:
             parameters['penalty'] = str(penalty)
         if penalty_calc_policy is not None:
@@ -15484,7 +15489,6 @@ class Contest:
         feedback: Optional[Any] = None,
         languages: Optional[Any] = None,
         needs_basic_information: Optional[bool] = None,
-        partial_score: Optional[bool] = None,
         penalty: Optional[int] = None,
         penalty_calc_policy: Optional[Any] = None,
         penalty_type: Optional[Any] = None,
@@ -15518,7 +15522,6 @@ class Contest:
             feedback:
             languages:
             needs_basic_information:
-            partial_score:
             penalty:
             penalty_calc_policy:
             penalty_type:
@@ -15561,8 +15564,6 @@ class Contest:
         if needs_basic_information is not None:
             parameters['needs_basic_information'] = str(
                 needs_basic_information)
-        if partial_score is not None:
-            parameters['partial_score'] = str(partial_score)
         if penalty is not None:
             parameters['penalty'] = str(penalty)
         if penalty_calc_policy is not None:
