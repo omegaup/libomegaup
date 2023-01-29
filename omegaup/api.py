@@ -11091,7 +11091,7 @@ class _RunDetails:
     cases: Dict[str, '_ProblemCasesContents_value']
     compile_error: Optional[str]
     details: Optional['_RunDetails_details']
-    feedback: Optional['_SubmissionFeedback']
+    feedback: Sequence['_SubmissionFeedback']
     guid: str
     judged_by: Optional[str]
     language: str
@@ -11108,12 +11108,12 @@ class _RunDetails:
         admin: bool,
         alias: str,
         cases: Dict[str, Dict[str, Any]],
+        feedback: Sequence[Dict[str, Any]],
         guid: str,
         language: str,
         show_diff: str,
         compile_error: Optional[str] = None,
         details: Optional[Dict[str, Any]] = None,
-        feedback: Optional[Dict[str, Any]] = None,
         judged_by: Optional[str] = None,
         logs: Optional[str] = None,
         source: Optional[str] = None,
@@ -11137,10 +11137,7 @@ class _RunDetails:
             self.details = _RunDetails_details(**details)
         else:
             self.details = None
-        if feedback is not None:
-            self.feedback = _SubmissionFeedback(**feedback)
-        else:
-            self.feedback = None
+        self.feedback = [_SubmissionFeedback(**v) for v in feedback]
         self.guid = guid
         if judged_by is not None:
             self.judged_by = judged_by
@@ -12858,6 +12855,8 @@ class _SubmissionFeedback:
     author_classname: str
     date: datetime.datetime
     feedback: str
+    range_bytes_end: Optional[int]
+    range_bytes_start: Optional[int]
 
     def __init__(
         self,
@@ -12866,6 +12865,8 @@ class _SubmissionFeedback:
         author_classname: str,
         date: int,
         feedback: str,
+        range_bytes_end: Optional[int] = None,
+        range_bytes_start: Optional[int] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
@@ -12873,6 +12874,14 @@ class _SubmissionFeedback:
         self.author_classname = author_classname
         self.date = datetime.datetime.fromtimestamp(date)
         self.feedback = feedback
+        if range_bytes_end is not None:
+            self.range_bytes_end = range_bytes_end
+        else:
+            self.range_bytes_end = None
+        if range_bytes_start is not None:
+            self.range_bytes_start = range_bytes_start
+        else:
+            self.range_bytes_start = None
 
 
 @dataclasses.dataclass
