@@ -11003,6 +11003,7 @@ class _Run:
     penalty: int
     runtime: int
     score: float
+    score_by_group: Optional[Dict[str, Optional[float]]]
     status: str
     status_memory: Optional[str]
     status_runtime: Optional[str]
@@ -11033,6 +11034,7 @@ class _Run:
         contest_score: Optional[float] = None,
         execution: Optional[str] = None,
         output: Optional[str] = None,
+        score_by_group: Optional[Dict[str, Optional[float]]] = None,
         status_memory: Optional[str] = None,
         status_runtime: Optional[str] = None,
         type: Optional[str] = None,
@@ -11064,6 +11066,13 @@ class _Run:
         self.penalty = penalty
         self.runtime = runtime
         self.score = score
+        if score_by_group is not None:
+            self.score_by_group = {
+                k: v if v is not None else None
+                for k, v in score_by_group.items()
+            }
+        else:
+            self.score_by_group = None
         self.status = status
         if status_memory is not None:
             self.status_memory = status_memory
@@ -11445,6 +11454,7 @@ class _RunWithDetails:
     penalty: int
     runtime: int
     score: float
+    score_by_group: Optional[Dict[str, Optional[float]]]
     status: str
     status_memory: Optional[str]
     status_runtime: Optional[str]
@@ -11476,6 +11486,7 @@ class _RunWithDetails:
         details: Optional[Dict[str, Any]] = None,
         execution: Optional[str] = None,
         output: Optional[str] = None,
+        score_by_group: Optional[Dict[str, Optional[float]]] = None,
         status_memory: Optional[str] = None,
         status_runtime: Optional[str] = None,
         type: Optional[str] = None,
@@ -11511,6 +11522,13 @@ class _RunWithDetails:
         self.penalty = penalty
         self.runtime = runtime
         self.score = score
+        if score_by_group is not None:
+            self.score_by_group = {
+                k: v if v is not None else None
+                for k, v in score_by_group.items()
+            }
+        else:
+            self.score_by_group = None
         self.status = status
         if status_memory is not None:
             self.status_memory = status_memory
