@@ -13809,6 +13809,21 @@ class _UserRolesPayload_userSystemRoles_value:
         self.value = value
 
 
+@dataclasses.dataclass
+class _VerificationParentalTokenDetailsPayload:
+    """_VerificationParentalTokenDetailsPayload"""
+    hasParentalVerificationToken: bool
+
+    def __init__(
+        self,
+        *,
+        hasParentalVerificationToken: bool,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.hasParentalVerificationToken = hasParentalVerificationToken
+
+
 AdminPlatformReportStatsResponse = _OmegaUp_Controllers_Admin__apiPlatformReportStats
 """The return type of the AdminPlatformReportStats API."""
 
