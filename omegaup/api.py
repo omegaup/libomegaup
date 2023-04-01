@@ -8555,21 +8555,6 @@ class _OmegaUp_Controllers_Session__apiCurrentSession:
 
 
 @dataclasses.dataclass
-class _OmegaUp_Controllers_Session__apiGoogleLogin:
-    """_OmegaUp_Controllers_Session__apiGoogleLogin"""
-    isAccountCreation: bool
-
-    def __init__(
-        self,
-        *,
-        isAccountCreation: bool,
-        # Ignore any unknown arguments
-        **_kwargs: Any,
-    ):
-        self.isAccountCreation = isAccountCreation
-
-
-@dataclasses.dataclass
 class _OmegaUp_Controllers_Tag__apiFrequentTags:
     """_OmegaUp_Controllers_Tag__apiFrequentTags"""
     frequent_tags: Sequence['_TagWithProblemCount']
@@ -13807,6 +13792,21 @@ class _UserRolesPayload_userSystemRoles_value:
     ):
         self.name = name
         self.value = value
+
+
+@dataclasses.dataclass
+class _VerificationParentalTokenDetailsPayload:
+    """_VerificationParentalTokenDetailsPayload"""
+    hasParentalVerificationToken: bool
+
+    def __init__(
+        self,
+        *,
+        hasParentalVerificationToken: bool,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.hasParentalVerificationToken = hasParentalVerificationToken
 
 
 AdminPlatformReportStatsResponse = _OmegaUp_Controllers_Admin__apiPlatformReportStats
@@ -20784,9 +20784,6 @@ class Scoreboard:
 SessionCurrentSessionResponse = _OmegaUp_Controllers_Session__apiCurrentSession
 """The return type of the SessionCurrentSession API."""
 
-SessionGoogleLoginResponse = _OmegaUp_Controllers_Session__apiGoogleLogin
-"""The return type of the SessionGoogleLogin API."""
-
 
 class Session:
     r"""Session controller handles sessions.
@@ -20819,33 +20816,6 @@ class Session:
             parameters['auth_token'] = auth_token
         return _OmegaUp_Controllers_Session__apiCurrentSession(
             **self._client.query('/api/session/currentSession/',
-                                 payload=parameters,
-                                 files_=files_,
-                                 timeout_=timeout_,
-                                 check_=check_))
-
-    def googleLogin(
-        self,
-        *,
-        storeToken: str,
-        # Out-of-band parameters:
-        files_: Optional[Mapping[str, BinaryIO]] = None,
-        check_: bool = True,
-        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
-    ) -> SessionGoogleLoginResponse:
-        r"""
-
-        Args:
-            storeToken:
-
-        Returns:
-            The API result object.
-        """
-        parameters: Dict[str, str] = {
-            'storeToken': storeToken,
-        }
-        return _OmegaUp_Controllers_Session__apiGoogleLogin(
-            **self._client.query('/api/session/googleLogin/',
                                  payload=parameters,
                                  files_=files_,
                                  timeout_=timeout_,
