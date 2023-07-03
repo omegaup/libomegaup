@@ -3984,7 +3984,7 @@ class _CourseProblemVerdict:
 class _CourseRun:
     """_CourseRun"""
     contest_score: Optional[float]
-    feedback: Optional['_SubmissionFeedback']
+    feedback: Optional['_CourseRun_feedback']
     guid: str
     language: str
     memory: int
@@ -4021,7 +4021,7 @@ class _CourseRun:
         else:
             self.contest_score = None
         if feedback is not None:
-            self.feedback = _SubmissionFeedback(**feedback)
+            self.feedback = _CourseRun_feedback(**feedback)
         else:
             self.feedback = None
         self.guid = guid
@@ -4038,6 +4038,42 @@ class _CourseRun:
         self.submit_delay = submit_delay
         self.time = datetime.datetime.fromtimestamp(time)
         self.verdict = verdict
+
+
+@dataclasses.dataclass
+class _CourseRun_feedback:
+    """_CourseRun_feedback"""
+    author: str
+    author_classname: str
+    date: datetime.datetime
+    feedback: str
+    range_bytes_end: Optional[int]
+    range_bytes_start: Optional[int]
+
+    def __init__(
+        self,
+        *,
+        author: str,
+        author_classname: str,
+        date: int,
+        feedback: str,
+        range_bytes_end: Optional[int] = None,
+        range_bytes_start: Optional[int] = None,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.author = author
+        self.author_classname = author_classname
+        self.date = datetime.datetime.fromtimestamp(date)
+        self.feedback = feedback
+        if range_bytes_end is not None:
+            self.range_bytes_end = range_bytes_end
+        else:
+            self.range_bytes_end = None
+        if range_bytes_start is not None:
+            self.range_bytes_start = range_bytes_start
+        else:
+            self.range_bytes_start = None
 
 
 @dataclasses.dataclass
@@ -12858,8 +12894,10 @@ class _SubmissionFeedback:
     author_classname: str
     date: datetime.datetime
     feedback: str
+    feedback_thread: Optional[Sequence['_SubmissionFeedbackThread']]
     range_bytes_end: Optional[int]
     range_bytes_start: Optional[int]
+    submission_feedback_id: int
 
     def __init__(
         self,
@@ -12868,6 +12906,8 @@ class _SubmissionFeedback:
         author_classname: str,
         date: int,
         feedback: str,
+        submission_feedback_id: int,
+        feedback_thread: Optional[Sequence[Dict[str, Any]]] = None,
         range_bytes_end: Optional[int] = None,
         range_bytes_start: Optional[int] = None,
         # Ignore any unknown arguments
@@ -12877,6 +12917,12 @@ class _SubmissionFeedback:
         self.author_classname = author_classname
         self.date = datetime.datetime.fromtimestamp(date)
         self.feedback = feedback
+        if feedback_thread is not None:
+            self.feedback_thread = [
+                _SubmissionFeedbackThread(**v) for v in feedback_thread
+            ]
+        else:
+            self.feedback_thread = None
         if range_bytes_end is not None:
             self.range_bytes_end = range_bytes_end
         else:
@@ -12885,6 +12931,34 @@ class _SubmissionFeedback:
             self.range_bytes_start = range_bytes_start
         else:
             self.range_bytes_start = None
+        self.submission_feedback_id = submission_feedback_id
+
+
+@dataclasses.dataclass
+class _SubmissionFeedbackThread:
+    """_SubmissionFeedbackThread"""
+    author: str
+    authorClassname: str
+    submission_feedback_thread_id: int
+    text: str
+    timestamp: datetime.datetime
+
+    def __init__(
+        self,
+        *,
+        author: str,
+        authorClassname: str,
+        submission_feedback_thread_id: int,
+        text: str,
+        timestamp: int,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.author = author
+        self.authorClassname = authorClassname
+        self.submission_feedback_thread_id = submission_feedback_thread_id
+        self.text = text
+        self.timestamp = datetime.datetime.fromtimestamp(timestamp)
 
 
 @dataclasses.dataclass
@@ -20348,6 +20422,9 @@ RunCreateResponse = _OmegaUp_Controllers_Run__apiCreate
 RunStatusResponse = _Run
 """The return type of the RunStatus API."""
 
+RunGetSubmissionFeedbackResponse = Sequence['_SubmissionFeedback']
+"""The return type of the RunGetSubmissionFeedback API."""
+
 RunDetailsResponse = _RunDetails
 """The return type of the RunDetails API."""
 
@@ -20511,6 +20588,35 @@ class Run:
                            files_=files_,
                            timeout_=timeout_,
                            check_=check_)
+
+    def getSubmissionFeedback(
+        self,
+        *,
+        run_alias: str,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> RunGetSubmissionFeedbackResponse:
+        r"""Get all the comments related to a submission feedback
+
+        Args:
+            run_alias:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {
+            'run_alias': run_alias,
+        }
+        return [
+            _SubmissionFeedback(**v)
+            for v in self._client.query('/api/run/getSubmissionFeedback/',
+                                        payload=parameters,
+                                        files_=files_,
+                                        timeout_=timeout_,
+                                        check_=check_)
+        ]
 
     def details(
             self,
@@ -20837,6 +20943,7 @@ class Submission:
             guid: str,
             range_bytes_end: Optional[int] = None,
             range_bytes_start: Optional[int] = None,
+            submission_feedback_id: Optional[int] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -20850,6 +20957,7 @@ class Submission:
             guid:
             range_bytes_end:
             range_bytes_start:
+            submission_feedback_id:
 
         Returns:
             The API result object.
@@ -20864,6 +20972,8 @@ class Submission:
             parameters['range_bytes_end'] = str(range_bytes_end)
         if range_bytes_start is not None:
             parameters['range_bytes_start'] = str(range_bytes_start)
+        if submission_feedback_id is not None:
+            parameters['submission_feedback_id'] = str(submission_feedback_id)
         self._client.query('/api/submission/setFeedback/',
                            payload=parameters,
                            files_=files_,
