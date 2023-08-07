@@ -230,6 +230,74 @@ class _OmegaUp_DAO_VO_Identities:
 
 
 @dataclasses.dataclass
+class _OmegaUp_DAO_VO_SubmissionFeedback:
+    """Type definition for the \\OmegaUp\\DAO\\VO\\SubmissionFeedback Data Object."""
+    date: Optional[datetime.datetime]
+    feedback: Optional[str]
+    identity_id: Optional[int]
+    range_bytes_end: Optional[int]
+    range_bytes_start: Optional[int]
+    submission_feedback_id: Optional[int]
+    submission_id: Optional[int]
+
+    def __init__(
+        self,
+        *,
+        date: Optional[int] = None,
+        feedback: Optional[str] = None,
+        identity_id: Optional[int] = None,
+        range_bytes_end: Optional[int] = None,
+        range_bytes_start: Optional[int] = None,
+        submission_feedback_id: Optional[int] = None,
+        submission_id: Optional[int] = None,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        """Create a new \\OmegaUp\\DAO\\VO\\SubmissionFeedback Data Object."""
+        if date is not None:
+            self.date = datetime.datetime.fromtimestamp(date)
+        else:
+            self.date = None
+        self.feedback = feedback
+        self.identity_id = identity_id
+        self.range_bytes_end = range_bytes_end
+        self.range_bytes_start = range_bytes_start
+        self.submission_feedback_id = submission_feedback_id
+        self.submission_id = submission_id
+
+
+@dataclasses.dataclass
+class _OmegaUp_DAO_VO_SubmissionFeedbackThread:
+    """Type definition for the \\OmegaUp\\DAO\\VO\\SubmissionFeedbackThread Data Object."""
+    contents: Optional[str]
+    date: Optional[datetime.datetime]
+    identity_id: Optional[int]
+    submission_feedback_id: Optional[int]
+    submission_feedback_thread_id: Optional[int]
+
+    def __init__(
+        self,
+        *,
+        contents: Optional[str] = None,
+        date: Optional[int] = None,
+        identity_id: Optional[int] = None,
+        submission_feedback_id: Optional[int] = None,
+        submission_feedback_thread_id: Optional[int] = None,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        """Create a new \\OmegaUp\\DAO\\VO\\SubmissionFeedbackThread Data Object."""
+        self.contents = contents
+        if date is not None:
+            self.date = datetime.datetime.fromtimestamp(date)
+        else:
+            self.date = None
+        self.identity_id = identity_id
+        self.submission_feedback_id = submission_feedback_id
+        self.submission_feedback_thread_id = submission_feedback_thread_id
+
+
+@dataclasses.dataclass
 class _OmegaUp_DAO_VO_Users:
     """Type definition for the \\OmegaUp\\DAO\\VO\\Users Data Object."""
     birth_date: Optional[str]
@@ -487,6 +555,51 @@ class _AdminCourses_admin_filteredCourses:
         self.current = _CoursesByTimeType(**current)
         self.past = _CoursesByTimeType(**past)
         self.teachingAssistant = _CoursesByTimeType(**teachingAssistant)
+
+
+@dataclasses.dataclass
+class _ApiToken:
+    """_ApiToken"""
+    last_used: datetime.datetime
+    name: str
+    rate_limit: '_ApiToken_rate_limit'
+    timestamp: datetime.datetime
+
+    def __init__(
+        self,
+        *,
+        last_used: int,
+        name: str,
+        rate_limit: Dict[str, Any],
+        timestamp: int,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.last_used = datetime.datetime.fromtimestamp(last_used)
+        self.name = name
+        self.rate_limit = _ApiToken_rate_limit(**rate_limit)
+        self.timestamp = datetime.datetime.fromtimestamp(timestamp)
+
+
+@dataclasses.dataclass
+class _ApiToken_rate_limit:
+    """_ApiToken_rate_limit"""
+    limit: int
+    remaining: int
+    reset: datetime.datetime
+
+    def __init__(
+        self,
+        *,
+        limit: int,
+        remaining: int,
+        reset: int,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.limit = limit
+        self.remaining = remaining
+        self.reset = datetime.datetime.fromtimestamp(reset)
 
 
 @dataclasses.dataclass
@@ -1784,6 +1897,7 @@ class _CollectionDetailsByLevelPayload_tagData_entry:
 @dataclasses.dataclass
 class _CommonPayload:
     """_CommonPayload"""
+    apiTokens: Sequence['_ApiToken']
     associatedIdentities: Sequence['_AssociatedIdentity']
     currentEmail: str
     currentName: Optional[str]
@@ -1806,6 +1920,7 @@ class _CommonPayload:
     def __init__(
         self,
         *,
+        apiTokens: Sequence[Dict[str, Any]],
         associatedIdentities: Sequence[Dict[str, Any]],
         currentEmail: str,
         currentUsername: str,
@@ -1827,6 +1942,7 @@ class _CommonPayload:
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
+        self.apiTokens = [_ApiToken(**v) for v in apiTokens]
         self.associatedIdentities = [
             _AssociatedIdentity(**v) for v in associatedIdentities
         ]
@@ -3984,7 +4100,7 @@ class _CourseProblemVerdict:
 class _CourseRun:
     """_CourseRun"""
     contest_score: Optional[float]
-    feedback: Optional['_SubmissionFeedback']
+    feedback: Optional['_CourseRun_feedback']
     guid: str
     language: str
     memory: int
@@ -4021,7 +4137,7 @@ class _CourseRun:
         else:
             self.contest_score = None
         if feedback is not None:
-            self.feedback = _SubmissionFeedback(**feedback)
+            self.feedback = _CourseRun_feedback(**feedback)
         else:
             self.feedback = None
         self.guid = guid
@@ -4038,6 +4154,42 @@ class _CourseRun:
         self.submit_delay = submit_delay
         self.time = datetime.datetime.fromtimestamp(time)
         self.verdict = verdict
+
+
+@dataclasses.dataclass
+class _CourseRun_feedback:
+    """_CourseRun_feedback"""
+    author: str
+    author_classname: str
+    date: datetime.datetime
+    feedback: str
+    range_bytes_end: Optional[int]
+    range_bytes_start: Optional[int]
+
+    def __init__(
+        self,
+        *,
+        author: str,
+        author_classname: str,
+        date: int,
+        feedback: str,
+        range_bytes_end: Optional[int] = None,
+        range_bytes_start: Optional[int] = None,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.author = author
+        self.author_classname = author_classname
+        self.date = datetime.datetime.fromtimestamp(date)
+        self.feedback = feedback
+        if range_bytes_end is not None:
+            self.range_bytes_end = range_bytes_end
+        else:
+            self.range_bytes_end = None
+        if range_bytes_start is not None:
+            self.range_bytes_start = range_bytes_start
+        else:
+            self.range_bytes_start = None
 
 
 @dataclasses.dataclass
@@ -4262,6 +4414,7 @@ class _CoursesList:
 class _CurrentSession:
     """_CurrentSession"""
     apiTokenId: Optional[int]
+    api_tokens: Sequence['_ApiToken']
     associated_identities: Sequence['_AssociatedIdentity']
     auth_token: Optional[str]
     cacheKey: Optional[str]
@@ -4276,6 +4429,7 @@ class _CurrentSession:
     def __init__(
         self,
         *,
+        api_tokens: Sequence[Dict[str, Any]],
         associated_identities: Sequence[Dict[str, Any]],
         classname: str,
         is_admin: bool,
@@ -4294,6 +4448,7 @@ class _CurrentSession:
             self.apiTokenId = apiTokenId
         else:
             self.apiTokenId = None
+        self.api_tokens = [_ApiToken(**v) for v in api_tokens]
         self.associated_identities = [
             _AssociatedIdentity(**v) for v in associated_identities
         ]
@@ -8555,6 +8710,33 @@ class _OmegaUp_Controllers_Session__apiCurrentSession:
 
 
 @dataclasses.dataclass
+class _OmegaUp_Controllers_Submission__apiSetFeedback:
+    """_OmegaUp_Controllers_Submission__apiSetFeedback"""
+    submissionFeedback: Optional[_OmegaUp_DAO_VO_SubmissionFeedback]
+    submissionFeedbackThread: Optional[
+        _OmegaUp_DAO_VO_SubmissionFeedbackThread]
+
+    def __init__(
+        self,
+        *,
+        submissionFeedback: Optional[Dict[str, Any]] = None,
+        submissionFeedbackThread: Optional[Dict[str, Any]] = None,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        if submissionFeedback is not None:
+            self.submissionFeedback = _OmegaUp_DAO_VO_SubmissionFeedback(
+                **submissionFeedback)
+        else:
+            self.submissionFeedback = None
+        if submissionFeedbackThread is not None:
+            self.submissionFeedbackThread = _OmegaUp_DAO_VO_SubmissionFeedbackThread(
+                **submissionFeedbackThread)
+        else:
+            self.submissionFeedbackThread = None
+
+
+@dataclasses.dataclass
 class _OmegaUp_Controllers_Tag__apiFrequentTags:
     """_OmegaUp_Controllers_Tag__apiFrequentTags"""
     frequent_tags: Sequence['_TagWithProblemCount']
@@ -8852,8 +9034,7 @@ class _OmegaUp_Controllers_User__apiList:
 @dataclasses.dataclass
 class _OmegaUp_Controllers_User__apiListAPITokens:
     """_OmegaUp_Controllers_User__apiListAPITokens"""
-    tokens: Sequence[
-        '_OmegaUp_Controllers_User__apiListAPITokens_tokens_entry']
+    tokens: Sequence['_ApiToken']
 
     def __init__(
         self,
@@ -8862,56 +9043,7 @@ class _OmegaUp_Controllers_User__apiListAPITokens:
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
-        self.tokens = [
-            _OmegaUp_Controllers_User__apiListAPITokens_tokens_entry(**v)
-            for v in tokens
-        ]
-
-
-@dataclasses.dataclass
-class _OmegaUp_Controllers_User__apiListAPITokens_tokens_entry:
-    """_OmegaUp_Controllers_User__apiListAPITokens_tokens_entry"""
-    last_used: datetime.datetime
-    name: str
-    rate_limit: '_OmegaUp_Controllers_User__apiListAPITokens_tokens_entry_rate_limit'
-    timestamp: datetime.datetime
-
-    def __init__(
-        self,
-        *,
-        last_used: int,
-        name: str,
-        rate_limit: Dict[str, Any],
-        timestamp: int,
-        # Ignore any unknown arguments
-        **_kwargs: Any,
-    ):
-        self.last_used = datetime.datetime.fromtimestamp(last_used)
-        self.name = name
-        self.rate_limit = _OmegaUp_Controllers_User__apiListAPITokens_tokens_entry_rate_limit(
-            **rate_limit)
-        self.timestamp = datetime.datetime.fromtimestamp(timestamp)
-
-
-@dataclasses.dataclass
-class _OmegaUp_Controllers_User__apiListAPITokens_tokens_entry_rate_limit:
-    """_OmegaUp_Controllers_User__apiListAPITokens_tokens_entry_rate_limit"""
-    limit: int
-    remaining: int
-    reset: datetime.datetime
-
-    def __init__(
-        self,
-        *,
-        limit: int,
-        remaining: int,
-        reset: int,
-        # Ignore any unknown arguments
-        **_kwargs: Any,
-    ):
-        self.limit = limit
-        self.remaining = remaining
-        self.reset = datetime.datetime.fromtimestamp(reset)
+        self.tokens = [_ApiToken(**v) for v in tokens]
 
 
 @dataclasses.dataclass
@@ -12858,8 +12990,10 @@ class _SubmissionFeedback:
     author_classname: str
     date: datetime.datetime
     feedback: str
+    feedback_thread: Optional[Sequence['_SubmissionFeedbackThread']]
     range_bytes_end: Optional[int]
     range_bytes_start: Optional[int]
+    submission_feedback_id: int
 
     def __init__(
         self,
@@ -12868,6 +13002,8 @@ class _SubmissionFeedback:
         author_classname: str,
         date: int,
         feedback: str,
+        submission_feedback_id: int,
+        feedback_thread: Optional[Sequence[Dict[str, Any]]] = None,
         range_bytes_end: Optional[int] = None,
         range_bytes_start: Optional[int] = None,
         # Ignore any unknown arguments
@@ -12877,6 +13013,12 @@ class _SubmissionFeedback:
         self.author_classname = author_classname
         self.date = datetime.datetime.fromtimestamp(date)
         self.feedback = feedback
+        if feedback_thread is not None:
+            self.feedback_thread = [
+                _SubmissionFeedbackThread(**v) for v in feedback_thread
+            ]
+        else:
+            self.feedback_thread = None
         if range_bytes_end is not None:
             self.range_bytes_end = range_bytes_end
         else:
@@ -12885,6 +13027,34 @@ class _SubmissionFeedback:
             self.range_bytes_start = range_bytes_start
         else:
             self.range_bytes_start = None
+        self.submission_feedback_id = submission_feedback_id
+
+
+@dataclasses.dataclass
+class _SubmissionFeedbackThread:
+    """_SubmissionFeedbackThread"""
+    author: str
+    authorClassname: str
+    submission_feedback_thread_id: int
+    text: str
+    timestamp: datetime.datetime
+
+    def __init__(
+        self,
+        *,
+        author: str,
+        authorClassname: str,
+        submission_feedback_thread_id: int,
+        text: str,
+        timestamp: int,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.author = author
+        self.authorClassname = authorClassname
+        self.submission_feedback_thread_id = submission_feedback_thread_id
+        self.text = text
+        self.timestamp = datetime.datetime.fromtimestamp(timestamp)
 
 
 @dataclasses.dataclass
@@ -20348,6 +20518,9 @@ RunCreateResponse = _OmegaUp_Controllers_Run__apiCreate
 RunStatusResponse = _Run
 """The return type of the RunStatus API."""
 
+RunGetSubmissionFeedbackResponse = Sequence['_SubmissionFeedback']
+"""The return type of the RunGetSubmissionFeedback API."""
+
 RunDetailsResponse = _RunDetails
 """The return type of the RunDetails API."""
 
@@ -20511,6 +20684,35 @@ class Run:
                            files_=files_,
                            timeout_=timeout_,
                            check_=check_)
+
+    def getSubmissionFeedback(
+        self,
+        *,
+        run_alias: str,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> RunGetSubmissionFeedbackResponse:
+        r"""Get all the comments related to a submission feedback
+
+        Args:
+            run_alias:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {
+            'run_alias': run_alias,
+        }
+        return [
+            _SubmissionFeedback(**v)
+            for v in self._client.query('/api/run/getSubmissionFeedback/',
+                                        payload=parameters,
+                                        files_=files_,
+                                        timeout_=timeout_,
+                                        check_=check_)
+        ]
 
     def details(
             self,
@@ -20822,6 +21024,10 @@ class Session:
                                  check_=check_))
 
 
+SubmissionSetFeedbackResponse = _OmegaUp_Controllers_Submission__apiSetFeedback
+"""The return type of the SubmissionSetFeedback API."""
+
+
 class Submission:
     r"""SubmissionController
     """
@@ -20829,18 +21035,20 @@ class Submission:
         self._client = client
 
     def setFeedback(
-            self,
-            *,
-            assignment_alias: str,
-            course_alias: str,
-            feedback: str,
-            guid: str,
-            range_bytes_end: Optional[int] = None,
-            range_bytes_start: Optional[int] = None,
-            # Out-of-band parameters:
-            files_: Optional[Mapping[str, BinaryIO]] = None,
-            check_: bool = True,
-            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
+        self,
+        *,
+        assignment_alias: str,
+        course_alias: str,
+        feedback: str,
+        guid: str,
+        range_bytes_end: Optional[int] = None,
+        range_bytes_start: Optional[int] = None,
+        submission_feedback_id: Optional[int] = None,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> SubmissionSetFeedbackResponse:
         r"""Updates the admin feedback for a submission
 
         Args:
@@ -20850,6 +21058,7 @@ class Submission:
             guid:
             range_bytes_end:
             range_bytes_start:
+            submission_feedback_id:
 
         Returns:
             The API result object.
@@ -20864,11 +21073,14 @@ class Submission:
             parameters['range_bytes_end'] = str(range_bytes_end)
         if range_bytes_start is not None:
             parameters['range_bytes_start'] = str(range_bytes_start)
-        self._client.query('/api/submission/setFeedback/',
-                           payload=parameters,
-                           files_=files_,
-                           timeout_=timeout_,
-                           check_=check_)
+        if submission_feedback_id is not None:
+            parameters['submission_feedback_id'] = str(submission_feedback_id)
+        return _OmegaUp_Controllers_Submission__apiSetFeedback(
+            **self._client.query('/api/submission/setFeedback/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
 
 
 TagListResponse = Sequence['_OmegaUp_Controllers_Tag__apiList_entry']
