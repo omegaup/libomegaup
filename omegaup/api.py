@@ -5623,6 +5623,7 @@ class _ListItem:
 class _LoginDetailsPayload:
     """_LoginDetailsPayload"""
     facebookUrl: Optional[str]
+    hasVisitedSection: Optional[bool]
     statusError: Optional[str]
     validateRecaptcha: bool
     verifyEmailSuccessfully: Optional[str]
@@ -5632,6 +5633,7 @@ class _LoginDetailsPayload:
         *,
         validateRecaptcha: bool,
         facebookUrl: Optional[str] = None,
+        hasVisitedSection: Optional[bool] = None,
         statusError: Optional[str] = None,
         verifyEmailSuccessfully: Optional[str] = None,
         # Ignore any unknown arguments
@@ -5641,6 +5643,10 @@ class _LoginDetailsPayload:
             self.facebookUrl = facebookUrl
         else:
             self.facebookUrl = None
+        if hasVisitedSection is not None:
+            self.hasVisitedSection = hasVisitedSection
+        else:
+            self.hasVisitedSection = None
         if statusError is not None:
             self.statusError = statusError
         else:
