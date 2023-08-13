@@ -5623,6 +5623,7 @@ class _ListItem:
 class _LoginDetailsPayload:
     """_LoginDetailsPayload"""
     facebookUrl: Optional[str]
+    hasVisitedSection: Optional[bool]
     statusError: Optional[str]
     validateRecaptcha: bool
     verifyEmailSuccessfully: Optional[str]
@@ -5632,6 +5633,7 @@ class _LoginDetailsPayload:
         *,
         validateRecaptcha: bool,
         facebookUrl: Optional[str] = None,
+        hasVisitedSection: Optional[bool] = None,
         statusError: Optional[str] = None,
         verifyEmailSuccessfully: Optional[str] = None,
         # Ignore any unknown arguments
@@ -5641,6 +5643,10 @@ class _LoginDetailsPayload:
             self.facebookUrl = facebookUrl
         else:
             self.facebookUrl = None
+        if hasVisitedSection is not None:
+            self.hasVisitedSection = hasVisitedSection
+        else:
+            self.hasVisitedSection = None
         if statusError is not None:
             self.statusError = statusError
         else:
@@ -22158,7 +22164,7 @@ class User:
             scholar_degree: Optional[str] = None,
             school_id: Optional[int] = None,
             school_name: Optional[str] = None,
-            username: Optional[Any] = None,
+            username: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -22221,7 +22227,7 @@ class User:
         if school_name is not None:
             parameters['school_name'] = school_name
         if username is not None:
-            parameters['username'] = str(username)
+            parameters['username'] = username
         self._client.query('/api/user/update/',
                            payload=parameters,
                            files_=files_,
