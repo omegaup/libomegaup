@@ -1909,8 +1909,10 @@ class _CommonPayload:
     isLoggedIn: bool
     isMainUserIdentity: bool
     isReviewer: bool
+    isUnder13User: bool
     lockDownImage: str
     navbarSection: str
+    nextRegisteredContestForUser: Optional['_ContestListItem']
     omegaUpLockDown: bool
     profileProgress: float
     userClassname: str
@@ -1931,6 +1933,7 @@ class _CommonPayload:
         isLoggedIn: bool,
         isMainUserIdentity: bool,
         isReviewer: bool,
+        isUnder13User: bool,
         lockDownImage: str,
         navbarSection: str,
         omegaUpLockDown: bool,
@@ -1939,6 +1942,7 @@ class _CommonPayload:
         userCountry: str,
         userTypes: Sequence[str],
         currentName: Optional[str] = None,
+        nextRegisteredContestForUser: Optional[Dict[str, Any]] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
@@ -1959,8 +1963,14 @@ class _CommonPayload:
         self.isLoggedIn = isLoggedIn
         self.isMainUserIdentity = isMainUserIdentity
         self.isReviewer = isReviewer
+        self.isUnder13User = isUnder13User
         self.lockDownImage = lockDownImage
         self.navbarSection = navbarSection
+        if nextRegisteredContestForUser is not None:
+            self.nextRegisteredContestForUser = _ContestListItem(
+                **nextRegisteredContestForUser)
+        else:
+            self.nextRegisteredContestForUser = None
         self.omegaUpLockDown = omegaUpLockDown
         self.profileProgress = profileProgress
         self.userClassname = userClassname
@@ -3928,6 +3938,7 @@ class _CourseListMinePayload:
 @dataclasses.dataclass
 class _CourseNewPayload:
     """_CourseNewPayload"""
+    hasVisitedSection: bool
     is_admin: bool
     is_curator: bool
     languages: Dict[str, str]
@@ -3935,12 +3946,14 @@ class _CourseNewPayload:
     def __init__(
         self,
         *,
+        hasVisitedSection: bool,
         is_admin: bool,
         is_curator: bool,
         languages: Dict[str, str],
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
+        self.hasVisitedSection = hasVisitedSection
         self.is_admin = is_admin
         self.is_curator = is_curator
         self.languages = {k: v for k, v in languages.items()}
@@ -4291,15 +4304,18 @@ class _CourseSubmissionsListPayload:
 class _CourseTabsPayload:
     """_CourseTabsPayload"""
     courses: '_CourseTabsPayload_courses'
+    hasVisitedSection: bool
 
     def __init__(
         self,
         *,
         courses: Dict[str, Any],
+        hasVisitedSection: bool,
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
         self.courses = _CourseTabsPayload_courses(**courses)
+        self.hasVisitedSection = hasVisitedSection
 
 
 @dataclasses.dataclass
@@ -4422,6 +4438,7 @@ class _CurrentSession:
     email: Optional[str]
     identity: Optional[_OmegaUp_DAO_VO_Identities]
     is_admin: bool
+    is_under_13_user: bool
     loginIdentity: Optional[_OmegaUp_DAO_VO_Identities]
     user: Optional[_OmegaUp_DAO_VO_Users]
     valid: bool
@@ -4433,6 +4450,7 @@ class _CurrentSession:
         associated_identities: Sequence[Dict[str, Any]],
         classname: str,
         is_admin: bool,
+        is_under_13_user: bool,
         valid: bool,
         apiTokenId: Optional[int] = None,
         auth_token: Optional[str] = None,
@@ -4470,6 +4488,7 @@ class _CurrentSession:
         else:
             self.identity = None
         self.is_admin = is_admin
+        self.is_under_13_user = is_under_13_user
         if loginIdentity is not None:
             self.loginIdentity = _OmegaUp_DAO_VO_Identities(**loginIdentity)
         else:
@@ -5736,8 +5755,10 @@ class _NavbarProblemsetProblem:
     acceptsSubmissions: bool
     alias: str
     bestScore: int
+    hasMyRuns: Optional[bool]
     hasRuns: bool
     maxScore: Union[float, int]
+    myBestScore: Optional[float]
     text: str
 
     def __init__(
@@ -5749,14 +5770,24 @@ class _NavbarProblemsetProblem:
         hasRuns: bool,
         maxScore: Union[float, int],
         text: str,
+        hasMyRuns: Optional[bool] = None,
+        myBestScore: Optional[float] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
         self.acceptsSubmissions = acceptsSubmissions
         self.alias = alias
         self.bestScore = bestScore
+        if hasMyRuns is not None:
+            self.hasMyRuns = hasMyRuns
+        else:
+            self.hasMyRuns = None
         self.hasRuns = hasRuns
         self.maxScore = maxScore
+        if myBestScore is not None:
+            self.myBestScore = myBestScore
+        else:
+            self.myBestScore = None
         self.text = text
 
 
@@ -6226,6 +6257,21 @@ class _OmegaUp_Controllers_Badge__apiUserList:
         **_kwargs: Any,
     ):
         self.badges = [_Badge(**v) for v in badges]
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_Certificate__apiGetCertificatePdf:
+    """_OmegaUp_Controllers_Certificate__apiGetCertificatePdf"""
+    certificate: str
+
+    def __init__(
+        self,
+        *,
+        certificate: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.certificate = certificate
 
 
 @dataclasses.dataclass
@@ -14218,6 +14264,44 @@ class Badge:
                                            files_=files_,
                                            timeout_=timeout_,
                                            check_=check_))
+
+
+CertificateGetCertificatePdfResponse = _OmegaUp_Controllers_Certificate__apiGetCertificatePdf
+"""The return type of the CertificateGetCertificatePdf API."""
+
+
+class Certificate:
+    r"""CertificateController
+    """
+    def __init__(self, client: 'Client') -> None:
+        self._client = client
+
+    def getCertificatePdf(
+        self,
+        *,
+        verification_code: str,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> CertificateGetCertificatePdfResponse:
+        r"""API to generate the certificate PDF
+
+        Args:
+            verification_code:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {
+            'verification_code': verification_code,
+        }
+        return _OmegaUp_Controllers_Certificate__apiGetCertificatePdf(
+            **self._client.query('/api/certificate/getCertificatePdf/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
 
 
 ClarificationCreateResponse = _Clarification
@@ -22800,6 +22884,7 @@ class Client:
         self._admin: Optional[Admin] = None
         self._authorization: Optional[Authorization] = None
         self._badge: Optional[Badge] = None
+        self._certificate: Optional[Certificate] = None
         self._clarification: Optional[Clarification] = None
         self._contest: Optional[Contest] = None
         self._course: Optional[Course] = None
@@ -22892,6 +22977,13 @@ class Client:
         if self._badge is None:
             self._badge = Badge(self)
         return self._badge
+
+    @property
+    def certificate(self) -> Certificate:
+        """Returns the Certificate API."""
+        if self._certificate is None:
+            self._certificate = Certificate(self)
+        return self._certificate
 
     @property
     def clarification(self) -> Clarification:
