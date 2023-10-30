@@ -6235,16 +6235,19 @@ class _OmegaUp_Controllers_Badge__apiUserList:
 @dataclasses.dataclass
 class _OmegaUp_Controllers_Certificate__apiGetCertificatePdf:
     """_OmegaUp_Controllers_Certificate__apiGetCertificatePdf"""
-    certificate: str
+    certificate: Optional[str]
 
     def __init__(
         self,
         *,
-        certificate: str,
+        certificate: Optional[str] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
-        self.certificate = certificate
+        if certificate is not None:
+            self.certificate = certificate
+        else:
+            self.certificate = None
 
 
 @dataclasses.dataclass
@@ -6311,6 +6314,21 @@ class _OmegaUp_Controllers_Contest__apiActivityReport:
     ):
         self.events = [_ActivityEvent(**v) for v in events]
         self.pagerItems = [_PageItem(**v) for v in pagerItems]
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_Contest__apiAddProblem:
+    """_OmegaUp_Controllers_Contest__apiAddProblem"""
+    solutionStatus: str
+
+    def __init__(
+        self,
+        *,
+        solutionStatus: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.solutionStatus = solutionStatus
 
 
 @dataclasses.dataclass
@@ -6918,6 +6936,21 @@ class _OmegaUp_Controllers_Course__apiActivityReport:
     ):
         self.events = [_ActivityEvent(**v) for v in events]
         self.pagerItems = [_PageItem(**v) for v in pagerItems]
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_Course__apiAddProblem:
+    """_OmegaUp_Controllers_Course__apiAddProblem"""
+    solutionStatus: str
+
+    def __init__(
+        self,
+        *,
+        solutionStatus: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.solutionStatus = solutionStatus
 
 
 @dataclasses.dataclass
@@ -9591,7 +9624,9 @@ class _ProblemDetailsPayload:
     """_ProblemDetailsPayload"""
     allRuns: Optional[Sequence['_Run']]
     allowUserAddTags: Optional[bool]
+    allowedSolutionsToSee: int
     clarifications: Optional[Sequence['_Clarification']]
+    hasVisitedSection: Optional[bool]
     histogram: '_Histogram'
     levelTags: Optional[Sequence[str]]
     nominationStatus: Optional['_NominationStatus']
@@ -9609,6 +9644,7 @@ class _ProblemDetailsPayload:
     def __init__(
         self,
         *,
+        allowedSolutionsToSee: int,
         histogram: Dict[str, Any],
         problem: Dict[str, Any],
         solvers: Sequence[Dict[str, Any]],
@@ -9616,6 +9652,7 @@ class _ProblemDetailsPayload:
         allRuns: Optional[Sequence[Dict[str, Any]]] = None,
         allowUserAddTags: Optional[bool] = None,
         clarifications: Optional[Sequence[Dict[str, Any]]] = None,
+        hasVisitedSection: Optional[bool] = None,
         levelTags: Optional[Sequence[str]] = None,
         nominationStatus: Optional[Dict[str, Any]] = None,
         problemLevel: Optional[str] = None,
@@ -9636,10 +9673,15 @@ class _ProblemDetailsPayload:
             self.allowUserAddTags = allowUserAddTags
         else:
             self.allowUserAddTags = None
+        self.allowedSolutionsToSee = allowedSolutionsToSee
         if clarifications is not None:
             self.clarifications = [_Clarification(**v) for v in clarifications]
         else:
             self.clarifications = None
+        if hasVisitedSection is not None:
+            self.hasVisitedSection = hasVisitedSection
+        else:
+            self.hasVisitedSection = None
         self.histogram = _Histogram(**histogram)
         if levelTags is not None:
             self.levelTags = [v for v in levelTags]
@@ -9825,6 +9867,7 @@ class _ProblemFormPayload:
     emailClarifications: bool
     extraWallTime: Union[int, str]
     groupScorePolicy: Optional[str]
+    hasVisitedSection: Optional[bool]
     inputLimit: Union[int, str]
     languages: str
     levelTags: Sequence[str]
@@ -9877,6 +9920,7 @@ class _ProblemFormPayload:
         visibility: int,
         visibilityStatuses: Dict[str, int],
         groupScorePolicy: Optional[str] = None,
+        hasVisitedSection: Optional[bool] = None,
         message: Optional[str] = None,
         parameter: Optional[str] = None,
         selectedTags: Optional[Sequence[Dict[str, Any]]] = None,
@@ -9891,6 +9935,10 @@ class _ProblemFormPayload:
             self.groupScorePolicy = groupScorePolicy
         else:
             self.groupScorePolicy = None
+        if hasVisitedSection is not None:
+            self.hasVisitedSection = hasVisitedSection
+        else:
+            self.hasVisitedSection = None
         self.inputLimit = inputLimit
         self.languages = languages
         self.levelTags = [v for v in levelTags]
@@ -14523,6 +14571,9 @@ ContestCreateVirtualResponse = _OmegaUp_Controllers_Contest__apiCreateVirtual
 ContestProblemsResponse = _OmegaUp_Controllers_Contest__apiProblems
 """The return type of the ContestProblems API."""
 
+ContestAddProblemResponse = _OmegaUp_Controllers_Contest__apiAddProblem
+"""The return type of the ContestAddProblem API."""
+
 ContestRunsDiffResponse = _OmegaUp_Controllers_Contest__apiRunsDiff
 """The return type of the ContestRunsDiff API."""
 
@@ -15156,17 +15207,18 @@ class Contest:
                                  check_=check_))
 
     def addProblem(
-            self,
-            *,
-            contest_alias: str,
-            order_in_contest: int,
-            points: float,
-            problem_alias: str,
-            commit: Optional[str] = None,
-            # Out-of-band parameters:
-            files_: Optional[Mapping[str, BinaryIO]] = None,
-            check_: bool = True,
-            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
+        self,
+        *,
+        contest_alias: str,
+        order_in_contest: int,
+        points: float,
+        problem_alias: str,
+        commit: Optional[str] = None,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> ContestAddProblemResponse:
         r"""Adds a problem to a contest
 
         Args:
@@ -15187,11 +15239,12 @@ class Contest:
         }
         if commit is not None:
             parameters['commit'] = commit
-        self._client.query('/api/contest/addProblem/',
-                           payload=parameters,
-                           files_=files_,
-                           timeout_=timeout_,
-                           check_=check_)
+        return _OmegaUp_Controllers_Contest__apiAddProblem(
+            **self._client.query('/api/contest/addProblem/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
 
     def removeProblem(
             self,
@@ -16218,6 +16271,9 @@ CourseGenerateTokenForCloneCourseResponse = _OmegaUp_Controllers_Course__apiGene
 CourseCloneResponse = _OmegaUp_Controllers_Course__apiClone
 """The return type of the CourseClone API."""
 
+CourseAddProblemResponse = _OmegaUp_Controllers_Course__apiAddProblem
+"""The return type of the CourseAddProblem API."""
+
 CourseGetProblemUsersResponse = _OmegaUp_Controllers_Course__apiGetProblemUsers
 """The return type of the CourseGetProblemUsers API."""
 
@@ -16541,18 +16597,19 @@ class Course:
                            check_=check_)
 
     def addProblem(
-            self,
-            *,
-            assignment_alias: str,
-            course_alias: str,
-            points: float,
-            problem_alias: str,
-            commit: Optional[str] = None,
-            is_extra_problem: Optional[bool] = None,
-            # Out-of-band parameters:
-            files_: Optional[Mapping[str, BinaryIO]] = None,
-            check_: bool = True,
-            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
+        self,
+        *,
+        assignment_alias: str,
+        course_alias: str,
+        points: float,
+        problem_alias: str,
+        commit: Optional[str] = None,
+        is_extra_problem: Optional[bool] = None,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> CourseAddProblemResponse:
         r"""Adds a problem to an assignment
 
         Args:
@@ -16576,11 +16633,12 @@ class Course:
             parameters['commit'] = commit
         if is_extra_problem is not None:
             parameters['is_extra_problem'] = str(is_extra_problem)
-        self._client.query('/api/course/addProblem/',
-                           payload=parameters,
-                           files_=files_,
-                           timeout_=timeout_,
-                           check_=check_)
+        return _OmegaUp_Controllers_Course__apiAddProblem(
+            **self._client.query('/api/course/addProblem/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
 
     def updateProblemsOrder(
             self,
