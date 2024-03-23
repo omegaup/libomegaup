@@ -1476,6 +1476,72 @@ class _CertificateDetailsPayload:
 
 
 @dataclasses.dataclass
+class _CertificateListItem:
+    """_CertificateListItem"""
+    certificate_type: str
+    date: datetime.datetime
+    name: Optional[str]
+    verification_code: str
+
+    def __init__(
+        self,
+        *,
+        certificate_type: str,
+        date: int,
+        verification_code: str,
+        name: Optional[str] = None,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.certificate_type = certificate_type
+        self.date = datetime.datetime.fromtimestamp(date)
+        if name is not None:
+            self.name = name
+        else:
+            self.name = None
+        self.verification_code = verification_code
+
+
+@dataclasses.dataclass
+class _CertificateListMinePayload:
+    """_CertificateListMinePayload"""
+    certificates: Sequence['_CertificateListItem']
+
+    def __init__(
+        self,
+        *,
+        certificates: Sequence[Dict[str, Any]],
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.certificates = [_CertificateListItem(**v) for v in certificates]
+
+
+@dataclasses.dataclass
+class _CertificateValidationPayload:
+    """_CertificateValidationPayload"""
+    certificate: Optional[str]
+    valid: bool
+    verification_code: str
+
+    def __init__(
+        self,
+        *,
+        valid: bool,
+        verification_code: str,
+        certificate: Optional[str] = None,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        if certificate is not None:
+            self.certificate = certificate
+        else:
+            self.certificate = None
+        self.valid = valid
+        self.verification_code = verification_code
+
+
+@dataclasses.dataclass
 class _Clarification:
     """_Clarification"""
     answer: Optional[str]
@@ -1872,6 +1938,7 @@ class _CommonPayload:
     userClassname: str
     userCountry: str
     userTypes: Sequence[str]
+    userVerificationDeadline: Optional[datetime.datetime]
 
     def __init__(
         self,
@@ -1897,6 +1964,7 @@ class _CommonPayload:
         userTypes: Sequence[str],
         currentName: Optional[str] = None,
         nextRegisteredContestForUser: Optional[Dict[str, Any]] = None,
+        userVerificationDeadline: Optional[int] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
@@ -1930,6 +1998,11 @@ class _CommonPayload:
         self.userClassname = userClassname
         self.userCountry = userCountry
         self.userTypes = [v for v in userTypes]
+        if userVerificationDeadline is not None:
+            self.userVerificationDeadline = datetime.datetime.fromtimestamp(
+                userVerificationDeadline)
+        else:
+            self.userVerificationDeadline = None
 
 
 @dataclasses.dataclass
@@ -2268,6 +2341,30 @@ class _ContestAdminDetails:
 
 
 @dataclasses.dataclass
+class _ContestCertificatesAdminDetails:
+    """_ContestCertificatesAdminDetails"""
+    certificateCutoff: Optional[int]
+    certificatesStatus: str
+    isCertificateGenerator: bool
+
+    def __init__(
+        self,
+        *,
+        certificatesStatus: str,
+        isCertificateGenerator: bool,
+        certificateCutoff: Optional[int] = None,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        if certificateCutoff is not None:
+            self.certificateCutoff = certificateCutoff
+        else:
+            self.certificateCutoff = None
+        self.certificatesStatus = certificatesStatus
+        self.isCertificateGenerator = isCertificateGenerator
+
+
+@dataclasses.dataclass
 class _ContestDetails:
     """_ContestDetails"""
     admin: bool
@@ -2512,6 +2609,7 @@ class _ContestDetailsPayload_original:
 class _ContestEditPayload:
     """_ContestEditPayload"""
     admins: Sequence['_ContestAdmin']
+    certificatesDetails: '_ContestCertificatesAdminDetails'
     details: '_ContestAdminDetails'
     group_admins: Sequence['_ContestGroupAdmin']
     groups: Sequence['_ContestGroup']
@@ -2525,6 +2623,7 @@ class _ContestEditPayload:
         self,
         *,
         admins: Sequence[Dict[str, Any]],
+        certificatesDetails: Dict[str, Any],
         details: Dict[str, Any],
         group_admins: Sequence[Dict[str, Any]],
         groups: Sequence[Dict[str, Any]],
@@ -2537,6 +2636,8 @@ class _ContestEditPayload:
         **_kwargs: Any,
     ):
         self.admins = [_ContestAdmin(**v) for v in admins]
+        self.certificatesDetails = _ContestCertificatesAdminDetails(
+            **certificatesDetails)
         self.details = _ContestAdminDetails(**details)
         self.group_admins = [_ContestGroupAdmin(**v) for v in group_admins]
         self.groups = [_ContestGroup(**v) for v in groups]
@@ -2599,6 +2700,7 @@ class _ContestIntroPayload:
     needsBasicInformation: bool
     privacyStatement: '_PrivacyStatement'
     requestsUserInformation: str
+    shouldShowModalToLoginWithRegisteredIdentity: bool
 
     def __init__(
         self,
@@ -2607,6 +2709,7 @@ class _ContestIntroPayload:
         needsBasicInformation: bool,
         privacyStatement: Dict[str, Any],
         requestsUserInformation: str,
+        shouldShowModalToLoginWithRegisteredIdentity: bool,
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
@@ -2614,6 +2717,7 @@ class _ContestIntroPayload:
         self.needsBasicInformation = needsBasicInformation
         self.privacyStatement = _PrivacyStatement(**privacyStatement)
         self.requestsUserInformation = requestsUserInformation
+        self.shouldShowModalToLoginWithRegisteredIdentity = shouldShowModalToLoginWithRegisteredIdentity
 
 
 @dataclasses.dataclass
@@ -3624,6 +3728,8 @@ class _CourseCardPublic:
 class _CourseClarificationsPayload:
     """_CourseClarificationsPayload"""
     clarifications: Sequence['_Clarification']
+    is_admin: bool
+    is_teaching_assistant: bool
     length: int
     page: int
     pagerItems: Sequence['_PageItem']
@@ -3632,6 +3738,8 @@ class _CourseClarificationsPayload:
         self,
         *,
         clarifications: Sequence[Dict[str, Any]],
+        is_admin: bool,
+        is_teaching_assistant: bool,
         length: int,
         page: int,
         pagerItems: Sequence[Dict[str, Any]],
@@ -3639,6 +3747,8 @@ class _CourseClarificationsPayload:
         **_kwargs: Any,
     ):
         self.clarifications = [_Clarification(**v) for v in clarifications]
+        self.is_admin = is_admin
+        self.is_teaching_assistant = is_teaching_assistant
         self.length = length
         self.page = page
         self.pagerItems = [_PageItem(**v) for v in pagerItems]
@@ -3698,6 +3808,7 @@ class _CourseDetails:
     finish_time: Optional[datetime.datetime]
     is_admin: bool
     is_curator: bool
+    is_teaching_assistant: bool
     languages: Optional[Sequence[str]]
     level: Optional[str]
     name: str
@@ -3722,6 +3833,7 @@ class _CourseDetails:
         description: str,
         is_admin: bool,
         is_curator: bool,
+        is_teaching_assistant: bool,
         name: str,
         needs_basic_information: bool,
         requests_user_information: str,
@@ -3750,6 +3862,7 @@ class _CourseDetails:
             self.finish_time = None
         self.is_admin = is_admin
         self.is_curator = is_curator
+        self.is_teaching_assistant = is_teaching_assistant
         if languages is not None:
             self.languages = [v for v in languages]
         else:
@@ -6235,16 +6348,34 @@ class _OmegaUp_Controllers_Badge__apiUserList:
 @dataclasses.dataclass
 class _OmegaUp_Controllers_Certificate__apiGetCertificatePdf:
     """_OmegaUp_Controllers_Certificate__apiGetCertificatePdf"""
-    certificate: str
+    certificate: Optional[str]
 
     def __init__(
         self,
         *,
-        certificate: str,
+        certificate: Optional[str] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
-        self.certificate = certificate
+        if certificate is not None:
+            self.certificate = certificate
+        else:
+            self.certificate = None
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_Certificate__apiGetUserCertificates:
+    """_OmegaUp_Controllers_Certificate__apiGetUserCertificates"""
+    certificates: Sequence['_CertificateListItem']
+
+    def __init__(
+        self,
+        *,
+        certificates: Sequence[Dict[str, Any]],
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.certificates = [_CertificateListItem(**v) for v in certificates]
 
 
 @dataclasses.dataclass
@@ -6311,6 +6442,21 @@ class _OmegaUp_Controllers_Contest__apiActivityReport:
     ):
         self.events = [_ActivityEvent(**v) for v in events]
         self.pagerItems = [_PageItem(**v) for v in pagerItems]
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_Contest__apiAddProblem:
+    """_OmegaUp_Controllers_Contest__apiAddProblem"""
+    solutionStatus: str
+
+    def __init__(
+        self,
+        *,
+        solutionStatus: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.solutionStatus = solutionStatus
 
 
 @dataclasses.dataclass
@@ -6450,6 +6596,21 @@ class _OmegaUp_Controllers_Contest__apiCreateVirtual:
         **_kwargs: Any,
     ):
         self.alias = alias
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_Contest__apiGetNumberOfContestants:
+    """_OmegaUp_Controllers_Contest__apiGetNumberOfContestants"""
+    response: Dict[int, int]
+
+    def __init__(
+        self,
+        *,
+        response: Dict[int, int],
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.response = {k: v for k, v in response.items()}
 
 
 @dataclasses.dataclass
@@ -6918,6 +7079,21 @@ class _OmegaUp_Controllers_Course__apiActivityReport:
     ):
         self.events = [_ActivityEvent(**v) for v in events]
         self.pagerItems = [_PageItem(**v) for v in pagerItems]
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_Course__apiAddProblem:
+    """_OmegaUp_Controllers_Course__apiAddProblem"""
+    solutionStatus: str
+
+    def __init__(
+        self,
+        *,
+        solutionStatus: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.solutionStatus = solutionStatus
 
 
 @dataclasses.dataclass
@@ -8559,6 +8735,42 @@ class _OmegaUp_Controllers_Run__apiCreate:
 
 
 @dataclasses.dataclass
+class _OmegaUp_Controllers_Run__apiDisqualify:
+    """_OmegaUp_Controllers_Run__apiDisqualify"""
+    runs: Sequence['_OmegaUp_Controllers_Run__apiDisqualify_runs_entry']
+
+    def __init__(
+        self,
+        *,
+        runs: Sequence[Dict[str, Any]],
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.runs = [
+            _OmegaUp_Controllers_Run__apiDisqualify_runs_entry(**v)
+            for v in runs
+        ]
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_Run__apiDisqualify_runs_entry:
+    """_OmegaUp_Controllers_Run__apiDisqualify_runs_entry"""
+    guid: str
+    username: str
+
+    def __init__(
+        self,
+        *,
+        guid: str,
+        username: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.guid = guid
+        self.username = username
+
+
+@dataclasses.dataclass
 class _OmegaUp_Controllers_Run__apiList:
     """_OmegaUp_Controllers_Run__apiList"""
     runs: Sequence['_Run']
@@ -9591,7 +9803,9 @@ class _ProblemDetailsPayload:
     """_ProblemDetailsPayload"""
     allRuns: Optional[Sequence['_Run']]
     allowUserAddTags: Optional[bool]
+    allowedSolutionsToSee: int
     clarifications: Optional[Sequence['_Clarification']]
+    hasVisitedSection: Optional[bool]
     histogram: '_Histogram'
     levelTags: Optional[Sequence[str]]
     nominationStatus: Optional['_NominationStatus']
@@ -9609,6 +9823,7 @@ class _ProblemDetailsPayload:
     def __init__(
         self,
         *,
+        allowedSolutionsToSee: int,
         histogram: Dict[str, Any],
         problem: Dict[str, Any],
         solvers: Sequence[Dict[str, Any]],
@@ -9616,6 +9831,7 @@ class _ProblemDetailsPayload:
         allRuns: Optional[Sequence[Dict[str, Any]]] = None,
         allowUserAddTags: Optional[bool] = None,
         clarifications: Optional[Sequence[Dict[str, Any]]] = None,
+        hasVisitedSection: Optional[bool] = None,
         levelTags: Optional[Sequence[str]] = None,
         nominationStatus: Optional[Dict[str, Any]] = None,
         problemLevel: Optional[str] = None,
@@ -9636,10 +9852,15 @@ class _ProblemDetailsPayload:
             self.allowUserAddTags = allowUserAddTags
         else:
             self.allowUserAddTags = None
+        self.allowedSolutionsToSee = allowedSolutionsToSee
         if clarifications is not None:
             self.clarifications = [_Clarification(**v) for v in clarifications]
         else:
             self.clarifications = None
+        if hasVisitedSection is not None:
+            self.hasVisitedSection = hasVisitedSection
+        else:
+            self.hasVisitedSection = None
         self.histogram = _Histogram(**histogram)
         if levelTags is not None:
             self.levelTags = [v for v in levelTags]
@@ -9825,6 +10046,7 @@ class _ProblemFormPayload:
     emailClarifications: bool
     extraWallTime: Union[int, str]
     groupScorePolicy: Optional[str]
+    hasVisitedSection: Optional[bool]
     inputLimit: Union[int, str]
     languages: str
     levelTags: Sequence[str]
@@ -9877,6 +10099,7 @@ class _ProblemFormPayload:
         visibility: int,
         visibilityStatuses: Dict[str, int],
         groupScorePolicy: Optional[str] = None,
+        hasVisitedSection: Optional[bool] = None,
         message: Optional[str] = None,
         parameter: Optional[str] = None,
         selectedTags: Optional[Sequence[Dict[str, Any]]] = None,
@@ -9891,6 +10114,10 @@ class _ProblemFormPayload:
             self.groupScorePolicy = groupScorePolicy
         else:
             self.groupScorePolicy = None
+        if hasVisitedSection is not None:
+            self.hasVisitedSection = hasVisitedSection
+        else:
+            self.hasVisitedSection = None
         self.inputLimit = inputLimit
         self.languages = languages
         self.levelTags = [v for v in levelTags]
@@ -13865,6 +14092,7 @@ class _UserRankTablePayload:
     filter: str
     isIndex: bool
     isLogged: bool
+    lastUpdated: Optional[datetime.datetime]
     length: int
     page: int
     pagerItems: Sequence['_PageItem']
@@ -13881,6 +14109,7 @@ class _UserRankTablePayload:
         page: int,
         pagerItems: Sequence[Dict[str, Any]],
         ranking: Dict[str, Any],
+        lastUpdated: Optional[int] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
@@ -13889,6 +14118,10 @@ class _UserRankTablePayload:
         self.filter = filter
         self.isIndex = isIndex
         self.isLogged = isLogged
+        if lastUpdated is not None:
+            self.lastUpdated = datetime.datetime.fromtimestamp(lastUpdated)
+        else:
+            self.lastUpdated = None
         self.length = length
         self.page = page
         self.pagerItems = [_PageItem(**v) for v in pagerItems]
@@ -13934,6 +14167,7 @@ class _UserRank_rank_entry:
     problems_solved: int
     ranking: Optional[int]
     score: float
+    timestamp: Optional[datetime.datetime]
     user_id: int
     username: str
 
@@ -13948,6 +14182,7 @@ class _UserRank_rank_entry:
         country_id: Optional[str] = None,
         name: Optional[str] = None,
         ranking: Optional[int] = None,
+        timestamp: Optional[int] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
@@ -13966,6 +14201,10 @@ class _UserRank_rank_entry:
         else:
             self.ranking = None
         self.score = score
+        if timestamp is not None:
+            self.timestamp = datetime.datetime.fromtimestamp(timestamp)
+        else:
+            self.timestamp = None
         self.user_id = user_id
         self.username = username
 
@@ -14052,15 +14291,18 @@ class _UserRolesPayload_userSystemRoles_value:
 class _VerificationParentalTokenDetailsPayload:
     """_VerificationParentalTokenDetailsPayload"""
     hasParentalVerificationToken: bool
+    message: str
 
     def __init__(
         self,
         *,
         hasParentalVerificationToken: bool,
+        message: str,
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
         self.hasParentalVerificationToken = hasParentalVerificationToken
+        self.message = message
 
 
 AdminPlatformReportStatsResponse = _OmegaUp_Controllers_Admin__apiPlatformReportStats
@@ -14301,6 +14543,9 @@ class Badge:
 CertificateGetCertificatePdfResponse = _OmegaUp_Controllers_Certificate__apiGetCertificatePdf
 """The return type of the CertificateGetCertificatePdf API."""
 
+CertificateGetUserCertificatesResponse = _OmegaUp_Controllers_Certificate__apiGetUserCertificates
+"""The return type of the CertificateGetUserCertificates API."""
+
 CertificateValidateCertificateResponse = _OmegaUp_Controllers_Certificate__apiValidateCertificate
 """The return type of the CertificateValidateCertificate API."""
 
@@ -14310,6 +14555,35 @@ class Certificate:
     """
     def __init__(self, client: 'Client') -> None:
         self._client = client
+
+    def generateContestCertificates(
+            self,
+            *,
+            certificates_cutoff: Optional[int] = None,
+            contest_alias: Optional[str] = None,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
+        r"""Generates all the certificates for a contest given its contest alias.
+
+        Args:
+            certificates_cutoff:
+            contest_alias:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {}
+        if certificates_cutoff is not None:
+            parameters['certificates_cutoff'] = str(certificates_cutoff)
+        if contest_alias is not None:
+            parameters['contest_alias'] = contest_alias
+        self._client.query('/api/certificate/generateContestCertificates/',
+                           payload=parameters,
+                           files_=files_,
+                           timeout_=timeout_,
+                           check_=check_)
 
     def getCertificatePdf(
         self,
@@ -14333,6 +14607,33 @@ class Certificate:
         }
         return _OmegaUp_Controllers_Certificate__apiGetCertificatePdf(
             **self._client.query('/api/certificate/getCertificatePdf/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
+
+    def getUserCertificates(
+        self,
+        *,
+        user_id: Optional[int] = None,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> CertificateGetUserCertificatesResponse:
+        r"""Get all the certificates belonging to a user
+
+        Args:
+            user_id:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {}
+        if user_id is not None:
+            parameters['user_id'] = str(user_id)
+        return _OmegaUp_Controllers_Certificate__apiGetUserCertificates(
+            **self._client.query('/api/certificate/getUserCertificates/',
                                  payload=parameters,
                                  files_=files_,
                                  timeout_=timeout_,
@@ -14502,6 +14803,9 @@ ContestMyListResponse = _OmegaUp_Controllers_Contest__apiMyList
 ContestListParticipatingResponse = _OmegaUp_Controllers_Contest__apiListParticipating
 """The return type of the ContestListParticipating API."""
 
+ContestGetNumberOfContestantsResponse = _OmegaUp_Controllers_Contest__apiGetNumberOfContestants
+"""The return type of the ContestGetNumberOfContestants API."""
+
 ContestPublicDetailsResponse = _ContestPublicDetails
 """The return type of the ContestPublicDetails API."""
 
@@ -14522,6 +14826,9 @@ ContestCreateVirtualResponse = _OmegaUp_Controllers_Contest__apiCreateVirtual
 
 ContestProblemsResponse = _OmegaUp_Controllers_Contest__apiProblems
 """The return type of the ContestProblems API."""
+
+ContestAddProblemResponse = _OmegaUp_Controllers_Contest__apiAddProblem
+"""The return type of the ContestAddProblem API."""
 
 ContestRunsDiffResponse = _OmegaUp_Controllers_Contest__apiRunsDiff
 """The return type of the ContestRunsDiff API."""
@@ -14739,6 +15046,33 @@ class Contest:
             parameters['show_archived'] = str(show_archived)
         return _OmegaUp_Controllers_Contest__apiListParticipating(
             **self._client.query('/api/contest/listParticipating/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
+
+    def getNumberOfContestants(
+        self,
+        *,
+        contest_ids: str,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> ContestGetNumberOfContestantsResponse:
+        r"""
+
+        Args:
+            contest_ids:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {
+            'contest_ids': contest_ids,
+        }
+        return _OmegaUp_Controllers_Contest__apiGetNumberOfContestants(
+            **self._client.query('/api/contest/getNumberOfContestants/',
                                  payload=parameters,
                                  files_=files_,
                                  timeout_=timeout_,
@@ -15156,17 +15490,18 @@ class Contest:
                                  check_=check_))
 
     def addProblem(
-            self,
-            *,
-            contest_alias: str,
-            order_in_contest: int,
-            points: float,
-            problem_alias: str,
-            commit: Optional[str] = None,
-            # Out-of-band parameters:
-            files_: Optional[Mapping[str, BinaryIO]] = None,
-            check_: bool = True,
-            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
+        self,
+        *,
+        contest_alias: str,
+        order_in_contest: int,
+        points: float,
+        problem_alias: str,
+        commit: Optional[str] = None,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> ContestAddProblemResponse:
         r"""Adds a problem to a contest
 
         Args:
@@ -15187,11 +15522,12 @@ class Contest:
         }
         if commit is not None:
             parameters['commit'] = commit
-        self._client.query('/api/contest/addProblem/',
-                           payload=parameters,
-                           files_=files_,
-                           timeout_=timeout_,
-                           check_=check_)
+        return _OmegaUp_Controllers_Contest__apiAddProblem(
+            **self._client.query('/api/contest/addProblem/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
 
     def removeProblem(
             self,
@@ -16218,6 +16554,9 @@ CourseGenerateTokenForCloneCourseResponse = _OmegaUp_Controllers_Course__apiGene
 CourseCloneResponse = _OmegaUp_Controllers_Course__apiClone
 """The return type of the CourseClone API."""
 
+CourseAddProblemResponse = _OmegaUp_Controllers_Course__apiAddProblem
+"""The return type of the CourseAddProblem API."""
+
 CourseGetProblemUsersResponse = _OmegaUp_Controllers_Course__apiGetProblemUsers
 """The return type of the CourseGetProblemUsers API."""
 
@@ -16541,18 +16880,19 @@ class Course:
                            check_=check_)
 
     def addProblem(
-            self,
-            *,
-            assignment_alias: str,
-            course_alias: str,
-            points: float,
-            problem_alias: str,
-            commit: Optional[str] = None,
-            is_extra_problem: Optional[bool] = None,
-            # Out-of-band parameters:
-            files_: Optional[Mapping[str, BinaryIO]] = None,
-            check_: bool = True,
-            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
+        self,
+        *,
+        assignment_alias: str,
+        course_alias: str,
+        points: float,
+        problem_alias: str,
+        commit: Optional[str] = None,
+        is_extra_problem: Optional[bool] = None,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> CourseAddProblemResponse:
         r"""Adds a problem to an assignment
 
         Args:
@@ -16576,11 +16916,12 @@ class Course:
             parameters['commit'] = commit
         if is_extra_problem is not None:
             parameters['is_extra_problem'] = str(is_extra_problem)
-        self._client.query('/api/course/addProblem/',
-                           payload=parameters,
-                           files_=files_,
-                           timeout_=timeout_,
-                           check_=check_)
+        return _OmegaUp_Controllers_Course__apiAddProblem(
+            **self._client.query('/api/course/addProblem/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
 
     def updateProblemsOrder(
             self,
@@ -17513,8 +17854,10 @@ class Course:
             *,
             assignment_alias: str,
             course_alias: str,
+            execution: Optional[str] = None,
             language: Optional[str] = None,
             offset: Optional[int] = None,
+            output: Optional[str] = None,
             problem_alias: Optional[str] = None,
             rowcount: Optional[int] = None,
             status: Optional[str] = None,
@@ -17530,8 +17873,10 @@ class Course:
         Args:
             assignment_alias:
             course_alias:
+            execution:
             language:
             offset:
+            output:
             problem_alias:
             rowcount:
             status:
@@ -17545,10 +17890,14 @@ class Course:
             'assignment_alias': assignment_alias,
             'course_alias': course_alias,
         }
+        if execution is not None:
+            parameters['execution'] = execution
         if language is not None:
             parameters['language'] = language
         if offset is not None:
             parameters['offset'] = str(offset)
+        if output is not None:
+            parameters['output'] = output
         if problem_alias is not None:
             parameters['problem_alias'] = problem_alias
         if rowcount is not None:
@@ -18056,7 +18405,7 @@ class Group:
     def list(
             self,
             *,
-            query: Optional[str] = None,
+            query: str,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -18071,9 +18420,9 @@ class Group:
         Returns:
             The API result object.
         """
-        parameters: Dict[str, str] = {}
-        if query is not None:
-            parameters['query'] = query
+        parameters: Dict[str, str] = {
+            'query': query,
+        }
         return [
             _GroupListItem(**v) for v in self._client.query('/api/group/list/',
                                                             payload=parameters,
@@ -19676,8 +20025,10 @@ class Problem:
     def runs(
         self,
         *,
+        execution: Optional[str] = None,
         language: Optional[str] = None,
         offset: Optional[int] = None,
+        output: Optional[str] = None,
         problem_alias: Optional[str] = None,
         rowcount: Optional[int] = None,
         show_all: Optional[bool] = None,
@@ -19692,8 +20043,10 @@ class Problem:
         r"""Entry point for Problem runs API
 
         Args:
+            execution:
             language:
             offset:
+            output:
             problem_alias:
             rowcount:
             show_all:
@@ -19705,10 +20058,14 @@ class Problem:
             The API result object.
         """
         parameters: Dict[str, str] = {}
+        if execution is not None:
+            parameters['execution'] = execution
         if language is not None:
             parameters['language'] = language
         if offset is not None:
             parameters['offset'] = str(offset)
+        if output is not None:
+            parameters['output'] = output
         if problem_alias is not None:
             parameters['problem_alias'] = problem_alias
         if rowcount is not None:
@@ -20670,6 +21027,9 @@ RunCreateResponse = _OmegaUp_Controllers_Run__apiCreate
 RunStatusResponse = _Run
 """The return type of the RunStatus API."""
 
+RunDisqualifyResponse = _OmegaUp_Controllers_Run__apiDisqualify
+"""The return type of the RunDisqualify API."""
+
 RunGetSubmissionFeedbackResponse = Sequence['_SubmissionFeedback']
 """The return type of the RunGetSubmissionFeedback API."""
 
@@ -20736,6 +21096,7 @@ class Run:
             self,
             *,
             run_alias: str,
+            username: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -20745,6 +21106,7 @@ class Run:
 
         Args:
             run_alias:
+            username:
 
         Returns:
             The API result object.
@@ -20752,6 +21114,8 @@ class Run:
         parameters: Dict[str, str] = {
             'run_alias': run_alias,
         }
+        if username is not None:
+            parameters['username'] = username
         return _Run(**self._client.query('/api/run/status/',
                                          payload=parameters,
                                          files_=files_,
@@ -20788,29 +21152,52 @@ class Run:
                            check_=check_)
 
     def disqualify(
-            self,
-            *,
-            run_alias: str,
-            # Out-of-band parameters:
-            files_: Optional[Mapping[str, BinaryIO]] = None,
-            check_: bool = True,
-            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
-        r"""Disqualify a submission
+        self,
+        *,
+        contest_alias: Optional[str] = None,
+        problem_alias: Optional[str] = None,
+        run_alias: Optional[str] = None,
+        username: Optional[str] = None,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> RunDisqualifyResponse:
+        r"""Disqualify one or more submissions based on the received parameters:
+
+        - When a run_alias is provided, it will only disqualify a single
+          submission.
+        - When run_alias is not provided, both the username and the contest_alias
+          are required.
+        - If a problem_alias is provided, all submissions belonging to the user
+          for this problem and contest will be disqualified.
+        - If a problem_alias is not provided, all submissions belonging to the
+          user in this contest will be disqualified.
 
         Args:
+            contest_alias:
+            problem_alias:
             run_alias:
+            username:
 
         Returns:
             The API result object.
         """
-        parameters: Dict[str, str] = {
-            'run_alias': run_alias,
-        }
-        self._client.query('/api/run/disqualify/',
-                           payload=parameters,
-                           files_=files_,
-                           timeout_=timeout_,
-                           check_=check_)
+        parameters: Dict[str, str] = {}
+        if contest_alias is not None:
+            parameters['contest_alias'] = contest_alias
+        if problem_alias is not None:
+            parameters['problem_alias'] = problem_alias
+        if run_alias is not None:
+            parameters['run_alias'] = run_alias
+        if username is not None:
+            parameters['username'] = username
+        return _OmegaUp_Controllers_Run__apiDisqualify(
+            **self._client.query('/api/run/disqualify/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
 
     def requalify(
             self,
@@ -21201,7 +21588,7 @@ class Submission:
         check_: bool = True,
         timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
     ) -> SubmissionSetFeedbackResponse:
-        r"""Updates the admin feedback for a submission
+        r"""Updates the admin feedback for a submission or creates the request feedback
 
         Args:
             assignment_alias:
