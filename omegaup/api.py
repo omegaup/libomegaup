@@ -13365,17 +13365,23 @@ class _SubmissionsListPayload:
     """_SubmissionsListPayload"""
     includeUser: bool
     submissions: Sequence['_Submission']
+    username: Optional[str]
 
     def __init__(
         self,
         *,
         includeUser: bool,
         submissions: Sequence[Dict[str, Any]],
+        username: Optional[str] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
         self.includeUser = includeUser
         self.submissions = [_Submission(**v) for v in submissions]
+        if username is not None:
+            self.username = username
+        else:
+            self.username = None
 
 
 @dataclasses.dataclass
@@ -15398,29 +15404,29 @@ class Contest:
     def create(
             self,
             *,
-            admission_mode: Optional[Any] = None,
-            alias: Optional[Any] = None,
+            finish_time: int,
+            start_time: int,
+            submissions_gap: int,
+            window_length: int,
+            admission_mode: Optional[str] = None,
+            alias: Optional[str] = None,
             check_plagiarism: Optional[bool] = None,
             contest_for_teams: Optional[bool] = None,
-            description: Optional[Any] = None,
-            feedback: Optional[Any] = None,
-            finish_time: Optional[Any] = None,
-            languages: Optional[Any] = None,
+            description: Optional[str] = None,
+            feedback: Optional[str] = None,
+            languages: Optional[str] = None,
             needs_basic_information: Optional[bool] = None,
-            penalty: Optional[Any] = None,
-            penalty_calc_policy: Optional[Any] = None,
-            penalty_type: Optional[Any] = None,
-            points_decay_factor: Optional[Any] = None,
+            penalty: Optional[int] = None,
+            penalty_calc_policy: Optional[str] = None,
+            penalty_type: Optional[str] = None,
+            points_decay_factor: Optional[float] = None,
             problems: Optional[str] = None,
-            requests_user_information: Optional[Any] = None,
+            requests_user_information: Optional[bool] = None,
             score_mode: Optional[str] = None,
-            scoreboard: Optional[Any] = None,
-            show_scoreboard_after: Optional[Any] = None,
-            start_time: Optional[Any] = None,
-            submissions_gap: Optional[Any] = None,
+            scoreboard: Optional[float] = None,
+            show_scoreboard_after: Optional[bool] = None,
             teams_group_alias: Optional[str] = None,
-            title: Optional[Any] = None,
-            window_length: Optional[int] = None,
+            title: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -15428,13 +15434,16 @@ class Contest:
         r"""Creates a new contest
 
         Args:
+            finish_time:
+            start_time:
+            submissions_gap:
+            window_length:
             admission_mode:
             alias:
             check_plagiarism:
             contest_for_teams:
             description:
             feedback:
-            finish_time:
             languages:
             needs_basic_information:
             penalty:
@@ -15446,41 +15455,41 @@ class Contest:
             score_mode:
             scoreboard:
             show_scoreboard_after:
-            start_time:
-            submissions_gap:
             teams_group_alias:
             title:
-            window_length:
 
         Returns:
             The API result object.
         """
-        parameters: Dict[str, str] = {}
+        parameters: Dict[str, str] = {
+            'finish_time': str(finish_time),
+            'start_time': str(start_time),
+            'submissions_gap': str(submissions_gap),
+            'window_length': str(window_length),
+        }
         if admission_mode is not None:
-            parameters['admission_mode'] = str(admission_mode)
+            parameters['admission_mode'] = admission_mode
         if alias is not None:
-            parameters['alias'] = str(alias)
+            parameters['alias'] = alias
         if check_plagiarism is not None:
             parameters['check_plagiarism'] = str(check_plagiarism)
         if contest_for_teams is not None:
             parameters['contest_for_teams'] = str(contest_for_teams)
         if description is not None:
-            parameters['description'] = str(description)
+            parameters['description'] = description
         if feedback is not None:
-            parameters['feedback'] = str(feedback)
-        if finish_time is not None:
-            parameters['finish_time'] = str(finish_time)
+            parameters['feedback'] = feedback
         if languages is not None:
-            parameters['languages'] = str(languages)
+            parameters['languages'] = languages
         if needs_basic_information is not None:
             parameters['needs_basic_information'] = str(
                 needs_basic_information)
         if penalty is not None:
             parameters['penalty'] = str(penalty)
         if penalty_calc_policy is not None:
-            parameters['penalty_calc_policy'] = str(penalty_calc_policy)
+            parameters['penalty_calc_policy'] = penalty_calc_policy
         if penalty_type is not None:
-            parameters['penalty_type'] = str(penalty_type)
+            parameters['penalty_type'] = penalty_type
         if points_decay_factor is not None:
             parameters['points_decay_factor'] = str(points_decay_factor)
         if problems is not None:
@@ -15494,16 +15503,10 @@ class Contest:
             parameters['scoreboard'] = str(scoreboard)
         if show_scoreboard_after is not None:
             parameters['show_scoreboard_after'] = str(show_scoreboard_after)
-        if start_time is not None:
-            parameters['start_time'] = str(start_time)
-        if submissions_gap is not None:
-            parameters['submissions_gap'] = str(submissions_gap)
         if teams_group_alias is not None:
             parameters['teams_group_alias'] = teams_group_alias
         if title is not None:
-            parameters['title'] = str(title)
-        if window_length is not None:
-            parameters['window_length'] = str(window_length)
+            parameters['title'] = title
         self._client.query('/api/contest/create/',
                            payload=parameters,
                            files_=files_,
@@ -16211,6 +16214,7 @@ class Contest:
         *,
         contest_alias: str,
         finish_time: int,
+        start_time: int,
         submissions_gap: int,
         window_length: int,
         admission_mode: Optional[str] = None,
@@ -16219,19 +16223,18 @@ class Contest:
         contest_for_teams: Optional[bool] = None,
         default_show_all_contestants_in_scoreboard: Optional[bool] = None,
         description: Optional[str] = None,
-        feedback: Optional[Any] = None,
-        languages: Optional[Any] = None,
+        feedback: Optional[str] = None,
+        languages: Optional[str] = None,
         needs_basic_information: Optional[bool] = None,
         penalty: Optional[int] = None,
-        penalty_calc_policy: Optional[Any] = None,
-        penalty_type: Optional[Any] = None,
+        penalty_calc_policy: Optional[str] = None,
+        penalty_type: Optional[str] = None,
         points_decay_factor: Optional[float] = None,
         problems: Optional[str] = None,
         requests_user_information: Optional[str] = None,
         score_mode: Optional[str] = None,
         scoreboard: Optional[float] = None,
         show_scoreboard_after: Optional[bool] = None,
-        start_time: Optional[datetime.datetime] = None,
         teams_group_alias: Optional[str] = None,
         title: Optional[str] = None,
         # Out-of-band parameters:
@@ -16244,6 +16247,7 @@ class Contest:
         Args:
             contest_alias:
             finish_time:
+            start_time:
             submissions_gap:
             window_length:
             admission_mode:
@@ -16264,7 +16268,6 @@ class Contest:
             score_mode:
             scoreboard:
             show_scoreboard_after:
-            start_time:
             teams_group_alias:
             title:
 
@@ -16274,6 +16277,7 @@ class Contest:
         parameters: Dict[str, str] = {
             'contest_alias': contest_alias,
             'finish_time': str(finish_time),
+            'start_time': str(start_time),
             'submissions_gap': str(submissions_gap),
             'window_length': str(window_length),
         }
@@ -16291,18 +16295,18 @@ class Contest:
         if description is not None:
             parameters['description'] = description
         if feedback is not None:
-            parameters['feedback'] = str(feedback)
+            parameters['feedback'] = feedback
         if languages is not None:
-            parameters['languages'] = str(languages)
+            parameters['languages'] = languages
         if needs_basic_information is not None:
             parameters['needs_basic_information'] = str(
                 needs_basic_information)
         if penalty is not None:
             parameters['penalty'] = str(penalty)
         if penalty_calc_policy is not None:
-            parameters['penalty_calc_policy'] = str(penalty_calc_policy)
+            parameters['penalty_calc_policy'] = penalty_calc_policy
         if penalty_type is not None:
-            parameters['penalty_type'] = str(penalty_type)
+            parameters['penalty_type'] = penalty_type
         if points_decay_factor is not None:
             parameters['points_decay_factor'] = str(points_decay_factor)
         if problems is not None:
@@ -16315,8 +16319,6 @@ class Contest:
             parameters['scoreboard'] = str(scoreboard)
         if show_scoreboard_after is not None:
             parameters['show_scoreboard_after'] = str(show_scoreboard_after)
-        if start_time is not None:
-            parameters['start_time'] = str(int(start_time.timestamp()))
         if teams_group_alias is not None:
             parameters['teams_group_alias'] = teams_group_alias
         if title is not None:
@@ -16825,16 +16827,16 @@ class Course:
     def createAssignment(
             self,
             *,
+            alias: str,
+            assignment_type: str,
             course_alias: str,
-            alias: Optional[Any] = None,
-            assignment_type: Optional[Any] = None,
-            description: Optional[Any] = None,
-            finish_time: Optional[Any] = None,
-            name: Optional[Any] = None,
+            description: str,
+            name: str,
+            start_time: datetime.datetime,
+            finish_time: Optional[datetime.datetime] = None,
             order: Optional[int] = None,
             problems: Optional[str] = None,
-            publish_time_delay: Optional[Any] = None,
-            start_time: Optional[Any] = None,
+            publish_time_delay: Optional[int] = None,
             unlimited_duration: Optional[bool] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
@@ -16843,42 +16845,37 @@ class Course:
         r"""API to Create an assignment
 
         Args:
-            course_alias:
             alias:
             assignment_type:
+            course_alias:
             description:
-            finish_time:
             name:
+            start_time:
+            finish_time:
             order:
             problems:
             publish_time_delay:
-            start_time:
             unlimited_duration:
 
         Returns:
             The API result object.
         """
         parameters: Dict[str, str] = {
+            'alias': alias,
+            'assignment_type': assignment_type,
             'course_alias': course_alias,
+            'description': description,
+            'name': name,
+            'start_time': str(int(start_time.timestamp())),
         }
-        if alias is not None:
-            parameters['alias'] = str(alias)
-        if assignment_type is not None:
-            parameters['assignment_type'] = str(assignment_type)
-        if description is not None:
-            parameters['description'] = str(description)
         if finish_time is not None:
-            parameters['finish_time'] = str(finish_time)
-        if name is not None:
-            parameters['name'] = str(name)
+            parameters['finish_time'] = str(int(finish_time.timestamp()))
         if order is not None:
             parameters['order'] = str(order)
         if problems is not None:
             parameters['problems'] = problems
         if publish_time_delay is not None:
             parameters['publish_time_delay'] = str(publish_time_delay)
-        if start_time is not None:
-            parameters['start_time'] = str(start_time)
         if unlimited_duration is not None:
             parameters['unlimited_duration'] = str(unlimited_duration)
         self._client.query('/api/course/createAssignment/',
@@ -19140,25 +19137,25 @@ class Problem:
             self,
             *,
             problem_alias: str,
-            visibility: str,
             allow_user_add_tags: Optional[bool] = None,
             email_clarifications: Optional[bool] = None,
-            extra_wall_time: Optional[Any] = None,
+            extra_wall_time: Optional[int] = None,
             group_score_policy: Optional[str] = None,
-            input_limit: Optional[Any] = None,
-            languages: Optional[Any] = None,
-            memory_limit: Optional[Any] = None,
-            output_limit: Optional[Any] = None,
-            overall_wall_time_limit: Optional[Any] = None,
+            input_limit: Optional[int] = None,
+            languages: Optional[str] = None,
+            memory_limit: Optional[int] = None,
+            output_limit: Optional[int] = None,
+            overall_wall_time_limit: Optional[int] = None,
             problem_level: Optional[str] = None,
             selected_tags: Optional[str] = None,
             show_diff: Optional[str] = None,
             source: Optional[str] = None,
-            time_limit: Optional[Any] = None,
+            time_limit: Optional[int] = None,
             title: Optional[str] = None,
             update_published: Optional[str] = None,
             validator: Optional[str] = None,
-            validator_time_limit: Optional[Any] = None,
+            validator_time_limit: Optional[int] = None,
+            visibility: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -19167,7 +19164,6 @@ class Problem:
 
         Args:
             problem_alias:
-            visibility:
             allow_user_add_tags:
             email_clarifications:
             extra_wall_time:
@@ -19186,13 +19182,13 @@ class Problem:
             update_published:
             validator:
             validator_time_limit:
+            visibility:
 
         Returns:
             The API result object.
         """
         parameters: Dict[str, str] = {
             'problem_alias': problem_alias,
-            'visibility': visibility,
         }
         if allow_user_add_tags is not None:
             parameters['allow_user_add_tags'] = str(allow_user_add_tags)
@@ -19205,7 +19201,7 @@ class Problem:
         if input_limit is not None:
             parameters['input_limit'] = str(input_limit)
         if languages is not None:
-            parameters['languages'] = str(languages)
+            parameters['languages'] = languages
         if memory_limit is not None:
             parameters['memory_limit'] = str(memory_limit)
         if output_limit is not None:
@@ -19231,6 +19227,8 @@ class Problem:
             parameters['validator'] = validator
         if validator_time_limit is not None:
             parameters['validator_time_limit'] = str(validator_time_limit)
+        if visibility is not None:
+            parameters['visibility'] = visibility
         self._client.query('/api/problem/create/',
                            payload=parameters,
                            files_=files_,
@@ -19553,25 +19551,25 @@ class Problem:
         *,
         message: str,
         problem_alias: str,
+        redirect: Union[bool, str],
         allow_user_add_tags: Optional[bool] = None,
         email_clarifications: Optional[bool] = None,
-        extra_wall_time: Optional[Any] = None,
+        extra_wall_time: Optional[int] = None,
         group_score_policy: Optional[str] = None,
-        input_limit: Optional[Any] = None,
-        languages: Optional[Any] = None,
-        memory_limit: Optional[Any] = None,
-        output_limit: Optional[Any] = None,
-        overall_wall_time_limit: Optional[Any] = None,
+        input_limit: Optional[int] = None,
+        languages: Optional[str] = None,
+        memory_limit: Optional[int] = None,
+        output_limit: Optional[int] = None,
+        overall_wall_time_limit: Optional[int] = None,
         problem_level: Optional[str] = None,
-        redirect: Optional[Any] = None,
         selected_tags: Optional[str] = None,
         show_diff: Optional[str] = None,
         source: Optional[str] = None,
-        time_limit: Optional[Any] = None,
+        time_limit: Optional[int] = None,
         title: Optional[str] = None,
         update_published: Optional[str] = None,
         validator: Optional[str] = None,
-        validator_time_limit: Optional[Any] = None,
+        validator_time_limit: Optional[int] = None,
         visibility: Optional[str] = None,
         # Out-of-band parameters:
         files_: Optional[Mapping[str, BinaryIO]] = None,
@@ -19583,6 +19581,7 @@ class Problem:
         Args:
             message:
             problem_alias:
+            redirect:
             allow_user_add_tags:
             email_clarifications:
             extra_wall_time:
@@ -19593,7 +19592,6 @@ class Problem:
             output_limit:
             overall_wall_time_limit:
             problem_level:
-            redirect:
             selected_tags:
             show_diff:
             source:
@@ -19610,6 +19608,7 @@ class Problem:
         parameters: Dict[str, str] = {
             'message': message,
             'problem_alias': problem_alias,
+            'redirect': str(redirect),
         }
         if allow_user_add_tags is not None:
             parameters['allow_user_add_tags'] = str(allow_user_add_tags)
@@ -19622,7 +19621,7 @@ class Problem:
         if input_limit is not None:
             parameters['input_limit'] = str(input_limit)
         if languages is not None:
-            parameters['languages'] = str(languages)
+            parameters['languages'] = languages
         if memory_limit is not None:
             parameters['memory_limit'] = str(memory_limit)
         if output_limit is not None:
@@ -19632,8 +19631,6 @@ class Problem:
                 overall_wall_time_limit)
         if problem_level is not None:
             parameters['problem_level'] = problem_level
-        if redirect is not None:
-            parameters['redirect'] = str(redirect)
         if selected_tags is not None:
             parameters['selected_tags'] = selected_tags
         if show_diff is not None:
@@ -19662,29 +19659,29 @@ class Problem:
     def updateStatement(
             self,
             *,
+            lang: str,
             message: str,
             problem_alias: str,
             statement: str,
-            visibility: str,
             allow_user_add_tags: Optional[bool] = None,
             email_clarifications: Optional[bool] = None,
-            extra_wall_time: Optional[Any] = None,
+            extra_wall_time: Optional[int] = None,
             group_score_policy: Optional[str] = None,
-            input_limit: Optional[Any] = None,
-            lang: Optional[Any] = None,
-            languages: Optional[Any] = None,
-            memory_limit: Optional[Any] = None,
-            output_limit: Optional[Any] = None,
-            overall_wall_time_limit: Optional[Any] = None,
+            input_limit: Optional[int] = None,
+            languages: Optional[str] = None,
+            memory_limit: Optional[int] = None,
+            output_limit: Optional[int] = None,
+            overall_wall_time_limit: Optional[int] = None,
             problem_level: Optional[str] = None,
             selected_tags: Optional[str] = None,
             show_diff: Optional[str] = None,
             source: Optional[str] = None,
-            time_limit: Optional[Any] = None,
+            time_limit: Optional[int] = None,
             title: Optional[str] = None,
             update_published: Optional[str] = None,
             validator: Optional[str] = None,
-            validator_time_limit: Optional[Any] = None,
+            validator_time_limit: Optional[int] = None,
+            visibility: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -19692,16 +19689,15 @@ class Problem:
         r"""Updates problem statement only
 
         Args:
+            lang:
             message:
             problem_alias:
             statement:
-            visibility:
             allow_user_add_tags:
             email_clarifications:
             extra_wall_time:
             group_score_policy:
             input_limit:
-            lang:
             languages:
             memory_limit:
             output_limit:
@@ -19715,15 +19711,16 @@ class Problem:
             update_published:
             validator:
             validator_time_limit:
+            visibility:
 
         Returns:
             The API result object.
         """
         parameters: Dict[str, str] = {
+            'lang': lang,
             'message': message,
             'problem_alias': problem_alias,
             'statement': statement,
-            'visibility': visibility,
         }
         if allow_user_add_tags is not None:
             parameters['allow_user_add_tags'] = str(allow_user_add_tags)
@@ -19735,10 +19732,8 @@ class Problem:
             parameters['group_score_policy'] = group_score_policy
         if input_limit is not None:
             parameters['input_limit'] = str(input_limit)
-        if lang is not None:
-            parameters['lang'] = str(lang)
         if languages is not None:
-            parameters['languages'] = str(languages)
+            parameters['languages'] = languages
         if memory_limit is not None:
             parameters['memory_limit'] = str(memory_limit)
         if output_limit is not None:
@@ -19764,6 +19759,8 @@ class Problem:
             parameters['validator'] = validator
         if validator_time_limit is not None:
             parameters['validator_time_limit'] = str(validator_time_limit)
+        if visibility is not None:
+            parameters['visibility'] = visibility
         self._client.query('/api/problem/updateStatement/',
                            payload=parameters,
                            files_=files_,
@@ -19776,26 +19773,26 @@ class Problem:
             message: str,
             problem_alias: str,
             solution: str,
-            visibility: str,
             allow_user_add_tags: Optional[bool] = None,
             email_clarifications: Optional[bool] = None,
-            extra_wall_time: Optional[Any] = None,
+            extra_wall_time: Optional[int] = None,
             group_score_policy: Optional[str] = None,
-            input_limit: Optional[Any] = None,
+            input_limit: Optional[int] = None,
             lang: Optional[str] = None,
-            languages: Optional[Any] = None,
-            memory_limit: Optional[Any] = None,
-            output_limit: Optional[Any] = None,
-            overall_wall_time_limit: Optional[Any] = None,
+            languages: Optional[str] = None,
+            memory_limit: Optional[int] = None,
+            output_limit: Optional[int] = None,
+            overall_wall_time_limit: Optional[int] = None,
             problem_level: Optional[str] = None,
             selected_tags: Optional[str] = None,
             show_diff: Optional[str] = None,
             source: Optional[str] = None,
-            time_limit: Optional[Any] = None,
+            time_limit: Optional[int] = None,
             title: Optional[str] = None,
             update_published: Optional[str] = None,
             validator: Optional[str] = None,
-            validator_time_limit: Optional[Any] = None,
+            validator_time_limit: Optional[int] = None,
+            visibility: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -19806,7 +19803,6 @@ class Problem:
             message:
             problem_alias:
             solution:
-            visibility:
             allow_user_add_tags:
             email_clarifications:
             extra_wall_time:
@@ -19826,6 +19822,7 @@ class Problem:
             update_published:
             validator:
             validator_time_limit:
+            visibility:
 
         Returns:
             The API result object.
@@ -19834,7 +19831,6 @@ class Problem:
             'message': message,
             'problem_alias': problem_alias,
             'solution': solution,
-            'visibility': visibility,
         }
         if allow_user_add_tags is not None:
             parameters['allow_user_add_tags'] = str(allow_user_add_tags)
@@ -19849,7 +19845,7 @@ class Problem:
         if lang is not None:
             parameters['lang'] = lang
         if languages is not None:
-            parameters['languages'] = str(languages)
+            parameters['languages'] = languages
         if memory_limit is not None:
             parameters['memory_limit'] = str(memory_limit)
         if output_limit is not None:
@@ -19875,6 +19871,8 @@ class Problem:
             parameters['validator'] = validator
         if validator_time_limit is not None:
             parameters['validator_time_limit'] = str(validator_time_limit)
+        if visibility is not None:
+            parameters['visibility'] = visibility
         self._client.query('/api/problem/updateSolution/',
                            payload=parameters,
                            files_=files_,
