@@ -2879,6 +2879,7 @@ class _ContestListv2Payload:
     """_ContestListv2Payload"""
     contests: '_ContestList'
     countContests: '_ContestListv2Payload_countContests'
+    pageSize: int
     query: Optional[str]
 
     def __init__(
@@ -2886,6 +2887,7 @@ class _ContestListv2Payload:
         *,
         contests: Dict[str, Any],
         countContests: Dict[str, Any],
+        pageSize: int,
         query: Optional[str] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
@@ -2893,6 +2895,7 @@ class _ContestListv2Payload:
         self.contests = _ContestList(**contests)
         self.countContests = _ContestListv2Payload_countContests(
             **countContests)
+        self.pageSize = pageSize
         if query is not None:
             self.query = query
         else:
@@ -14989,8 +14992,8 @@ class Contest:
         page_size: int,
         query: str,
         tab_name: str,
-        active: Optional[int] = None,
-        admission_mode: Optional[Any] = None,
+        admission_mode: Optional[str] = None,
+        filter: Optional[str] = None,
         participating: Optional[int] = None,
         recommended: Optional[int] = None,
         sort_order: Optional[str] = None,
@@ -15006,8 +15009,8 @@ class Contest:
             page_size:
             query:
             tab_name:
-            active:
             admission_mode:
+            filter:
             participating:
             recommended:
             sort_order:
@@ -15021,10 +15024,10 @@ class Contest:
             'query': query,
             'tab_name': tab_name,
         }
-        if active is not None:
-            parameters['active'] = str(active)
         if admission_mode is not None:
-            parameters['admission_mode'] = str(admission_mode)
+            parameters['admission_mode'] = admission_mode
+        if filter is not None:
+            parameters['filter'] = filter
         if participating is not None:
             parameters['participating'] = str(participating)
         if recommended is not None:
