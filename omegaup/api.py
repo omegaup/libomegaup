@@ -2879,6 +2879,7 @@ class _ContestListv2Payload:
     """_ContestListv2Payload"""
     contests: '_ContestList'
     countContests: '_ContestListv2Payload_countContests'
+    pageSize: int
     query: Optional[str]
 
     def __init__(
@@ -2886,6 +2887,7 @@ class _ContestListv2Payload:
         *,
         contests: Dict[str, Any],
         countContests: Dict[str, Any],
+        pageSize: int,
         query: Optional[str] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
@@ -2893,6 +2895,7 @@ class _ContestListv2Payload:
         self.contests = _ContestList(**contests)
         self.countContests = _ContestListv2Payload_countContests(
             **countContests)
+        self.pageSize = pageSize
         if query is not None:
             self.query = query
         else:
@@ -14989,8 +14992,8 @@ class Contest:
         page_size: int,
         query: str,
         tab_name: str,
-        active: Optional[int] = None,
-        admission_mode: Optional[Any] = None,
+        admission_mode: Optional[str] = None,
+        filter: Optional[str] = None,
         participating: Optional[int] = None,
         recommended: Optional[int] = None,
         sort_order: Optional[str] = None,
@@ -15006,8 +15009,8 @@ class Contest:
             page_size:
             query:
             tab_name:
-            active:
             admission_mode:
+            filter:
             participating:
             recommended:
             sort_order:
@@ -15021,10 +15024,10 @@ class Contest:
             'query': query,
             'tab_name': tab_name,
         }
-        if active is not None:
-            parameters['active'] = str(active)
         if admission_mode is not None:
-            parameters['admission_mode'] = str(admission_mode)
+            parameters['admission_mode'] = admission_mode
+        if filter is not None:
+            parameters['filter'] = filter
         if participating is not None:
             parameters['participating'] = str(participating)
         if recommended is not None:
@@ -20288,21 +20291,21 @@ class Problem:
         only_quality_seal: bool,
         difficulty: Optional[str] = None,
         difficulty_range: Optional[str] = None,
-        language: Optional[Any] = None,
+        language: Optional[str] = None,
         level: Optional[str] = None,
         max_difficulty: Optional[int] = None,
         min_difficulty: Optional[int] = None,
         min_visibility: Optional[int] = None,
         offset: Optional[int] = None,
-        only_karel: Optional[Any] = None,
-        order_by: Optional[Any] = None,
+        only_karel: Optional[bool] = None,
+        order_by: Optional[str] = None,
         page: Optional[int] = None,
         programming_languages: Optional[str] = None,
         query: Optional[str] = None,
-        require_all_tags: Optional[Any] = None,
+        require_all_tags: Optional[bool] = None,
         rowcount: Optional[int] = None,
-        some_tags: Optional[Any] = None,
-        sort_order: Optional[Any] = None,
+        some_tags: Optional[bool] = None,
+        sort_order: Optional[str] = None,
         # Out-of-band parameters:
         files_: Optional[Mapping[str, BinaryIO]] = None,
         check_: bool = True,
@@ -20341,7 +20344,7 @@ class Problem:
         if difficulty_range is not None:
             parameters['difficulty_range'] = difficulty_range
         if language is not None:
-            parameters['language'] = str(language)
+            parameters['language'] = language
         if level is not None:
             parameters['level'] = level
         if max_difficulty is not None:
@@ -20355,7 +20358,7 @@ class Problem:
         if only_karel is not None:
             parameters['only_karel'] = str(only_karel)
         if order_by is not None:
-            parameters['order_by'] = str(order_by)
+            parameters['order_by'] = order_by
         if page is not None:
             parameters['page'] = str(page)
         if programming_languages is not None:
@@ -20369,7 +20372,7 @@ class Problem:
         if some_tags is not None:
             parameters['some_tags'] = str(some_tags)
         if sort_order is not None:
-            parameters['sort_order'] = str(sort_order)
+            parameters['sort_order'] = sort_order
         return _OmegaUp_Controllers_Problem__apiList(
             **self._client.query('/api/problem/list/',
                                  payload=parameters,
