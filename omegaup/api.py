@@ -1931,6 +1931,7 @@ class _CommonPayload:
     isReviewer: bool
     isUnder13User: bool
     lockDownImage: str
+    mentorCanChooseCoder: bool
     navbarSection: str
     nextRegisteredContestForUser: Optional['_ContestListItem']
     omegaUpLockDown: bool
@@ -1956,6 +1957,7 @@ class _CommonPayload:
         isReviewer: bool,
         isUnder13User: bool,
         lockDownImage: str,
+        mentorCanChooseCoder: bool,
         navbarSection: str,
         omegaUpLockDown: bool,
         profileProgress: float,
@@ -1987,6 +1989,7 @@ class _CommonPayload:
         self.isReviewer = isReviewer
         self.isUnder13User = isUnder13User
         self.lockDownImage = lockDownImage
+        self.mentorCanChooseCoder = mentorCanChooseCoder
         self.navbarSection = navbarSection
         if nextRegisteredContestForUser is not None:
             self.nextRegisteredContestForUser = _ContestListItem(
@@ -2701,6 +2704,7 @@ class _ContestIntroPayload:
     privacyStatement: '_PrivacyStatement'
     requestsUserInformation: str
     shouldShowModalToLoginWithRegisteredIdentity: bool
+    userBasicInformation: '_UserBasicInformation'
 
     def __init__(
         self,
@@ -2710,6 +2714,7 @@ class _ContestIntroPayload:
         privacyStatement: Dict[str, Any],
         requestsUserInformation: str,
         shouldShowModalToLoginWithRegisteredIdentity: bool,
+        userBasicInformation: Dict[str, Any],
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
@@ -2718,6 +2723,8 @@ class _ContestIntroPayload:
         self.privacyStatement = _PrivacyStatement(**privacyStatement)
         self.requestsUserInformation = requestsUserInformation
         self.shouldShowModalToLoginWithRegisteredIdentity = shouldShowModalToLoginWithRegisteredIdentity
+        self.userBasicInformation = _UserBasicInformation(
+            **userBasicInformation)
 
 
 @dataclasses.dataclass
@@ -2879,6 +2886,7 @@ class _ContestListv2Payload:
     """_ContestListv2Payload"""
     contests: '_ContestList'
     countContests: '_ContestListv2Payload_countContests'
+    pageSize: int
     query: Optional[str]
 
     def __init__(
@@ -2886,6 +2894,7 @@ class _ContestListv2Payload:
         *,
         contests: Dict[str, Any],
         countContests: Dict[str, Any],
+        pageSize: int,
         query: Optional[str] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
@@ -2893,6 +2902,7 @@ class _ContestListv2Payload:
         self.contests = _ContestList(**contests)
         self.countContests = _ContestListv2Payload_countContests(
             **countContests)
+        self.pageSize = pageSize
         if query is not None:
             self.query = query
         else:
@@ -4516,6 +4526,7 @@ class _CurrentSession:
     is_admin: bool
     is_under_13_user: bool
     loginIdentity: Optional[_OmegaUp_DAO_VO_Identities]
+    mentor_can_choose_coder: bool
     user: Optional[_OmegaUp_DAO_VO_Users]
     user_verification_deadline: Optional[datetime.datetime]
     valid: bool
@@ -4528,6 +4539,7 @@ class _CurrentSession:
         classname: str,
         is_admin: bool,
         is_under_13_user: bool,
+        mentor_can_choose_coder: bool,
         valid: bool,
         apiTokenId: Optional[int] = None,
         auth_token: Optional[str] = None,
@@ -4571,6 +4583,7 @@ class _CurrentSession:
             self.loginIdentity = _OmegaUp_DAO_VO_Identities(**loginIdentity)
         else:
             self.loginIdentity = None
+        self.mentor_can_choose_coder = mentor_can_choose_coder
         if user is not None:
             self.user = _OmegaUp_DAO_VO_Users(**user)
         else:
@@ -8795,6 +8808,22 @@ class _OmegaUp_Controllers_Run__apiDisqualify_runs_entry:
 
 
 @dataclasses.dataclass
+class _OmegaUp_Controllers_Run__apiExecute:
+    """_OmegaUp_Controllers_Run__apiExecute"""
+    nextExecutionTimestamp: datetime.datetime
+
+    def __init__(
+        self,
+        *,
+        nextExecutionTimestamp: int,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.nextExecutionTimestamp = datetime.datetime.fromtimestamp(
+            nextExecutionTimestamp)
+
+
+@dataclasses.dataclass
 class _OmegaUp_Controllers_Run__apiList:
     """_OmegaUp_Controllers_Run__apiList"""
     runs: Sequence['_Run']
@@ -9439,16 +9468,63 @@ class _OmegaUp_Controllers_User__apiProblemsSolved:
 @dataclasses.dataclass
 class _OmegaUp_Controllers_User__apiStats:
     """_OmegaUp_Controllers_User__apiStats"""
-    runs: Sequence['_UserProfileStats']
+    heatmap: Sequence['_OmegaUp_Controllers_User__apiStats_heatmap_entry']
+    runs: Sequence['_OmegaUp_Controllers_User__apiStats_runs_entry']
 
     def __init__(
         self,
         *,
+        heatmap: Sequence[Dict[str, Any]],
         runs: Sequence[Dict[str, Any]],
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
-        self.runs = [_UserProfileStats(**v) for v in runs]
+        self.heatmap = [
+            _OmegaUp_Controllers_User__apiStats_heatmap_entry(**v)
+            for v in heatmap
+        ]
+        self.runs = [
+            _OmegaUp_Controllers_User__apiStats_runs_entry(**v) for v in runs
+        ]
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_User__apiStats_heatmap_entry:
+    """_OmegaUp_Controllers_User__apiStats_heatmap_entry"""
+    count: int
+    date: str
+
+    def __init__(
+        self,
+        *,
+        count: int,
+        date: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.count = count
+        self.date = date
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_User__apiStats_runs_entry:
+    """_OmegaUp_Controllers_User__apiStats_runs_entry"""
+    date: str
+    runs: int
+    verdict: str
+
+    def __init__(
+        self,
+        *,
+        date: str,
+        runs: int,
+        verdict: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.date = date
+        self.runs = runs
+        self.verdict = verdict
 
 
 @dataclasses.dataclass
@@ -9721,6 +9797,7 @@ class _ProblemDetails:
     languages: Sequence[str]
     letter: Optional[str]
     limits: '_SettingLimits'
+    nextExecutionTimestamp: Optional[datetime.datetime]
     nextSubmissionTimestamp: Optional[datetime.datetime]
     nominationStatus: '_NominationStatus'
     order: str
@@ -9773,6 +9850,7 @@ class _ProblemDetails:
         admin: Optional[bool] = None,
         difficulty: Optional[float] = None,
         letter: Optional[str] = None,
+        nextExecutionTimestamp: Optional[int] = None,
         nextSubmissionTimestamp: Optional[int] = None,
         preferred_language: Optional[str] = None,
         problemsetter: Optional[Dict[str, Any]] = None,
@@ -9805,6 +9883,11 @@ class _ProblemDetails:
         else:
             self.letter = None
         self.limits = _SettingLimits(**limits)
+        if nextExecutionTimestamp is not None:
+            self.nextExecutionTimestamp = datetime.datetime.fromtimestamp(
+                nextExecutionTimestamp)
+        else:
+            self.nextExecutionTimestamp = None
         if nextSubmissionTimestamp is not None:
             self.nextSubmissionTimestamp = datetime.datetime.fromtimestamp(
                 nextSubmissionTimestamp)
@@ -9863,7 +9946,7 @@ class _ProblemDetailsPayload:
     runs: Optional[Sequence['_Run']]
     selectedPrivateTags: Optional[Sequence[str]]
     selectedPublicTags: Optional[Sequence[str]]
-    solutionStatus: Optional[str]
+    solutionStatus: str
     solvers: Sequence['_BestSolvers']
     totalRuns: Optional[int]
     user: '_UserInfoForProblem'
@@ -9874,6 +9957,7 @@ class _ProblemDetailsPayload:
         allowedSolutionsToSee: int,
         histogram: Dict[str, Any],
         problem: Dict[str, Any],
+        solutionStatus: str,
         solvers: Sequence[Dict[str, Any]],
         user: Dict[str, Any],
         allRuns: Optional[Sequence[Dict[str, Any]]] = None,
@@ -9887,7 +9971,6 @@ class _ProblemDetailsPayload:
         runs: Optional[Sequence[Dict[str, Any]]] = None,
         selectedPrivateTags: Optional[Sequence[str]] = None,
         selectedPublicTags: Optional[Sequence[str]] = None,
-        solutionStatus: Optional[str] = None,
         totalRuns: Optional[int] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
@@ -9939,10 +10022,7 @@ class _ProblemDetailsPayload:
             self.selectedPublicTags = [v for v in selectedPublicTags]
         else:
             self.selectedPublicTags = None
-        if solutionStatus is not None:
-            self.solutionStatus = solutionStatus
-        else:
-            self.solutionStatus = None
+        self.solutionStatus = solutionStatus
         self.solvers = [_BestSolvers(**v) for v in solvers]
         if totalRuns is not None:
             self.totalRuns = totalRuns
@@ -10253,6 +10333,7 @@ class _ProblemInfo:
     languages: Sequence[str]
     letter: Optional[str]
     limits: '_SettingLimits'
+    nextExecutionTimestamp: Optional[datetime.datetime]
     nextSubmissionTimestamp: Optional[datetime.datetime]
     points: float
     preferred_language: Optional[str]
@@ -10284,6 +10365,7 @@ class _ProblemInfo:
         title: str,
         visibility: int,
         letter: Optional[str] = None,
+        nextExecutionTimestamp: Optional[int] = None,
         nextSubmissionTimestamp: Optional[int] = None,
         preferred_language: Optional[str] = None,
         problemsetter: Optional[Dict[str, Any]] = None,
@@ -10303,6 +10385,11 @@ class _ProblemInfo:
         else:
             self.letter = None
         self.limits = _SettingLimits(**limits)
+        if nextExecutionTimestamp is not None:
+            self.nextExecutionTimestamp = datetime.datetime.fromtimestamp(
+                nextExecutionTimestamp)
+        else:
+            self.nextExecutionTimestamp = None
         if nextSubmissionTimestamp is not None:
             self.nextSubmissionTimestamp = datetime.datetime.fromtimestamp(
                 nextSubmissionTimestamp)
@@ -13615,6 +13702,36 @@ class _TeamsGroupListPayload:
 
 
 @dataclasses.dataclass
+class _UserBasicInformation:
+    """_UserBasicInformation"""
+    country: Optional[str]
+    school: Optional[int]
+    state: Optional[str]
+
+    def __init__(
+        self,
+        *,
+        country: Optional[str] = None,
+        school: Optional[int] = None,
+        state: Optional[str] = None,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        if country is not None:
+            self.country = country
+        else:
+            self.country = None
+        if school is not None:
+            self.school = school
+        else:
+            self.school = None
+        if state is not None:
+            self.state = state
+        else:
+            self.state = None
+
+
+@dataclasses.dataclass
 class _UserDependent:
     """_UserDependent"""
     classname: str
@@ -13697,6 +13814,42 @@ class _UserDetailsPayload:
         self.systemRoles = [v for v in systemRoles]
         self.username = username
         self.verified = verified
+
+
+@dataclasses.dataclass
+class _UserDocsPayload:
+    """_UserDocsPayload"""
+    docs: Dict[str, Sequence['_UserDocument']]
+
+    def __init__(
+        self,
+        *,
+        docs: Dict[str, Sequence[Dict[str, Any]]],
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.docs = {
+            k: [_UserDocument(**v) for v in v]
+            for k, v in docs.items()
+        }
+
+
+@dataclasses.dataclass
+class _UserDocument:
+    """_UserDocument"""
+    name: str
+    url: str
+
+    def __init__(
+        self,
+        *,
+        name: str,
+        url: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.name = name
+        self.url = url
 
 
 @dataclasses.dataclass
@@ -14174,6 +14327,39 @@ class _UserRankInfo:
         self.name = name
         self.problems_solved = problems_solved
         self.rank = rank
+
+
+@dataclasses.dataclass
+class _UserRankTableLoggedOutPayload:
+    """_UserRankTableLoggedOutPayload"""
+    isLogged: bool
+    lastUpdated: Optional[datetime.datetime]
+    length: int
+    page: int
+    pagerItems: Sequence['_PageItem']
+    ranking: '_UserRank'
+
+    def __init__(
+        self,
+        *,
+        isLogged: bool,
+        length: int,
+        page: int,
+        pagerItems: Sequence[Dict[str, Any]],
+        ranking: Dict[str, Any],
+        lastUpdated: Optional[int] = None,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.isLogged = isLogged
+        if lastUpdated is not None:
+            self.lastUpdated = datetime.datetime.fromtimestamp(lastUpdated)
+        else:
+            self.lastUpdated = None
+        self.length = length
+        self.page = page
+        self.pagerItems = [_PageItem(**v) for v in pagerItems]
+        self.ranking = _UserRank(**ranking)
 
 
 @dataclasses.dataclass
@@ -14989,8 +15175,8 @@ class Contest:
         page_size: int,
         query: str,
         tab_name: str,
-        active: Optional[int] = None,
-        admission_mode: Optional[Any] = None,
+        admission_mode: Optional[str] = None,
+        filter: Optional[str] = None,
         participating: Optional[int] = None,
         recommended: Optional[int] = None,
         sort_order: Optional[str] = None,
@@ -15006,8 +15192,8 @@ class Contest:
             page_size:
             query:
             tab_name:
-            active:
             admission_mode:
+            filter:
             participating:
             recommended:
             sort_order:
@@ -15021,10 +15207,10 @@ class Contest:
             'query': query,
             'tab_name': tab_name,
         }
-        if active is not None:
-            parameters['active'] = str(active)
         if admission_mode is not None:
-            parameters['admission_mode'] = str(admission_mode)
+            parameters['admission_mode'] = admission_mode
+        if filter is not None:
+            parameters['filter'] = filter
         if participating is not None:
             parameters['participating'] = str(participating)
         if recommended is not None:
@@ -16566,7 +16752,7 @@ class Contest:
             check_: bool = True,
             timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
         r"""Given a contest_alias, sets the recommended flag on/off.
-        Only omegaUp admins can call this API.
+        Only omegaUp admins and support team members can call this API.
 
         Args:
             contest_alias:
@@ -20285,24 +20471,24 @@ class Problem:
     def list(
         self,
         *,
-        only_quality_seal: bool,
         difficulty: Optional[str] = None,
         difficulty_range: Optional[str] = None,
-        language: Optional[Any] = None,
+        language: Optional[str] = None,
         level: Optional[str] = None,
         max_difficulty: Optional[int] = None,
         min_difficulty: Optional[int] = None,
         min_visibility: Optional[int] = None,
         offset: Optional[int] = None,
-        only_karel: Optional[Any] = None,
-        order_by: Optional[Any] = None,
+        only_karel: Optional[bool] = None,
+        only_quality_seal: Optional[bool] = None,
+        order_by: Optional[str] = None,
         page: Optional[int] = None,
         programming_languages: Optional[str] = None,
         query: Optional[str] = None,
-        require_all_tags: Optional[Any] = None,
+        require_all_tags: Optional[bool] = None,
         rowcount: Optional[int] = None,
-        some_tags: Optional[Any] = None,
-        sort_order: Optional[Any] = None,
+        some_tags: Optional[bool] = None,
+        sort_order: Optional[str] = None,
         # Out-of-band parameters:
         files_: Optional[Mapping[str, BinaryIO]] = None,
         check_: bool = True,
@@ -20311,7 +20497,6 @@ class Problem:
         r"""List of public and user's private problems
 
         Args:
-            only_quality_seal:
             difficulty:
             difficulty_range:
             language:
@@ -20321,6 +20506,7 @@ class Problem:
             min_visibility:
             offset:
             only_karel:
+            only_quality_seal:
             order_by:
             page:
             programming_languages:
@@ -20333,15 +20519,13 @@ class Problem:
         Returns:
             The API result object.
         """
-        parameters: Dict[str, str] = {
-            'only_quality_seal': str(only_quality_seal),
-        }
+        parameters: Dict[str, str] = {}
         if difficulty is not None:
             parameters['difficulty'] = difficulty
         if difficulty_range is not None:
             parameters['difficulty_range'] = difficulty_range
         if language is not None:
-            parameters['language'] = str(language)
+            parameters['language'] = language
         if level is not None:
             parameters['level'] = level
         if max_difficulty is not None:
@@ -20354,8 +20538,10 @@ class Problem:
             parameters['offset'] = str(offset)
         if only_karel is not None:
             parameters['only_karel'] = str(only_karel)
+        if only_quality_seal is not None:
+            parameters['only_quality_seal'] = str(only_quality_seal)
         if order_by is not None:
-            parameters['order_by'] = str(order_by)
+            parameters['order_by'] = order_by
         if page is not None:
             parameters['page'] = str(page)
         if programming_languages is not None:
@@ -20369,7 +20555,7 @@ class Problem:
         if some_tags is not None:
             parameters['some_tags'] = str(some_tags)
         if sort_order is not None:
-            parameters['sort_order'] = str(sort_order)
+            parameters['sort_order'] = sort_order
         return _OmegaUp_Controllers_Problem__apiList(
             **self._client.query('/api/problem/list/',
                                  payload=parameters,
@@ -21118,6 +21304,9 @@ class Reset:
                                  check_=check_))
 
 
+RunExecuteResponse = _OmegaUp_Controllers_Run__apiExecute
+"""The return type of the RunExecute API."""
+
 RunCreateResponse = _OmegaUp_Controllers_Run__apiCreate
 """The return type of the RunCreate API."""
 
@@ -21149,14 +21338,35 @@ class Run:
     def __init__(self, client: 'Client') -> None:
         self._client = client
 
+    def execute(
+            self,
+            *,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> RunExecuteResponse:
+        r"""Get the next execution timestamp
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {}
+        return _OmegaUp_Controllers_Run__apiExecute(
+            **self._client.query('/api/run/execute/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
+
     def create(
             self,
             *,
-            contest_alias: str,
             language: str,
             problem_alias: str,
             source: str,
-            problemset_id: Optional[Any] = None,
+            contest_alias: Optional[str] = None,
+            problemset_id: Optional[int] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -21165,21 +21375,22 @@ class Run:
         r"""Create a new run
 
         Args:
-            contest_alias:
             language:
             problem_alias:
             source:
+            contest_alias:
             problemset_id:
 
         Returns:
             The API result object.
         """
         parameters: Dict[str, str] = {
-            'contest_alias': contest_alias,
             'language': language,
             'problem_alias': problem_alias,
             'source': source,
         }
+        if contest_alias is not None:
+            parameters['contest_alias'] = contest_alias
         if problemset_id is not None:
             parameters['problemset_id'] = str(problemset_id)
         return _OmegaUp_Controllers_Run__apiCreate(
@@ -22799,6 +23010,7 @@ class User:
             self,
             *,
             username: Optional[str] = None,
+            year: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -22808,6 +23020,7 @@ class User:
 
         Args:
             username:
+            year:
 
         Returns:
             The API result object.
@@ -22815,6 +23028,8 @@ class User:
         parameters: Dict[str, str] = {}
         if username is not None:
             parameters['username'] = username
+        if year is not None:
+            parameters['year'] = year
         return _OmegaUp_Controllers_User__apiStats(
             **self._client.query('/api/user/stats/',
                                  payload=parameters,
