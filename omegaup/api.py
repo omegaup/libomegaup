@@ -305,6 +305,7 @@ class _OmegaUp_DAO_VO_Users:
     deletion_token: Optional[str]
     facebook_user_id: Optional[str]
     git_token: Optional[str]
+    github_url: Optional[str]
     has_competitive_objective: Optional[bool]
     has_learning_objective: Optional[bool]
     has_scholar_objective: Optional[bool]
@@ -312,6 +313,7 @@ class _OmegaUp_DAO_VO_Users:
     hide_problem_tags: Optional[bool]
     in_mailing_list: Optional[bool]
     is_private: Optional[bool]
+    linkedin_url: Optional[str]
     main_email_id: Optional[int]
     main_identity_id: Optional[int]
     parent_email_id: Optional[int]
@@ -326,6 +328,7 @@ class _OmegaUp_DAO_VO_Users:
     user_id: Optional[int]
     verification_id: Optional[str]
     verified: Optional[bool]
+    x_url: Optional[str]
 
     def __init__(
         self,
@@ -335,6 +338,7 @@ class _OmegaUp_DAO_VO_Users:
         deletion_token: Optional[str] = None,
         facebook_user_id: Optional[str] = None,
         git_token: Optional[str] = None,
+        github_url: Optional[str] = None,
         has_competitive_objective: Optional[bool] = None,
         has_learning_objective: Optional[bool] = None,
         has_scholar_objective: Optional[bool] = None,
@@ -342,6 +346,7 @@ class _OmegaUp_DAO_VO_Users:
         hide_problem_tags: Optional[bool] = None,
         in_mailing_list: Optional[bool] = None,
         is_private: Optional[bool] = None,
+        linkedin_url: Optional[str] = None,
         main_email_id: Optional[int] = None,
         main_identity_id: Optional[int] = None,
         parent_email_id: Optional[int] = None,
@@ -356,6 +361,7 @@ class _OmegaUp_DAO_VO_Users:
         user_id: Optional[int] = None,
         verification_id: Optional[str] = None,
         verified: Optional[bool] = None,
+        x_url: Optional[str] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
@@ -369,6 +375,7 @@ class _OmegaUp_DAO_VO_Users:
         self.deletion_token = deletion_token
         self.facebook_user_id = facebook_user_id
         self.git_token = git_token
+        self.github_url = github_url
         self.has_competitive_objective = has_competitive_objective
         self.has_learning_objective = has_learning_objective
         self.has_scholar_objective = has_scholar_objective
@@ -376,6 +383,7 @@ class _OmegaUp_DAO_VO_Users:
         self.hide_problem_tags = hide_problem_tags
         self.in_mailing_list = in_mailing_list
         self.is_private = is_private
+        self.linkedin_url = linkedin_url
         self.main_email_id = main_email_id
         self.main_identity_id = main_identity_id
         self.parent_email_id = parent_email_id
@@ -401,6 +409,7 @@ class _OmegaUp_DAO_VO_Users:
         self.user_id = user_id
         self.verification_id = verification_id
         self.verified = verified
+        self.x_url = x_url
 
 
 # Type aliases
@@ -555,6 +564,63 @@ class _AdminCourses_admin_filteredCourses:
         self.current = _CoursesByTimeType(**current)
         self.past = _CoursesByTimeType(**past)
         self.teachingAssistant = _CoursesByTimeType(**teachingAssistant)
+
+
+@dataclasses.dataclass
+class _AiEditorialJobDetails:
+    """_AiEditorialJobDetails"""
+    created_at: datetime.datetime
+    error_message: Optional[str]
+    is_retriable: bool
+    job_id: str
+    md_en: Optional[str]
+    md_es: Optional[str]
+    md_pt: Optional[str]
+    problem_alias: str
+    status: str
+    validation_verdict: Optional[str]
+
+    def __init__(
+        self,
+        *,
+        created_at: int,
+        is_retriable: bool,
+        job_id: str,
+        problem_alias: str,
+        status: str,
+        error_message: Optional[str] = None,
+        md_en: Optional[str] = None,
+        md_es: Optional[str] = None,
+        md_pt: Optional[str] = None,
+        validation_verdict: Optional[str] = None,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.created_at = datetime.datetime.fromtimestamp(created_at)
+        if error_message is not None:
+            self.error_message = error_message
+        else:
+            self.error_message = None
+        self.is_retriable = is_retriable
+        self.job_id = job_id
+        if md_en is not None:
+            self.md_en = md_en
+        else:
+            self.md_en = None
+        if md_es is not None:
+            self.md_es = md_es
+        else:
+            self.md_es = None
+        if md_pt is not None:
+            self.md_pt = md_pt
+        else:
+            self.md_pt = None
+        self.problem_alias = problem_alias
+        self.status = status
+        if validation_verdict is not None:
+            self.validation_verdict = validation_verdict
+        else:
+            self.validation_verdict = None
 
 
 @dataclasses.dataclass
@@ -837,6 +903,7 @@ class _ArenaProblemDetails:
     statement: Optional['_ProblemStatement']
     title: str
     visibility: int
+    warningReasons: Optional[Sequence[str]]
 
     def __init__(
         self,
@@ -857,6 +924,7 @@ class _ArenaProblemDetails:
         settings: Optional[Dict[str, Any]] = None,
         source: Optional[str] = None,
         statement: Optional[Dict[str, Any]] = None,
+        warningReasons: Optional[Sequence[str]] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
@@ -897,6 +965,10 @@ class _ArenaProblemDetails:
             self.statement = None
         self.title = title
         self.visibility = visibility
+        if warningReasons is not None:
+            self.warningReasons = [v for v in warningReasons]
+        else:
+            self.warningReasons = None
 
 
 @dataclasses.dataclass
@@ -1386,9 +1458,211 @@ class _BestSolvers:
 
 
 @dataclasses.dataclass
+class _BookmarkProblem:
+    """_BookmarkProblem"""
+    alias: str
+    title: str
+
+    def __init__(
+        self,
+        *,
+        alias: str,
+        title: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.alias = alias
+        self.title = title
+
+
+@dataclasses.dataclass
+class _CDP:
+    """_CDP"""
+    casesStore: '_CDPCasesStore'
+    problemCodeContent: str
+    problemCodeExtension: str
+    problemMarkdown: str
+    problemName: str
+    problemSolutionMarkdown: str
+
+    def __init__(
+        self,
+        *,
+        casesStore: Dict[str, Any],
+        problemCodeContent: str,
+        problemCodeExtension: str,
+        problemMarkdown: str,
+        problemName: str,
+        problemSolutionMarkdown: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.casesStore = _CDPCasesStore(**casesStore)
+        self.problemCodeContent = problemCodeContent
+        self.problemCodeExtension = problemCodeExtension
+        self.problemMarkdown = problemMarkdown
+        self.problemName = problemName
+        self.problemSolutionMarkdown = problemSolutionMarkdown
+
+
+@dataclasses.dataclass
+class _CDPCase:
+    """_CDPCase"""
+    autoPoints: bool
+    caseID: str
+    groupID: str
+    lines: Sequence['_CDPLine']
+    name: str
+    output: str
+    points: int
+
+    def __init__(
+        self,
+        *,
+        autoPoints: bool,
+        caseID: str,
+        groupID: str,
+        lines: Sequence[Dict[str, Any]],
+        name: str,
+        output: str,
+        points: int,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.autoPoints = autoPoints
+        self.caseID = caseID
+        self.groupID = groupID
+        self.lines = [_CDPLine(**v) for v in lines]
+        self.name = name
+        self.output = output
+        self.points = points
+
+
+@dataclasses.dataclass
+class _CDPCasesStore:
+    """_CDPCasesStore"""
+    groups: Sequence['_CDPGroup']
+    hide: bool
+    layouts: Sequence[Dict[str, str]]
+    selected: '_CDPCasesStore_selected'
+
+    def __init__(
+        self,
+        *,
+        groups: Sequence[Dict[str, Any]],
+        hide: bool,
+        layouts: Sequence[Dict[str, str]],
+        selected: Dict[str, Any],
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.groups = [_CDPGroup(**v) for v in groups]
+        self.hide = hide
+        self.layouts = [{k: v for k, v in v.items()} for v in layouts]
+        self.selected = _CDPCasesStore_selected(**selected)
+
+
+@dataclasses.dataclass
+class _CDPCasesStore_selected:
+    """_CDPCasesStore_selected"""
+    caseID: Optional[str]
+    groupID: Optional[str]
+
+    def __init__(
+        self,
+        *,
+        caseID: Optional[str] = None,
+        groupID: Optional[str] = None,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        if caseID is not None:
+            self.caseID = caseID
+        else:
+            self.caseID = None
+        if groupID is not None:
+            self.groupID = groupID
+        else:
+            self.groupID = None
+
+
+@dataclasses.dataclass
+class _CDPGroup:
+    """_CDPGroup"""
+    autoPoints: bool
+    cases: Sequence['_CDPCase']
+    groupID: str
+    name: str
+    points: int
+    ungroupedCase: bool
+
+    def __init__(
+        self,
+        *,
+        autoPoints: bool,
+        cases: Sequence[Dict[str, Any]],
+        groupID: str,
+        name: str,
+        points: int,
+        ungroupedCase: bool,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.autoPoints = autoPoints
+        self.cases = [_CDPCase(**v) for v in cases]
+        self.groupID = groupID
+        self.name = name
+        self.points = points
+        self.ungroupedCase = ungroupedCase
+
+
+@dataclasses.dataclass
+class _CDPLine:
+    """_CDPLine"""
+    caseID: str
+    data: '_CDPLine_data'
+    label: str
+    lineID: str
+
+    def __init__(
+        self,
+        *,
+        caseID: str,
+        data: Dict[str, Any],
+        label: str,
+        lineID: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.caseID = caseID
+        self.data = _CDPLine_data(**data)
+        self.label = label
+        self.lineID = lineID
+
+
+@dataclasses.dataclass
+class _CDPLine_data:
+    """_CDPLine_data"""
+    kind: Union[str, str, str, str]
+    value: str
+
+    def __init__(
+        self,
+        *,
+        kind: Union[str, str, str, str],
+        value: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.kind = kind
+        self.value = value
+
+
+@dataclasses.dataclass
 class _CachedExtraProfileDetails:
     """_CachedExtraProfileDetails"""
     badges: Sequence[str]
+    bookmarkedProblems: Sequence['_BookmarkProblem']
     contests: Dict[str, '_UserProfileContests_value']
     createdContests: Sequence['_Contest']
     createdCourses: Sequence['_Course']
@@ -1401,6 +1675,7 @@ class _CachedExtraProfileDetails:
         self,
         *,
         badges: Sequence[str],
+        bookmarkedProblems: Sequence[Dict[str, Any]],
         contests: Dict[str, Dict[str, Any]],
         createdContests: Sequence[Dict[str, Any]],
         createdCourses: Sequence[Dict[str, Any]],
@@ -1412,6 +1687,9 @@ class _CachedExtraProfileDetails:
         **_kwargs: Any,
     ):
         self.badges = [v for v in badges]
+        self.bookmarkedProblems = [
+            _BookmarkProblem(**v) for v in bookmarkedProblems
+        ]
         self.contests = {
             k: _UserProfileContests_value(**v)
             for k, v in contests.items()
@@ -1422,6 +1700,61 @@ class _CachedExtraProfileDetails:
         self.solvedProblems = [_Problem(**v) for v in solvedProblems]
         self.stats = [_UserProfileStats(**v) for v in stats]
         self.unsolvedProblems = [_Problem(**v) for v in unsolvedProblems]
+
+
+@dataclasses.dataclass
+class _CarouselItem:
+    """_CarouselItem"""
+    button_title: str
+    carousel_item_id: int
+    excerpt: str
+    expiration_date: Optional[datetime.datetime]
+    image_url: str
+    link: str
+    status: bool
+    title: str
+
+    def __init__(
+        self,
+        *,
+        button_title: str,
+        carousel_item_id: int,
+        excerpt: str,
+        image_url: str,
+        link: str,
+        status: bool,
+        title: str,
+        expiration_date: Optional[int] = None,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.button_title = button_title
+        self.carousel_item_id = carousel_item_id
+        self.excerpt = excerpt
+        if expiration_date is not None:
+            self.expiration_date = datetime.datetime.fromtimestamp(
+                expiration_date)
+        else:
+            self.expiration_date = None
+        self.image_url = image_url
+        self.link = link
+        self.status = status
+        self.title = title
+
+
+@dataclasses.dataclass
+class _CarouselItemListPayload:
+    """_CarouselItemListPayload"""
+    carouselItems: Sequence['_CarouselItem']
+
+    def __init__(
+        self,
+        *,
+        carouselItems: Sequence[Dict[str, Any]],
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.carouselItems = [_CarouselItem(**v) for v in carouselItems]
 
 
 @dataclasses.dataclass
@@ -1931,9 +2264,12 @@ class _CommonPayload:
     isReviewer: bool
     isUnder13User: bool
     lockDownImage: str
+    maintenanceMessage: Optional['_MaintenanceMessage']
+    mentorCanChooseCoder: bool
     navbarSection: str
     nextRegisteredContestForUser: Optional['_ContestListItem']
     omegaUpLockDown: bool
+    preferredLanguage: str
     profileProgress: float
     userClassname: str
     userCountry: str
@@ -1956,13 +2292,16 @@ class _CommonPayload:
         isReviewer: bool,
         isUnder13User: bool,
         lockDownImage: str,
+        mentorCanChooseCoder: bool,
         navbarSection: str,
         omegaUpLockDown: bool,
+        preferredLanguage: str,
         profileProgress: float,
         userClassname: str,
         userCountry: str,
         userTypes: Sequence[str],
         currentName: Optional[str] = None,
+        maintenanceMessage: Optional[Dict[str, Any]] = None,
         nextRegisteredContestForUser: Optional[Dict[str, Any]] = None,
         userVerificationDeadline: Optional[int] = None,
         # Ignore any unknown arguments
@@ -1987,6 +2326,11 @@ class _CommonPayload:
         self.isReviewer = isReviewer
         self.isUnder13User = isUnder13User
         self.lockDownImage = lockDownImage
+        if maintenanceMessage is not None:
+            self.maintenanceMessage = _MaintenanceMessage(**maintenanceMessage)
+        else:
+            self.maintenanceMessage = None
+        self.mentorCanChooseCoder = mentorCanChooseCoder
         self.navbarSection = navbarSection
         if nextRegisteredContestForUser is not None:
             self.nextRegisteredContestForUser = _ContestListItem(
@@ -1994,6 +2338,7 @@ class _CommonPayload:
         else:
             self.nextRegisteredContestForUser = None
         self.omegaUpLockDown = omegaUpLockDown
+        self.preferredLanguage = preferredLanguage
         self.profileProgress = profileProgress
         self.userClassname = userClassname
         self.userCountry = userCountry
@@ -2200,6 +2545,7 @@ class _ContestAdminDetails:
     alias: str
     archived: bool
     available_languages: Dict[str, str]
+    canSetRecommended: bool
     contest_for_teams: bool
     default_show_all_contestants_in_scoreboard: bool
     description: str
@@ -2218,6 +2564,7 @@ class _ContestAdminDetails:
     points_decay_factor: float
     problems: Optional[Sequence['_ProblemsetProblem']]
     problemset_id: int
+    recommended: Optional[bool]
     requests_user_information: str
     rerun_id: Optional[int]
     score_mode: str
@@ -2240,6 +2587,7 @@ class _ContestAdminDetails:
         alias: str,
         archived: bool,
         available_languages: Dict[str, str],
+        canSetRecommended: bool,
         contest_for_teams: bool,
         default_show_all_contestants_in_scoreboard: bool,
         description: str,
@@ -2266,6 +2614,7 @@ class _ContestAdminDetails:
         original_contest_alias: Optional[str] = None,
         original_problemset_id: Optional[int] = None,
         problems: Optional[Sequence[Dict[str, Any]]] = None,
+        recommended: Optional[bool] = None,
         rerun_id: Optional[int] = None,
         scoreboard_url: Optional[str] = None,
         scoreboard_url_admin: Optional[str] = None,
@@ -2282,6 +2631,7 @@ class _ContestAdminDetails:
             k: v
             for k, v in available_languages.items()
         }
+        self.canSetRecommended = canSetRecommended
         self.contest_for_teams = contest_for_teams
         self.default_show_all_contestants_in_scoreboard = default_show_all_contestants_in_scoreboard
         self.description = description
@@ -2309,6 +2659,10 @@ class _ContestAdminDetails:
         else:
             self.problems = None
         self.problemset_id = problemset_id
+        if recommended is not None:
+            self.recommended = recommended
+        else:
+            self.recommended = None
         self.requests_user_information = requests_user_information
         if rerun_id is not None:
             self.rerun_id = rerun_id
@@ -2389,6 +2743,7 @@ class _ContestDetails:
     points_decay_factor: float
     problems: Sequence['_ProblemsetProblem']
     problemset_id: int
+    recommended: bool
     requests_user_information: str
     rerun_id: Optional[int]
     score_mode: str
@@ -2426,6 +2781,7 @@ class _ContestDetails:
         points_decay_factor: float,
         problems: Sequence[Dict[str, Any]],
         problemset_id: int,
+        recommended: bool,
         requests_user_information: str,
         score_mode: str,
         scoreboard: int,
@@ -2472,6 +2828,7 @@ class _ContestDetails:
         self.points_decay_factor = points_decay_factor
         self.problems = [_ProblemsetProblem(**v) for v in problems]
         self.problemset_id = problemset_id
+        self.recommended = recommended
         self.requests_user_information = requests_user_information
         if rerun_id is not None:
             self.rerun_id = rerun_id
@@ -2701,6 +3058,7 @@ class _ContestIntroPayload:
     privacyStatement: '_PrivacyStatement'
     requestsUserInformation: str
     shouldShowModalToLoginWithRegisteredIdentity: bool
+    userBasicInformation: '_UserBasicInformation'
 
     def __init__(
         self,
@@ -2710,6 +3068,7 @@ class _ContestIntroPayload:
         privacyStatement: Dict[str, Any],
         requestsUserInformation: str,
         shouldShowModalToLoginWithRegisteredIdentity: bool,
+        userBasicInformation: Dict[str, Any],
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
@@ -2718,6 +3077,8 @@ class _ContestIntroPayload:
         self.privacyStatement = _PrivacyStatement(**privacyStatement)
         self.requestsUserInformation = requestsUserInformation
         self.shouldShowModalToLoginWithRegisteredIdentity = shouldShowModalToLoginWithRegisteredIdentity
+        self.userBasicInformation = _UserBasicInformation(
+            **userBasicInformation)
 
 
 @dataclasses.dataclass
@@ -2879,6 +3240,7 @@ class _ContestListv2Payload:
     """_ContestListv2Payload"""
     contests: '_ContestList'
     countContests: '_ContestListv2Payload_countContests'
+    pageSize: int
     query: Optional[str]
 
     def __init__(
@@ -2886,6 +3248,7 @@ class _ContestListv2Payload:
         *,
         contests: Dict[str, Any],
         countContests: Dict[str, Any],
+        pageSize: int,
         query: Optional[str] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
@@ -2893,6 +3256,7 @@ class _ContestListv2Payload:
         self.contests = _ContestList(**contests)
         self.countContests = _ContestListv2Payload_countContests(
             **countContests)
+        self.pageSize = pageSize
         if query is not None:
             self.query = query
         else:
@@ -2923,6 +3287,7 @@ class _ContestListv2Payload_countContests:
 @dataclasses.dataclass
 class _ContestNewPayload:
     """_ContestNewPayload"""
+    canSetRecommended: Optional[bool]
     hasVisitedSection: Optional[bool]
     languages: Dict[str, str]
 
@@ -2930,10 +3295,15 @@ class _ContestNewPayload:
         self,
         *,
         languages: Dict[str, str],
+        canSetRecommended: Optional[bool] = None,
         hasVisitedSection: Optional[bool] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
+        if canSetRecommended is not None:
+            self.canSetRecommended = canSetRecommended
+        else:
+            self.canSetRecommended = None
         if hasVisitedSection is not None:
             self.hasVisitedSection = hasVisitedSection
         else:
@@ -3821,6 +4191,7 @@ class _CourseDetails:
     show_scoreboard: bool
     start_time: datetime.datetime
     student_count: Optional[int]
+    teaching_assistant_enabled: bool
     unlimited_duration: bool
 
     def __init__(
@@ -3841,6 +4212,7 @@ class _CourseDetails:
         requests_user_information: str,
         show_scoreboard: bool,
         start_time: int,
+        teaching_assistant_enabled: bool,
         unlimited_duration: bool,
         finish_time: Optional[int] = None,
         languages: Optional[Sequence[str]] = None,
@@ -3895,6 +4267,7 @@ class _CourseDetails:
             self.student_count = student_count
         else:
             self.student_count = None
+        self.teaching_assistant_enabled = teaching_assistant_enabled
         self.unlimited_duration = unlimited_duration
 
 
@@ -4516,6 +4889,7 @@ class _CurrentSession:
     is_admin: bool
     is_under_13_user: bool
     loginIdentity: Optional[_OmegaUp_DAO_VO_Identities]
+    mentor_can_choose_coder: bool
     user: Optional[_OmegaUp_DAO_VO_Users]
     user_verification_deadline: Optional[datetime.datetime]
     valid: bool
@@ -4528,6 +4902,7 @@ class _CurrentSession:
         classname: str,
         is_admin: bool,
         is_under_13_user: bool,
+        mentor_can_choose_coder: bool,
         valid: bool,
         apiTokenId: Optional[int] = None,
         auth_token: Optional[str] = None,
@@ -4571,6 +4946,7 @@ class _CurrentSession:
             self.loginIdentity = _OmegaUp_DAO_VO_Identities(**loginIdentity)
         else:
             self.loginIdentity = None
+        self.mentor_can_choose_coder = mentor_can_choose_coder
         if user is not None:
             self.user = _OmegaUp_DAO_VO_Users(**user)
         else:
@@ -4665,6 +5041,7 @@ class _Experiment:
 class _ExtraProfileDetails:
     """_ExtraProfileDetails"""
     badges: Sequence[str]
+    bookmarkedProblems: Sequence['_BookmarkProblem']
     contests: Dict[str, '_UserProfileContests_value']
     createdContests: Sequence['_Contest']
     createdCourses: Sequence['_Course']
@@ -4679,6 +5056,7 @@ class _ExtraProfileDetails:
         self,
         *,
         badges: Sequence[str],
+        bookmarkedProblems: Sequence[Dict[str, Any]],
         contests: Dict[str, Dict[str, Any]],
         createdContests: Sequence[Dict[str, Any]],
         createdCourses: Sequence[Dict[str, Any]],
@@ -4692,6 +5070,9 @@ class _ExtraProfileDetails:
         **_kwargs: Any,
     ):
         self.badges = [v for v in badges]
+        self.bookmarkedProblems = [
+            _BookmarkProblem(**v) for v in bookmarkedProblems
+        ]
         self.contests = {
             k: _UserProfileContests_value(**v)
             for k, v in contests.items()
@@ -5752,6 +6133,8 @@ class _ListItem:
 class _LoginDetailsPayload:
     """_LoginDetailsPayload"""
     facebookUrl: Optional[str]
+    githubClientId: Optional[str]
+    githubState: Optional[str]
     hasVisitedSection: Optional[bool]
     statusError: Optional[str]
     validateRecaptcha: bool
@@ -5762,6 +6145,8 @@ class _LoginDetailsPayload:
         *,
         validateRecaptcha: bool,
         facebookUrl: Optional[str] = None,
+        githubClientId: Optional[str] = None,
+        githubState: Optional[str] = None,
         hasVisitedSection: Optional[bool] = None,
         statusError: Optional[str] = None,
         verifyEmailSuccessfully: Optional[str] = None,
@@ -5772,6 +6157,14 @@ class _LoginDetailsPayload:
             self.facebookUrl = facebookUrl
         else:
             self.facebookUrl = None
+        if githubClientId is not None:
+            self.githubClientId = githubClientId
+        else:
+            self.githubClientId = None
+        if githubState is not None:
+            self.githubState = githubState
+        else:
+            self.githubState = None
         if hasVisitedSection is not None:
             self.hasVisitedSection = hasVisitedSection
         else:
@@ -5785,6 +6178,60 @@ class _LoginDetailsPayload:
             self.verifyEmailSuccessfully = verifyEmailSuccessfully
         else:
             self.verifyEmailSuccessfully = None
+
+
+@dataclasses.dataclass
+class _MaintenanceMessage:
+    """_MaintenanceMessage"""
+    message: str
+    type: str
+
+    def __init__(
+        self,
+        *,
+        message: str,
+        type: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.message = message
+        self.type = type
+
+
+@dataclasses.dataclass
+class _MaintenanceModeStatus:
+    """_MaintenanceModeStatus"""
+    enabled: bool
+    message_en: Optional[str]
+    message_es: Optional[str]
+    message_pt: Optional[str]
+    type: str
+
+    def __init__(
+        self,
+        *,
+        enabled: bool,
+        type: str,
+        message_en: Optional[str] = None,
+        message_es: Optional[str] = None,
+        message_pt: Optional[str] = None,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.enabled = enabled
+        if message_en is not None:
+            self.message_en = message_en
+        else:
+            self.message_en = None
+        if message_es is not None:
+            self.message_es = message_es
+        else:
+            self.message_es = None
+        if message_pt is not None:
+            self.message_pt = message_pt
+        else:
+            self.message_pt = None
+        self.type = type
 
 
 @dataclasses.dataclass
@@ -5857,6 +6304,27 @@ class _MergedScoreboardEntry_total:
     ):
         self.penalty = penalty
         self.points = points
+
+
+@dataclasses.dataclass
+class _MessageLanguages:
+    """_MessageLanguages"""
+    en: str
+    es: str
+    pt: str
+
+    def __init__(
+        self,
+        *,
+        en: str,
+        es: str,
+        pt: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.en = en
+        self.es = es
+        self.pt = pt
 
 
 @dataclasses.dataclass
@@ -6232,6 +6700,80 @@ class _NotificationContents_body:
 
 
 @dataclasses.dataclass
+class _OmegaUp_Controllers_ACL__apiUserOwnedAclReport:
+    """_OmegaUp_Controllers_ACL__apiUserOwnedAclReport"""
+    acls: Sequence[
+        '_OmegaUp_Controllers_ACL__apiUserOwnedAclReport_acls_entry']
+
+    def __init__(
+        self,
+        *,
+        acls: Sequence[Dict[str, Any]],
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.acls = [
+            _OmegaUp_Controllers_ACL__apiUserOwnedAclReport_acls_entry(**v)
+            for v in acls
+        ]
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_ACL__apiUserOwnedAclReport_acls_entry:
+    """_OmegaUp_Controllers_ACL__apiUserOwnedAclReport_acls_entry"""
+    acl_id: int
+    alias: str
+    type: str
+    users: Sequence[
+        '_OmegaUp_Controllers_ACL__apiUserOwnedAclReport_acls_entry_users_entry']
+
+    def __init__(
+        self,
+        *,
+        acl_id: int,
+        alias: str,
+        type: str,
+        users: Sequence[Dict[str, Any]],
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.acl_id = acl_id
+        self.alias = alias
+        self.type = type
+        self.users = [
+            _OmegaUp_Controllers_ACL__apiUserOwnedAclReport_acls_entry_users_entry(
+                **v) for v in users
+        ]
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_ACL__apiUserOwnedAclReport_acls_entry_users_entry:
+    """_OmegaUp_Controllers_ACL__apiUserOwnedAclReport_acls_entry_users_entry"""
+    role_description: str
+    role_id: int
+    role_name: str
+    user_id: int
+    username: str
+
+    def __init__(
+        self,
+        *,
+        role_description: str,
+        role_id: int,
+        role_name: str,
+        user_id: int,
+        username: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.role_description = role_description
+        self.role_id = role_id
+        self.role_name = role_name
+        self.user_id = user_id
+        self.username = username
+
+
+@dataclasses.dataclass
 class _OmegaUp_Controllers_Admin__apiPlatformReportStats:
     """_OmegaUp_Controllers_Admin__apiPlatformReportStats"""
     report: '_OmegaUp_Controllers_Admin__apiPlatformReportStats_report'
@@ -6294,6 +6836,42 @@ class _OmegaUp_Controllers_Admin__apiPlatformReportStats_report_omiCourse:
         self.attemptedUsers = attemptedUsers
         self.completedUsers = completedUsers
         self.passedUsers = passedUsers
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_AiEditorial__apiGenerate:
+    """_OmegaUp_Controllers_AiEditorial__apiGenerate"""
+    job_id: Optional[str]
+
+    def __init__(
+        self,
+        *,
+        job_id: Optional[str] = None,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        if job_id is not None:
+            self.job_id = job_id
+        else:
+            self.job_id = None
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_AiEditorial__apiStatus:
+    """_OmegaUp_Controllers_AiEditorial__apiStatus"""
+    job: Optional['_AiEditorialJobDetails']
+
+    def __init__(
+        self,
+        *,
+        job: Optional[Dict[str, Any]] = None,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        if job is not None:
+            self.job = _AiEditorialJobDetails(**job)
+        else:
+            self.job = None
 
 
 @dataclasses.dataclass
@@ -7599,6 +8177,21 @@ class _OmegaUp_Controllers_Course__apiStudentsProgress:
 
 
 @dataclasses.dataclass
+class _OmegaUp_Controllers_Course__apiToggleTeachingAssistant:
+    """_OmegaUp_Controllers_Course__apiToggleTeachingAssistant"""
+    teaching_assistant_enabled: bool
+
+    def __init__(
+        self,
+        *,
+        teaching_assistant_enabled: bool,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.teaching_assistant_enabled = teaching_assistant_enabled
+
+
+@dataclasses.dataclass
 class _OmegaUp_Controllers_Grader__apiStatus:
     """_OmegaUp_Controllers_Grader__apiStatus"""
     grader: '_GraderStatus'
@@ -7792,6 +8385,54 @@ class _OmegaUp_Controllers_Notification__apiMyList:
 
 
 @dataclasses.dataclass
+class _OmegaUp_Controllers_ProblemBookmark__apiExists:
+    """_OmegaUp_Controllers_ProblemBookmark__apiExists"""
+    bookmarked: bool
+
+    def __init__(
+        self,
+        *,
+        bookmarked: bool,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.bookmarked = bookmarked
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_ProblemBookmark__apiList:
+    """_OmegaUp_Controllers_ProblemBookmark__apiList"""
+    problems: Sequence['_BookmarkProblem']
+    total: int
+
+    def __init__(
+        self,
+        *,
+        problems: Sequence[Dict[str, Any]],
+        total: int,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.problems = [_BookmarkProblem(**v) for v in problems]
+        self.total = total
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_ProblemBookmark__apiToggle:
+    """_OmegaUp_Controllers_ProblemBookmark__apiToggle"""
+    bookmarked: bool
+
+    def __init__(
+        self,
+        *,
+        bookmarked: bool,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.bookmarked = bookmarked
+
+
+@dataclasses.dataclass
 class _OmegaUp_Controllers_ProblemForfeited__apiGetCounts:
     """_OmegaUp_Controllers_ProblemForfeited__apiGetCounts"""
     allowed: int
@@ -7888,6 +8529,21 @@ class _OmegaUp_Controllers_Problem__apiClarifications:
         **_kwargs: Any,
     ):
         self.clarifications = [_Clarification(**v) for v in clarifications]
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_Problem__apiConvertZipToCdp:
+    """_OmegaUp_Controllers_Problem__apiConvertZipToCdp"""
+    cdp: '_CDP'
+
+    def __init__(
+        self,
+        *,
+        cdp: Dict[str, Any],
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.cdp = _CDP(**cdp)
 
 
 @dataclasses.dataclass
@@ -8795,6 +9451,38 @@ class _OmegaUp_Controllers_Run__apiDisqualify_runs_entry:
 
 
 @dataclasses.dataclass
+class _OmegaUp_Controllers_Run__apiExecute:
+    """_OmegaUp_Controllers_Run__apiExecute"""
+    nextExecutionTimestamp: datetime.datetime
+
+    def __init__(
+        self,
+        *,
+        nextExecutionTimestamp: int,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.nextExecutionTimestamp = datetime.datetime.fromtimestamp(
+            nextExecutionTimestamp)
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_Run__apiExecuteForIDE:
+    """_OmegaUp_Controllers_Run__apiExecuteForIDE"""
+    nextExecutionTimestamp: datetime.datetime
+
+    def __init__(
+        self,
+        *,
+        nextExecutionTimestamp: int,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.nextExecutionTimestamp = datetime.datetime.fromtimestamp(
+            nextExecutionTimestamp)
+
+
+@dataclasses.dataclass
 class _OmegaUp_Controllers_Run__apiList:
     """_OmegaUp_Controllers_Run__apiList"""
     runs: Sequence['_Run']
@@ -9182,6 +9870,30 @@ class _OmegaUp_Controllers_User__apiCoderOfTheMonthList:
 
 
 @dataclasses.dataclass
+class _OmegaUp_Controllers_User__apiCompare:
+    """_OmegaUp_Controllers_User__apiCompare"""
+    user1: Optional['_UserCompareData']
+    user2: Optional['_UserCompareData']
+
+    def __init__(
+        self,
+        *,
+        user1: Optional[Dict[str, Any]] = None,
+        user2: Optional[Dict[str, Any]] = None,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        if user1 is not None:
+            self.user1 = _UserCompareData(**user1)
+        else:
+            self.user1 = None
+        if user2 is not None:
+            self.user2 = _UserCompareData(**user2)
+        else:
+            self.user2 = None
+
+
+@dataclasses.dataclass
 class _OmegaUp_Controllers_User__apiContestStats:
     """_OmegaUp_Controllers_User__apiContestStats"""
     contests: Dict[str, '_UserProfileContests_value']
@@ -9437,18 +10149,136 @@ class _OmegaUp_Controllers_User__apiProblemsSolved:
 
 
 @dataclasses.dataclass
-class _OmegaUp_Controllers_User__apiStats:
-    """_OmegaUp_Controllers_User__apiStats"""
-    runs: Sequence['_UserProfileStats']
+class _OmegaUp_Controllers_User__apiProfileStatistics:
+    """_OmegaUp_Controllers_User__apiProfileStatistics"""
+    attempting: int
+    difficulty: '_OmegaUp_Controllers_User__apiProfileStatistics_difficulty'
+    solved: int
+    tags: Sequence[
+        '_OmegaUp_Controllers_User__apiProfileStatistics_tags_entry']
 
     def __init__(
         self,
         *,
+        attempting: int,
+        difficulty: Dict[str, Any],
+        solved: int,
+        tags: Sequence[Dict[str, Any]],
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.attempting = attempting
+        self.difficulty = _OmegaUp_Controllers_User__apiProfileStatistics_difficulty(
+            **difficulty)
+        self.solved = solved
+        self.tags = [
+            _OmegaUp_Controllers_User__apiProfileStatistics_tags_entry(**v)
+            for v in tags
+        ]
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_User__apiProfileStatistics_difficulty:
+    """_OmegaUp_Controllers_User__apiProfileStatistics_difficulty"""
+    easy: int
+    hard: int
+    medium: int
+    unlabelled: int
+
+    def __init__(
+        self,
+        *,
+        easy: int,
+        hard: int,
+        medium: int,
+        unlabelled: int,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.easy = easy
+        self.hard = hard
+        self.medium = medium
+        self.unlabelled = unlabelled
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_User__apiProfileStatistics_tags_entry:
+    """_OmegaUp_Controllers_User__apiProfileStatistics_tags_entry"""
+    count: int
+    name: str
+
+    def __init__(
+        self,
+        *,
+        count: int,
+        name: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.count = count
+        self.name = name
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_User__apiStats:
+    """_OmegaUp_Controllers_User__apiStats"""
+    heatmap: Sequence['_OmegaUp_Controllers_User__apiStats_heatmap_entry']
+    runs: Sequence['_OmegaUp_Controllers_User__apiStats_runs_entry']
+
+    def __init__(
+        self,
+        *,
+        heatmap: Sequence[Dict[str, Any]],
         runs: Sequence[Dict[str, Any]],
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
-        self.runs = [_UserProfileStats(**v) for v in runs]
+        self.heatmap = [
+            _OmegaUp_Controllers_User__apiStats_heatmap_entry(**v)
+            for v in heatmap
+        ]
+        self.runs = [
+            _OmegaUp_Controllers_User__apiStats_runs_entry(**v) for v in runs
+        ]
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_User__apiStats_heatmap_entry:
+    """_OmegaUp_Controllers_User__apiStats_heatmap_entry"""
+    count: int
+    date: str
+
+    def __init__(
+        self,
+        *,
+        count: int,
+        date: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.count = count
+        self.date = date
+
+
+@dataclasses.dataclass
+class _OmegaUp_Controllers_User__apiStats_runs_entry:
+    """_OmegaUp_Controllers_User__apiStats_runs_entry"""
+    date: str
+    runs: int
+    verdict: str
+
+    def __init__(
+        self,
+        *,
+        date: str,
+        runs: int,
+        verdict: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.date = date
+        self.runs = runs
+        self.verdict = verdict
 
 
 @dataclasses.dataclass
@@ -9583,6 +10413,30 @@ class _Participant:
         else:
             self.state_id = None
         self.username = username
+
+
+@dataclasses.dataclass
+class _PredefinedTemplate:
+    """_PredefinedTemplate"""
+    id: str
+    message: '_MessageLanguages'
+    title: '_MessageLanguages'
+    type: str
+
+    def __init__(
+        self,
+        *,
+        id: str,
+        message: Dict[str, Any],
+        title: Dict[str, Any],
+        type: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.id = id
+        self.message = _MessageLanguages(**message)
+        self.title = _MessageLanguages(**title)
+        self.type = type
 
 
 @dataclasses.dataclass
@@ -9721,6 +10575,7 @@ class _ProblemDetails:
     languages: Sequence[str]
     letter: Optional[str]
     limits: '_SettingLimits'
+    nextExecutionTimestamp: Optional[datetime.datetime]
     nextSubmissionTimestamp: Optional[datetime.datetime]
     nominationStatus: '_NominationStatus'
     order: str
@@ -9773,6 +10628,7 @@ class _ProblemDetails:
         admin: Optional[bool] = None,
         difficulty: Optional[float] = None,
         letter: Optional[str] = None,
+        nextExecutionTimestamp: Optional[int] = None,
         nextSubmissionTimestamp: Optional[int] = None,
         preferred_language: Optional[str] = None,
         problemsetter: Optional[Dict[str, Any]] = None,
@@ -9805,6 +10661,11 @@ class _ProblemDetails:
         else:
             self.letter = None
         self.limits = _SettingLimits(**limits)
+        if nextExecutionTimestamp is not None:
+            self.nextExecutionTimestamp = datetime.datetime.fromtimestamp(
+                nextExecutionTimestamp)
+        else:
+            self.nextExecutionTimestamp = None
         if nextSubmissionTimestamp is not None:
             self.nextSubmissionTimestamp = datetime.datetime.fromtimestamp(
                 nextSubmissionTimestamp)
@@ -9855,15 +10716,19 @@ class _ProblemDetailsPayload:
     clarifications: Optional[Sequence['_Clarification']]
     hasVisitedSection: Optional[bool]
     histogram: '_Histogram'
+    isBookmarked: Optional[bool]
     levelTags: Optional[Sequence[str]]
     nominationStatus: Optional['_NominationStatus']
     problem: '_ProblemInfo'
     problemLevel: Optional[str]
     publicTags: Optional[Sequence[str]]
+    reviewedProblemLevel: Optional[str]
+    reviewedPublicTags: Optional[Sequence[str]]
+    reviewedQualitySeal: Optional[bool]
     runs: Optional[Sequence['_Run']]
     selectedPrivateTags: Optional[Sequence[str]]
     selectedPublicTags: Optional[Sequence[str]]
-    solutionStatus: Optional[str]
+    solutionStatus: str
     solvers: Sequence['_BestSolvers']
     totalRuns: Optional[int]
     user: '_UserInfoForProblem'
@@ -9874,20 +10739,24 @@ class _ProblemDetailsPayload:
         allowedSolutionsToSee: int,
         histogram: Dict[str, Any],
         problem: Dict[str, Any],
+        solutionStatus: str,
         solvers: Sequence[Dict[str, Any]],
         user: Dict[str, Any],
         allRuns: Optional[Sequence[Dict[str, Any]]] = None,
         allowUserAddTags: Optional[bool] = None,
         clarifications: Optional[Sequence[Dict[str, Any]]] = None,
         hasVisitedSection: Optional[bool] = None,
+        isBookmarked: Optional[bool] = None,
         levelTags: Optional[Sequence[str]] = None,
         nominationStatus: Optional[Dict[str, Any]] = None,
         problemLevel: Optional[str] = None,
         publicTags: Optional[Sequence[str]] = None,
+        reviewedProblemLevel: Optional[str] = None,
+        reviewedPublicTags: Optional[Sequence[str]] = None,
+        reviewedQualitySeal: Optional[bool] = None,
         runs: Optional[Sequence[Dict[str, Any]]] = None,
         selectedPrivateTags: Optional[Sequence[str]] = None,
         selectedPublicTags: Optional[Sequence[str]] = None,
-        solutionStatus: Optional[str] = None,
         totalRuns: Optional[int] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
@@ -9910,6 +10779,10 @@ class _ProblemDetailsPayload:
         else:
             self.hasVisitedSection = None
         self.histogram = _Histogram(**histogram)
+        if isBookmarked is not None:
+            self.isBookmarked = isBookmarked
+        else:
+            self.isBookmarked = None
         if levelTags is not None:
             self.levelTags = [v for v in levelTags]
         else:
@@ -9927,6 +10800,18 @@ class _ProblemDetailsPayload:
             self.publicTags = [v for v in publicTags]
         else:
             self.publicTags = None
+        if reviewedProblemLevel is not None:
+            self.reviewedProblemLevel = reviewedProblemLevel
+        else:
+            self.reviewedProblemLevel = None
+        if reviewedPublicTags is not None:
+            self.reviewedPublicTags = [v for v in reviewedPublicTags]
+        else:
+            self.reviewedPublicTags = None
+        if reviewedQualitySeal is not None:
+            self.reviewedQualitySeal = reviewedQualitySeal
+        else:
+            self.reviewedQualitySeal = None
         if runs is not None:
             self.runs = [_Run(**v) for v in runs]
         else:
@@ -9939,10 +10824,7 @@ class _ProblemDetailsPayload:
             self.selectedPublicTags = [v for v in selectedPublicTags]
         else:
             self.selectedPublicTags = None
-        if solutionStatus is not None:
-            self.solutionStatus = solutionStatus
-        else:
-            self.solutionStatus = None
+        self.solutionStatus = solutionStatus
         self.solvers = [_BestSolvers(**v) for v in solvers]
         if totalRuns is not None:
             self.totalRuns = totalRuns
@@ -9957,6 +10839,7 @@ class _ProblemEditPayload:
     admins: Sequence['_ProblemAdmin']
     alias: str
     allowUserAddTags: bool
+    cdp: Optional['_CDP']
     emailClarifications: bool
     extraWallTime: float
     groupAdmins: Sequence['_ProblemGroupAdmin']
@@ -10020,6 +10903,7 @@ class _ProblemEditPayload:
         validatorTypes: Dict[str, Optional[str]],
         visibility: int,
         visibilityStatuses: Dict[str, int],
+        cdp: Optional[Dict[str, Any]] = None,
         groupScorePolicy: Optional[str] = None,
         problemLevel: Optional[str] = None,
         problemsetter: Optional[Dict[str, Any]] = None,
@@ -10032,6 +10916,10 @@ class _ProblemEditPayload:
         self.admins = [_ProblemAdmin(**v) for v in admins]
         self.alias = alias
         self.allowUserAddTags = allowUserAddTags
+        if cdp is not None:
+            self.cdp = _CDP(**cdp)
+        else:
+            self.cdp = None
         self.emailClarifications = emailClarifications
         self.extraWallTime = extraWallTime
         self.groupAdmins = [_ProblemGroupAdmin(**v) for v in groupAdmins]
@@ -10253,6 +11141,7 @@ class _ProblemInfo:
     languages: Sequence[str]
     letter: Optional[str]
     limits: '_SettingLimits'
+    nextExecutionTimestamp: Optional[datetime.datetime]
     nextSubmissionTimestamp: Optional[datetime.datetime]
     points: float
     preferred_language: Optional[str]
@@ -10265,6 +11154,7 @@ class _ProblemInfo:
     statement: '_ProblemStatement'
     title: str
     visibility: int
+    warningReasons: Optional[Sequence[str]]
 
     def __init__(
         self,
@@ -10284,11 +11174,13 @@ class _ProblemInfo:
         title: str,
         visibility: int,
         letter: Optional[str] = None,
+        nextExecutionTimestamp: Optional[int] = None,
         nextSubmissionTimestamp: Optional[int] = None,
         preferred_language: Optional[str] = None,
         problemsetter: Optional[Dict[str, Any]] = None,
         sample_input: Optional[str] = None,
         source: Optional[str] = None,
+        warningReasons: Optional[Sequence[str]] = None,
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
@@ -10303,6 +11195,11 @@ class _ProblemInfo:
         else:
             self.letter = None
         self.limits = _SettingLimits(**limits)
+        if nextExecutionTimestamp is not None:
+            self.nextExecutionTimestamp = datetime.datetime.fromtimestamp(
+                nextExecutionTimestamp)
+        else:
+            self.nextExecutionTimestamp = None
         if nextSubmissionTimestamp is not None:
             self.nextSubmissionTimestamp = datetime.datetime.fromtimestamp(
                 nextSubmissionTimestamp)
@@ -10331,6 +11228,10 @@ class _ProblemInfo:
         self.statement = _ProblemStatement(**statement)
         self.title = title
         self.visibility = visibility
+        if warningReasons is not None:
+            self.warningReasons = [v for v in warningReasons]
+        else:
+            self.warningReasons = None
 
 
 @dataclasses.dataclass
@@ -10588,6 +11489,39 @@ class _ProblemQualityPayload:
         self.problemAlias = problemAlias
         self.solved = solved
         self.tried = tried
+
+
+@dataclasses.dataclass
+class _ProblemRequestData:
+    """_ProblemRequestData"""
+    contestAlias: Optional[str]
+    preventProblemsetOpen: bool
+    problemAlias: str
+    problemsetId: Optional[int]
+    statementType: str
+
+    def __init__(
+        self,
+        *,
+        preventProblemsetOpen: bool,
+        problemAlias: str,
+        statementType: str,
+        contestAlias: Optional[str] = None,
+        problemsetId: Optional[int] = None,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        if contestAlias is not None:
+            self.contestAlias = contestAlias
+        else:
+            self.contestAlias = None
+        self.preventProblemsetOpen = preventProblemsetOpen
+        self.problemAlias = problemAlias
+        if problemsetId is not None:
+            self.problemsetId = problemsetId
+        else:
+            self.problemsetId = None
+        self.statementType = statementType
 
 
 @dataclasses.dataclass
@@ -13411,15 +14345,23 @@ class _SubmissionsListPayload:
 @dataclasses.dataclass
 class _SupportDetailsPayload:
     """_SupportDetailsPayload"""
+    maintenanceMode: '_MaintenanceModeStatus'
+    maintenancePredefinedTemplates: Sequence['_PredefinedTemplate']
     roleNamesWithDescription: Sequence['_UserRole']
 
     def __init__(
         self,
         *,
+        maintenanceMode: Dict[str, Any],
+        maintenancePredefinedTemplates: Sequence[Dict[str, Any]],
         roleNamesWithDescription: Sequence[Dict[str, Any]],
         # Ignore any unknown arguments
         **_kwargs: Any,
     ):
+        self.maintenanceMode = _MaintenanceModeStatus(**maintenanceMode)
+        self.maintenancePredefinedTemplates = [
+            _PredefinedTemplate(**v) for v in maintenancePredefinedTemplates
+        ]
         self.roleNamesWithDescription = [
             _UserRole(**v) for v in roleNamesWithDescription
         ]
@@ -13615,6 +14557,99 @@ class _TeamsGroupListPayload:
 
 
 @dataclasses.dataclass
+class _UserBasicInformation:
+    """_UserBasicInformation"""
+    country: Optional[str]
+    school: Optional[int]
+    state: Optional[str]
+
+    def __init__(
+        self,
+        *,
+        country: Optional[str] = None,
+        school: Optional[int] = None,
+        state: Optional[str] = None,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        if country is not None:
+            self.country = country
+        else:
+            self.country = None
+        if school is not None:
+            self.school = school
+        else:
+            self.school = None
+        if state is not None:
+            self.state = state
+        else:
+            self.state = None
+
+
+@dataclasses.dataclass
+class _UserCompareData:
+    """_UserCompareData"""
+    contestsCount: Optional[int]
+    profile: '_UserProfileInfo'
+    solvedProblemsCount: Optional[int]
+
+    def __init__(
+        self,
+        *,
+        profile: Dict[str, Any],
+        contestsCount: Optional[int] = None,
+        solvedProblemsCount: Optional[int] = None,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        if contestsCount is not None:
+            self.contestsCount = contestsCount
+        else:
+            self.contestsCount = None
+        self.profile = _UserProfileInfo(**profile)
+        if solvedProblemsCount is not None:
+            self.solvedProblemsCount = solvedProblemsCount
+        else:
+            self.solvedProblemsCount = None
+
+
+@dataclasses.dataclass
+class _UserComparePayload:
+    """_UserComparePayload"""
+    user1: Optional['_UserCompareData']
+    user2: Optional['_UserCompareData']
+    username1: Optional[str]
+    username2: Optional[str]
+
+    def __init__(
+        self,
+        *,
+        user1: Optional[Dict[str, Any]] = None,
+        user2: Optional[Dict[str, Any]] = None,
+        username1: Optional[str] = None,
+        username2: Optional[str] = None,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        if user1 is not None:
+            self.user1 = _UserCompareData(**user1)
+        else:
+            self.user1 = None
+        if user2 is not None:
+            self.user2 = _UserCompareData(**user2)
+        else:
+            self.user2 = None
+        if username1 is not None:
+            self.username1 = username1
+        else:
+            self.username1 = None
+        if username2 is not None:
+            self.username2 = username2
+        else:
+            self.username2 = None
+
+
+@dataclasses.dataclass
 class _UserDependent:
     """_UserDependent"""
     classname: str
@@ -13697,6 +14732,42 @@ class _UserDetailsPayload:
         self.systemRoles = [v for v in systemRoles]
         self.username = username
         self.verified = verified
+
+
+@dataclasses.dataclass
+class _UserDocsPayload:
+    """_UserDocsPayload"""
+    docs: Dict[str, Sequence['_UserDocument']]
+
+    def __init__(
+        self,
+        *,
+        docs: Dict[str, Sequence[Dict[str, Any]]],
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.docs = {
+            k: [_UserDocument(**v) for v in v]
+            for k, v in docs.items()
+        }
+
+
+@dataclasses.dataclass
+class _UserDocument:
+    """_UserDocument"""
+    name: str
+    url: str
+
+    def __init__(
+        self,
+        *,
+        name: str,
+        url: str,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.name = name
+        self.url = url
 
 
 @dataclasses.dataclass
@@ -14177,6 +15248,39 @@ class _UserRankInfo:
 
 
 @dataclasses.dataclass
+class _UserRankTableLoggedOutPayload:
+    """_UserRankTableLoggedOutPayload"""
+    isLogged: bool
+    lastUpdated: Optional[datetime.datetime]
+    length: int
+    page: int
+    pagerItems: Sequence['_PageItem']
+    ranking: '_UserRank'
+
+    def __init__(
+        self,
+        *,
+        isLogged: bool,
+        length: int,
+        page: int,
+        pagerItems: Sequence[Dict[str, Any]],
+        ranking: Dict[str, Any],
+        lastUpdated: Optional[int] = None,
+        # Ignore any unknown arguments
+        **_kwargs: Any,
+    ):
+        self.isLogged = isLogged
+        if lastUpdated is not None:
+            self.lastUpdated = datetime.datetime.fromtimestamp(lastUpdated)
+        else:
+            self.lastUpdated = None
+        self.length = length
+        self.page = page
+        self.pagerItems = [_PageItem(**v) for v in pagerItems]
+        self.ranking = _UserRank(**ranking)
+
+
+@dataclasses.dataclass
 class _UserRankTablePayload:
     """_UserRankTablePayload"""
     availableFilters: '_UserRankTablePayload_availableFilters'
@@ -14402,12 +15506,47 @@ class _VerificationParentalTokenDetailsPayload:
         self.message = message
 
 
+ACLUserOwnedAclReportResponse = _OmegaUp_Controllers_ACL__apiUserOwnedAclReport
+"""The return type of the ACLUserOwnedAclReport API."""
+
+
+class ACL:
+    r"""
+    """
+    def __init__(self, client: 'Client') -> None:
+        self._client = client
+
+    def userOwnedAclReport(
+        self,
+        *,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> ACLUserOwnedAclReportResponse:
+        r"""Returns all ACLs owned by the current user along with assigned roles for each.
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {}
+        return _OmegaUp_Controllers_ACL__apiUserOwnedAclReport(
+            **self._client.query('/api/aCL/userOwnedAclReport/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
+
+
 AdminPlatformReportStatsResponse = _OmegaUp_Controllers_Admin__apiPlatformReportStats
 """The return type of the AdminPlatformReportStats API."""
 
+AdminGetMaintenanceModeResponse = _MaintenanceModeStatus
+"""The return type of the AdminGetMaintenanceMode API."""
+
 
 class Admin:
-    r"""
+    r"""Admin Controller
     """
     def __init__(self, client: 'Client') -> None:
         self._client = client
@@ -14442,6 +15581,228 @@ class Admin:
                                  files_=files_,
                                  timeout_=timeout_,
                                  check_=check_))
+
+    def setMaintenanceMode(
+            self,
+            *,
+            enabled: Optional[bool] = None,
+            message_en: Optional[str] = None,
+            message_es: Optional[str] = None,
+            message_pt: Optional[str] = None,
+            type: Optional[str] = None,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
+        r"""Set maintenance mode
+
+        Args:
+            enabled:
+            message_en:
+            message_es:
+            message_pt:
+            type:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {}
+        if enabled is not None:
+            parameters['enabled'] = str(enabled)
+        if message_en is not None:
+            parameters['message_en'] = message_en
+        if message_es is not None:
+            parameters['message_es'] = message_es
+        if message_pt is not None:
+            parameters['message_pt'] = message_pt
+        if type is not None:
+            parameters['type'] = type
+        self._client.query('/api/admin/setMaintenanceMode/',
+                           payload=parameters,
+                           files_=files_,
+                           timeout_=timeout_,
+                           check_=check_)
+
+    def getMaintenanceMode(
+        self,
+        *,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> AdminGetMaintenanceModeResponse:
+        r"""Get maintenance mode status
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {}
+        return _MaintenanceModeStatus(
+            **self._client.query('/api/admin/getMaintenanceMode/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
+
+
+AiEditorialGenerateResponse = _OmegaUp_Controllers_AiEditorial__apiGenerate
+"""The return type of the AiEditorialGenerate API."""
+
+AiEditorialStatusResponse = _OmegaUp_Controllers_AiEditorial__apiStatus
+"""The return type of the AiEditorialStatus API."""
+
+
+class AiEditorial:
+    r"""AI Editorial Controller
+    """
+    def __init__(self, client: 'Client') -> None:
+        self._client = client
+
+    def generate(
+        self,
+        *,
+        language: str,
+        problem_alias: str,
+        auth_token: Optional[str] = None,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> AiEditorialGenerateResponse:
+        r"""Generate AI editorial for a problem
+
+        Args:
+            language:
+            problem_alias:
+            auth_token:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {
+            'language': language,
+            'problem_alias': problem_alias,
+        }
+        if auth_token is not None:
+            parameters['auth_token'] = auth_token
+        return _OmegaUp_Controllers_AiEditorial__apiGenerate(
+            **self._client.query('/api/aiEditorial/generate/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
+
+    def status(
+        self,
+        *,
+        job_id: str,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> AiEditorialStatusResponse:
+        r"""Get status of an AI editorial job
+
+        Args:
+            job_id:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {
+            'job_id': job_id,
+        }
+        return _OmegaUp_Controllers_AiEditorial__apiStatus(
+            **self._client.query('/api/aiEditorial/status/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
+
+    def review(
+            self,
+            *,
+            action: str,
+            job_id: str,
+            language: Optional[str] = None,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
+        r"""Review and approve/reject an AI editorial
+
+        When approved, the editorial is published to gitserver
+
+        Args:
+            action:
+            job_id:
+            language:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {
+            'action': action,
+            'job_id': job_id,
+        }
+        if language is not None:
+            parameters['language'] = language
+        self._client.query('/api/aiEditorial/review/',
+                           payload=parameters,
+                           files_=files_,
+                           timeout_=timeout_,
+                           check_=check_)
+
+    def updateJob(
+            self,
+            *,
+            job_id: str,
+            status: str,
+            error_message: Optional[str] = None,
+            md_en: Optional[str] = None,
+            md_es: Optional[str] = None,
+            md_pt: Optional[str] = None,
+            validation_verdict: Optional[str] = None,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
+        r"""Update job status and content from AI worker
+
+        This endpoint is called by the Python AI worker to update job status
+        and content in the database after processing completion.
+
+        Args:
+            job_id:
+            status:
+            error_message:
+            md_en:
+            md_es:
+            md_pt:
+            validation_verdict:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {
+            'job_id': job_id,
+            'status': status,
+        }
+        if error_message is not None:
+            parameters['error_message'] = error_message
+        if md_en is not None:
+            parameters['md_en'] = md_en
+        if md_es is not None:
+            parameters['md_es'] = md_es
+        if md_pt is not None:
+            parameters['md_pt'] = md_pt
+        if validation_verdict is not None:
+            parameters['validation_verdict'] = validation_verdict
+        self._client.query('/api/aiEditorial/updateJob/',
+                           payload=parameters,
+                           files_=files_,
+                           timeout_=timeout_,
+                           check_=check_)
 
 
 AuthorizationProblemResponse = _OmegaUp_Controllers_Authorization__apiProblem
@@ -14635,6 +15996,178 @@ class Badge:
                                            files_=files_,
                                            timeout_=timeout_,
                                            check_=check_))
+
+
+CarouselItemsListResponse = _CarouselItemListPayload
+"""The return type of the CarouselItemsList API."""
+
+CarouselItemsListActiveResponse = _CarouselItemListPayload
+"""The return type of the CarouselItemsListActive API."""
+
+
+class CarouselItems:
+    r"""CarouselItemController
+    """
+    def __init__(self, client: 'Client') -> None:
+        self._client = client
+
+    def create(
+            self,
+            *,
+            buttonTitle: str,
+            excerpt: str,
+            image_url: str,
+            link: str,
+            status: bool,
+            title: str,
+            expiration_date: Optional[str] = None,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
+        r"""Create a new Carousel Item
+
+        Args:
+            buttonTitle:
+            excerpt:
+            image_url:
+            link:
+            status:
+            title:
+            expiration_date:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {
+            'buttonTitle': buttonTitle,
+            'excerpt': excerpt,
+            'image_url': image_url,
+            'link': link,
+            'status': str(status),
+            'title': title,
+        }
+        if expiration_date is not None:
+            parameters['expiration_date'] = expiration_date
+        self._client.query('/api/carouselItems/create/',
+                           payload=parameters,
+                           files_=files_,
+                           timeout_=timeout_,
+                           check_=check_)
+
+    def delete(
+            self,
+            *,
+            carousel_item_id: int,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
+        r"""Delete a Carousel Item
+
+        Args:
+            carousel_item_id:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {
+            'carousel_item_id': str(carousel_item_id),
+        }
+        self._client.query('/api/carouselItems/delete/',
+                           payload=parameters,
+                           files_=files_,
+                           timeout_=timeout_,
+                           check_=check_)
+
+    def update(
+            self,
+            *,
+            buttonTitle: str,
+            carousel_item_id: int,
+            excerpt: str,
+            image_url: str,
+            link: str,
+            status: bool,
+            title: str,
+            expiration_date: Optional[str] = None,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
+        r"""Update a Carousel Item
+
+        Args:
+            buttonTitle:
+            carousel_item_id:
+            excerpt:
+            image_url:
+            link:
+            status:
+            title:
+            expiration_date:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {
+            'buttonTitle': buttonTitle,
+            'carousel_item_id': str(carousel_item_id),
+            'excerpt': excerpt,
+            'image_url': image_url,
+            'link': link,
+            'status': str(status),
+            'title': title,
+        }
+        if expiration_date is not None:
+            parameters['expiration_date'] = expiration_date
+        self._client.query('/api/carouselItems/update/',
+                           payload=parameters,
+                           files_=files_,
+                           timeout_=timeout_,
+                           check_=check_)
+
+    def list(
+        self,
+        *,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> CarouselItemsListResponse:
+        r"""List all Carousel Items (admin only)
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {}
+        return _CarouselItemListPayload(
+            **self._client.query('/api/carouselItems/list/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
+
+    def listActive(
+        self,
+        *,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> CarouselItemsListActiveResponse:
+        r"""List all active Carousel Items (homepage)
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {}
+        return _CarouselItemListPayload(
+            **self._client.query('/api/carouselItems/listActive/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
 
 
 CertificateGetCertificatePdfResponse = _OmegaUp_Controllers_Certificate__apiGetCertificatePdf
@@ -14989,8 +16522,8 @@ class Contest:
         page_size: int,
         query: str,
         tab_name: str,
-        active: Optional[int] = None,
-        admission_mode: Optional[Any] = None,
+        admission_mode: Optional[str] = None,
+        filter: Optional[str] = None,
         participating: Optional[int] = None,
         recommended: Optional[int] = None,
         sort_order: Optional[str] = None,
@@ -15006,8 +16539,8 @@ class Contest:
             page_size:
             query:
             tab_name:
-            active:
             admission_mode:
+            filter:
             participating:
             recommended:
             sort_order:
@@ -15021,10 +16554,10 @@ class Contest:
             'query': query,
             'tab_name': tab_name,
         }
-        if active is not None:
-            parameters['active'] = str(active)
         if admission_mode is not None:
-            parameters['admission_mode'] = str(admission_mode)
+            parameters['admission_mode'] = admission_mode
+        if filter is not None:
+            parameters['filter'] = filter
         if participating is not None:
             parameters['participating'] = str(participating)
         if recommended is not None:
@@ -15468,6 +17001,7 @@ class Contest:
             penalty_type: Optional[str] = None,
             points_decay_factor: Optional[float] = None,
             problems: Optional[str] = None,
+            recommended: Optional[bool] = None,
             requests_user_information: Optional[bool] = None,
             score_mode: Optional[str] = None,
             scoreboard: Optional[float] = None,
@@ -15498,6 +17032,7 @@ class Contest:
             penalty_type:
             points_decay_factor:
             problems:
+            recommended:
             requests_user_information:
             score_mode:
             scoreboard:
@@ -15541,6 +17076,8 @@ class Contest:
             parameters['points_decay_factor'] = str(points_decay_factor)
         if problems is not None:
             parameters['problems'] = problems
+        if recommended is not None:
+            parameters['recommended'] = str(recommended)
         if requests_user_information is not None:
             parameters['requests_user_information'] = str(
                 requests_user_information)
@@ -16278,6 +17815,7 @@ class Contest:
         penalty_type: Optional[str] = None,
         points_decay_factor: Optional[float] = None,
         problems: Optional[str] = None,
+        recommended: Optional[bool] = None,
         requests_user_information: Optional[str] = None,
         score_mode: Optional[str] = None,
         scoreboard: Optional[float] = None,
@@ -16311,6 +17849,7 @@ class Contest:
             penalty_type:
             points_decay_factor:
             problems:
+            recommended:
             requests_user_information:
             score_mode:
             scoreboard:
@@ -16358,6 +17897,8 @@ class Contest:
             parameters['points_decay_factor'] = str(points_decay_factor)
         if problems is not None:
             parameters['problems'] = problems
+        if recommended is not None:
+            parameters['recommended'] = str(recommended)
         if requests_user_information is not None:
             parameters['requests_user_information'] = requests_user_information
         if score_mode is not None:
@@ -16566,7 +18107,7 @@ class Contest:
             check_: bool = True,
             timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
         r"""Given a contest_alias, sets the recommended flag on/off.
-        Only omegaUp admins can call this API.
+        Only omegaUp admins and support team members can call this API.
 
         Args:
             contest_alias:
@@ -16698,6 +18239,9 @@ CourseRunsResponse = _OmegaUp_Controllers_Course__apiRuns
 
 CourseDetailsResponse = _CourseDetails
 """The return type of the CourseDetails API."""
+
+CourseToggleTeachingAssistantResponse = _OmegaUp_Controllers_Course__apiToggleTeachingAssistant
+"""The return type of the CourseToggleTeachingAssistant API."""
 
 CourseClarificationsResponse = _OmegaUp_Controllers_Course__apiClarifications
 """The return type of the CourseClarifications API."""
@@ -18113,6 +19657,33 @@ class Course:
                            timeout_=timeout_,
                            check_=check_)
 
+    def toggleTeachingAssistant(
+        self,
+        *,
+        course_alias: str,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> CourseToggleTeachingAssistantResponse:
+        r"""Toggles the AI Teaching Assistant feature for a course
+
+        Args:
+            course_alias:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {
+            'course_alias': course_alias,
+        }
+        return _OmegaUp_Controllers_Course__apiToggleTeachingAssistant(
+            **self._client.query('/api/course/toggleTeachingAssistant/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
+
     def clarifications(
         self,
         *,
@@ -19005,7 +20576,7 @@ class Identity:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
             timeout_: datetime.timedelta = _DEFAULT_TIMEOUT) -> None:
-        r"""Entry point for change passowrd of an identity
+        r"""Entry point for change password of an identity
 
         Args:
             group_alias:
@@ -19067,7 +20638,7 @@ NotificationMyListResponse = _OmegaUp_Controllers_Notification__apiMyList
 
 
 class Notification:
-    r"""BadgesController
+    r"""NotificationController
     """
     def __init__(self, client: 'Client') -> None:
         self._client = client
@@ -19172,6 +20743,9 @@ ProblemRandomLanguageProblemResponse = _OmegaUp_Controllers_Problem__apiRandomLa
 
 ProblemRandomKarelProblemResponse = _OmegaUp_Controllers_Problem__apiRandomKarelProblem
 """The return type of the ProblemRandomKarelProblem API."""
+
+ProblemConvertZipToCdpResponse = _OmegaUp_Controllers_Problem__apiConvertZipToCdp
+"""The return type of the ProblemConvertZipToCdp API."""
 
 
 class Problem:
@@ -20285,24 +21859,24 @@ class Problem:
     def list(
         self,
         *,
-        only_quality_seal: bool,
         difficulty: Optional[str] = None,
         difficulty_range: Optional[str] = None,
-        language: Optional[Any] = None,
+        language: Optional[str] = None,
         level: Optional[str] = None,
         max_difficulty: Optional[int] = None,
         min_difficulty: Optional[int] = None,
         min_visibility: Optional[int] = None,
         offset: Optional[int] = None,
-        only_karel: Optional[Any] = None,
-        order_by: Optional[Any] = None,
+        only_karel: Optional[bool] = None,
+        only_quality_seal: Optional[bool] = None,
+        order_by: Optional[str] = None,
         page: Optional[int] = None,
         programming_languages: Optional[str] = None,
         query: Optional[str] = None,
-        require_all_tags: Optional[Any] = None,
+        require_all_tags: Optional[bool] = None,
         rowcount: Optional[int] = None,
-        some_tags: Optional[Any] = None,
-        sort_order: Optional[Any] = None,
+        some_tags: Optional[bool] = None,
+        sort_order: Optional[str] = None,
         # Out-of-band parameters:
         files_: Optional[Mapping[str, BinaryIO]] = None,
         check_: bool = True,
@@ -20311,7 +21885,6 @@ class Problem:
         r"""List of public and user's private problems
 
         Args:
-            only_quality_seal:
             difficulty:
             difficulty_range:
             language:
@@ -20321,6 +21894,7 @@ class Problem:
             min_visibility:
             offset:
             only_karel:
+            only_quality_seal:
             order_by:
             page:
             programming_languages:
@@ -20333,15 +21907,13 @@ class Problem:
         Returns:
             The API result object.
         """
-        parameters: Dict[str, str] = {
-            'only_quality_seal': str(only_quality_seal),
-        }
+        parameters: Dict[str, str] = {}
         if difficulty is not None:
             parameters['difficulty'] = difficulty
         if difficulty_range is not None:
             parameters['difficulty_range'] = difficulty_range
         if language is not None:
-            parameters['language'] = str(language)
+            parameters['language'] = language
         if level is not None:
             parameters['level'] = level
         if max_difficulty is not None:
@@ -20354,8 +21926,10 @@ class Problem:
             parameters['offset'] = str(offset)
         if only_karel is not None:
             parameters['only_karel'] = str(only_karel)
+        if only_quality_seal is not None:
+            parameters['only_quality_seal'] = str(only_quality_seal)
         if order_by is not None:
-            parameters['order_by'] = str(order_by)
+            parameters['order_by'] = order_by
         if page is not None:
             parameters['page'] = str(page)
         if programming_languages is not None:
@@ -20369,7 +21943,7 @@ class Problem:
         if some_tags is not None:
             parameters['some_tags'] = str(some_tags)
         if sort_order is not None:
-            parameters['sort_order'] = str(sort_order)
+            parameters['sort_order'] = sort_order
         return _OmegaUp_Controllers_Problem__apiList(
             **self._client.query('/api/problem/list/',
                                  payload=parameters,
@@ -20527,6 +22101,119 @@ class Problem:
         parameters: Dict[str, str] = {}
         return _OmegaUp_Controllers_Problem__apiRandomKarelProblem(
             **self._client.query('/api/problem/randomKarelProblem/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
+
+    def convertZipToCdp(
+        self,
+        *,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> ProblemConvertZipToCdpResponse:
+        r"""Convert an uploaded ZIP file to CDP.
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {}
+        return _OmegaUp_Controllers_Problem__apiConvertZipToCdp(
+            **self._client.query('/api/problem/convertZipToCdp/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
+
+
+ProblemBookmarkToggleResponse = _OmegaUp_Controllers_ProblemBookmark__apiToggle
+"""The return type of the ProblemBookmarkToggle API."""
+
+ProblemBookmarkExistsResponse = _OmegaUp_Controllers_ProblemBookmark__apiExists
+"""The return type of the ProblemBookmarkExists API."""
+
+ProblemBookmarkListResponse = _OmegaUp_Controllers_ProblemBookmark__apiList
+"""The return type of the ProblemBookmarkList API."""
+
+
+class ProblemBookmark:
+    r"""ProblemBookmarkController
+    """
+    def __init__(self, client: 'Client') -> None:
+        self._client = client
+
+    def toggle(
+        self,
+        *,
+        problem_alias: str,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> ProblemBookmarkToggleResponse:
+        r"""Toggle a bookmark for the current user
+
+        Args:
+            problem_alias:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {
+            'problem_alias': problem_alias,
+        }
+        return _OmegaUp_Controllers_ProblemBookmark__apiToggle(
+            **self._client.query('/api/problemBookmark/toggle/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
+
+    def exists(
+        self,
+        *,
+        problem_alias: str,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> ProblemBookmarkExistsResponse:
+        r"""Check if a problem is bookmarked by the current user
+
+        Args:
+            problem_alias:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {
+            'problem_alias': problem_alias,
+        }
+        return _OmegaUp_Controllers_ProblemBookmark__apiExists(
+            **self._client.query('/api/problemBookmark/exists/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
+
+    def list(
+        self,
+        *,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> ProblemBookmarkListResponse:
+        r"""Get list of bookmarked problems for the current user
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {}
+        return _OmegaUp_Controllers_ProblemBookmark__apiList(
+            **self._client.query('/api/problemBookmark/list/',
                                  payload=parameters,
                                  files_=files_,
                                  timeout_=timeout_,
@@ -20882,7 +22569,7 @@ class QualityNomination:
         rowcount: int,
         column: Optional[str] = None,
         query: Optional[str] = None,
-        status: Optional[Any] = None,
+        status: Optional[str] = None,
         # Out-of-band parameters:
         files_: Optional[Mapping[str, BinaryIO]] = None,
         check_: bool = True,
@@ -20909,7 +22596,7 @@ class QualityNomination:
         if query is not None:
             parameters['query'] = query
         if status is not None:
-            parameters['status'] = str(status)
+            parameters['status'] = status
         return _OmegaUp_Controllers_QualityNomination__apiList(
             **self._client.query('/api/qualityNomination/list/',
                                  payload=parameters,
@@ -21093,7 +22780,7 @@ class Reset:
     ) -> ResetUpdateResponse:
         r"""Updates the password of a given user, this is the second and last step
         in order to reset the password. This operation is done if and only if
-        the correct parameters are suplied.
+        the correct parameters are supplied.
 
         Args:
             email:
@@ -21117,6 +22804,12 @@ class Reset:
                                  timeout_=timeout_,
                                  check_=check_))
 
+
+RunExecuteForIDEResponse = _OmegaUp_Controllers_Run__apiExecuteForIDE
+"""The return type of the RunExecuteForIDE API."""
+
+RunExecuteResponse = _OmegaUp_Controllers_Run__apiExecute
+"""The return type of the RunExecute API."""
 
 RunCreateResponse = _OmegaUp_Controllers_Run__apiCreate
 """The return type of the RunCreate API."""
@@ -21149,14 +22842,61 @@ class Run:
     def __init__(self, client: 'Client') -> None:
         self._client = client
 
+    def executeForIDE(
+        self,
+        *,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> RunExecuteForIDEResponse:
+        r"""Get the next execution timestamp, no user session required, as the IDE
+        runs independently.
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {}
+        return _OmegaUp_Controllers_Run__apiExecuteForIDE(
+            **self._client.query('/api/run/executeForIDE/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
+
+    def execute(
+            self,
+            *,
+            # Out-of-band parameters:
+            files_: Optional[Mapping[str, BinaryIO]] = None,
+            check_: bool = True,
+            timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> RunExecuteResponse:
+        r"""Get the next execution timestamp for a specific problemset:
+        - Contest
+        - Virtual contest
+        - Practice contest
+        - Course
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {}
+        return _OmegaUp_Controllers_Run__apiExecute(
+            **self._client.query('/api/run/execute/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
+
     def create(
             self,
             *,
-            contest_alias: str,
             language: str,
             problem_alias: str,
             source: str,
-            problemset_id: Optional[Any] = None,
+            contest_alias: Optional[str] = None,
+            problemset_id: Optional[int] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -21165,21 +22905,22 @@ class Run:
         r"""Create a new run
 
         Args:
-            contest_alias:
             language:
             problem_alias:
             source:
+            contest_alias:
             problemset_id:
 
         Returns:
             The API result object.
         """
         parameters: Dict[str, str] = {
-            'contest_alias': contest_alias,
             'language': language,
             'problem_alias': problem_alias,
             'source': source,
         }
+        if contest_alias is not None:
+            parameters['contest_alias'] = contest_alias
         if problemset_id is not None:
             parameters['problemset_id'] = str(problemset_id)
         return _OmegaUp_Controllers_Run__apiCreate(
@@ -21810,8 +23551,8 @@ class Tag:
     def list(
             self,
             *,
-            query: Optional[Any] = None,
-            term: Optional[Any] = None,
+            query: Optional[str] = None,
+            term: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
@@ -21828,9 +23569,9 @@ class Tag:
         """
         parameters: Dict[str, str] = {}
         if query is not None:
-            parameters['query'] = str(query)
+            parameters['query'] = query
         if term is not None:
-            parameters['term'] = str(term)
+            parameters['term'] = term
         return [
             _OmegaUp_Controllers_Tag__apiList_entry(**v)
             for v in self._client.query('/api/tag/list/',
@@ -22240,6 +23981,9 @@ UserListResponse = _OmegaUp_Controllers_User__apiList
 UserStatsResponse = _OmegaUp_Controllers_User__apiStats
 """The return type of the UserStats API."""
 
+UserProfileStatisticsResponse = _OmegaUp_Controllers_User__apiProfileStatistics
+"""The return type of the UserProfileStatistics API."""
+
 UserValidateFilterResponse = _OmegaUp_Controllers_User__apiValidateFilter
 """The return type of the UserValidateFilter API."""
 
@@ -22260,6 +24004,9 @@ UserCreateAPITokenResponse = _OmegaUp_Controllers_User__apiCreateAPIToken
 
 UserListAPITokensResponse = _OmegaUp_Controllers_User__apiListAPITokens
 """The return type of the UserListAPITokens API."""
+
+UserCompareResponse = _OmegaUp_Controllers_User__apiCompare
+"""The return type of the UserCompare API."""
 
 
 class User:
@@ -22799,12 +24546,43 @@ class User:
             self,
             *,
             username: Optional[str] = None,
+            year: Optional[str] = None,
             # Out-of-band parameters:
             files_: Optional[Mapping[str, BinaryIO]] = None,
             check_: bool = True,
             timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
     ) -> UserStatsResponse:
         r"""Get stats
+
+        Args:
+            username:
+            year:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {}
+        if username is not None:
+            parameters['username'] = username
+        if year is not None:
+            parameters['year'] = year
+        return _OmegaUp_Controllers_User__apiStats(
+            **self._client.query('/api/user/stats/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
+
+    def profileStatistics(
+        self,
+        *,
+        username: Optional[str] = None,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> UserProfileStatisticsResponse:
+        r"""Get profile statistics including solved problems by difficulty and tags distribution.
 
         Args:
             username:
@@ -22815,8 +24593,8 @@ class User:
         parameters: Dict[str, str] = {}
         if username is not None:
             parameters['username'] = username
-        return _OmegaUp_Controllers_User__apiStats(
-            **self._client.query('/api/user/stats/',
+        return _OmegaUp_Controllers_User__apiProfileStatistics(
+            **self._client.query('/api/user/profileStatistics/',
                                  payload=parameters,
                                  files_=files_,
                                  timeout_=timeout_,
@@ -23476,6 +25254,37 @@ class User:
                            timeout_=timeout_,
                            check_=check_)
 
+    def compare(
+        self,
+        *,
+        username1: Optional[str] = None,
+        username2: Optional[str] = None,
+        # Out-of-band parameters:
+        files_: Optional[Mapping[str, BinaryIO]] = None,
+        check_: bool = True,
+        timeout_: datetime.timedelta = _DEFAULT_TIMEOUT
+    ) -> UserCompareResponse:
+        r"""Compare two users' profiles and stats
+
+        Args:
+            username1:
+            username2:
+
+        Returns:
+            The API result object.
+        """
+        parameters: Dict[str, str] = {}
+        if username1 is not None:
+            parameters['username1'] = username1
+        if username2 is not None:
+            parameters['username2'] = username2
+        return _OmegaUp_Controllers_User__apiCompare(
+            **self._client.query('/api/user/compare/',
+                                 payload=parameters,
+                                 files_=files_,
+                                 timeout_=timeout_,
+                                 check_=check_))
+
 
 class Client:
     """.""",
@@ -23503,9 +25312,12 @@ class Client:
                                                  'usernameOrEmail': username,
                                                  'password': password,
                                              })['auth_token']
+        self._aCL: Optional[ACL] = None
         self._admin: Optional[Admin] = None
+        self._aiEditorial: Optional[AiEditorial] = None
         self._authorization: Optional[Authorization] = None
         self._badge: Optional[Badge] = None
+        self._carouselItems: Optional[CarouselItems] = None
         self._certificate: Optional[Certificate] = None
         self._clarification: Optional[Clarification] = None
         self._contest: Optional[Contest] = None
@@ -23516,6 +25328,7 @@ class Client:
         self._identity: Optional[Identity] = None
         self._notification: Optional[Notification] = None
         self._problem: Optional[Problem] = None
+        self._problemBookmark: Optional[ProblemBookmark] = None
         self._problemForfeited: Optional[ProblemForfeited] = None
         self._problemset: Optional[Problemset] = None
         self._qualityNomination: Optional[QualityNomination] = None
@@ -23580,11 +25393,25 @@ class Client:
         return response
 
     @property
+    def aCL(self) -> ACL:
+        """Returns the ACL API."""
+        if self._aCL is None:
+            self._aCL = ACL(self)
+        return self._aCL
+
+    @property
     def admin(self) -> Admin:
         """Returns the Admin API."""
         if self._admin is None:
             self._admin = Admin(self)
         return self._admin
+
+    @property
+    def aiEditorial(self) -> AiEditorial:
+        """Returns the AiEditorial API."""
+        if self._aiEditorial is None:
+            self._aiEditorial = AiEditorial(self)
+        return self._aiEditorial
 
     @property
     def authorization(self) -> Authorization:
@@ -23599,6 +25426,13 @@ class Client:
         if self._badge is None:
             self._badge = Badge(self)
         return self._badge
+
+    @property
+    def carouselItems(self) -> CarouselItems:
+        """Returns the CarouselItems API."""
+        if self._carouselItems is None:
+            self._carouselItems = CarouselItems(self)
+        return self._carouselItems
 
     @property
     def certificate(self) -> Certificate:
@@ -23669,6 +25503,13 @@ class Client:
         if self._problem is None:
             self._problem = Problem(self)
         return self._problem
+
+    @property
+    def problemBookmark(self) -> ProblemBookmark:
+        """Returns the ProblemBookmark API."""
+        if self._problemBookmark is None:
+            self._problemBookmark = ProblemBookmark(self)
+        return self._problemBookmark
 
     @property
     def problemForfeited(self) -> ProblemForfeited:
