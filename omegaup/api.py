@@ -11580,7 +11580,7 @@ class _RunDetails:
         self.alias = alias
         self.cases = {
             k: _ProblemCasesContents_value(**v)
-            for k, v in cases.items()
+            for k, v in cases()
         }
         if compile_error is not None:
             self.compile_error = compile_error
